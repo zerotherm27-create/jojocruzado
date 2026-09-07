@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { CALENDLY_URL, MESSENGER_URL } from "@/config/site";
+import { getSiteSettings } from "@/sanity/lib/queries";
 import styles from "./page.module.css";
+
+// Revalidate so updated contact details published in the Studio show up within a
+// minute instead of needing a redeploy.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Book a Conversation",
@@ -12,17 +17,25 @@ export const metadata: Metadata = {
 
 type Channel = { label: string; href?: string };
 
-// TODO(compliance): Viber and a personal email are still placeholders — Jojo must
-// confirm them before these become links. Booking and Messenger are resolved: both
-// are Jojo's real, live channels, already published on safetymargin.app.
-const channels: Channel[] = [
-  { label: "Schedule a conversation", href: CALENDLY_URL },
-  { label: "Message on Facebook", href: MESSENGER_URL },
-  { label: "Viber — number TBC" },
-  { label: "Email — address TBC" },
-];
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
 
-export default function ContactPage() {
+  // Booking/Messenger fall back to the real, already-live Safety Margin channels;
+  // Viber/email fall back to a plain TBC placeholder until filled in via
+  // Sanity Studio (/studio -> Site Settings -> Contact details).
+  const channels: Channel[] = [
+    { label: "Schedule a conversation", href: settings?.bookingUrl || CALENDLY_URL },
+    { label: "Message on Facebook", href: settings?.messengerUrl || MESSENGER_URL },
+    settings?.viberNumber
+      ? { label: `Viber — ${settings.viberNumber}` }
+      : { label: "Viber — number TBC" },
+    settings?.contactEmail
+      ? { label: settings.contactEmail, href: `mailto:${settings.contactEmail}` }
+      : { label: "Email — address TBC" },
+  ];
+
+  const stillHasPlaceholders = !settings?.viberNumber || !settings?.contactEmail;
+
   return (
     <main>
       <section className="band-surface-bottom">
@@ -58,9 +71,11 @@ export default function ContactPage() {
                 ),
               )}
             </div>
-            <p className={styles.channelNote}>
-              Viber and email are placeholders until Jojo confirms them professionally.
-            </p>
+            {stillHasPlaceholders && (
+              <p className={styles.channelNote}>
+                Viber and email are placeholders until Jojo confirms them professionally.
+              </p>
+            )}
           </div>
 
           <ContactForm />

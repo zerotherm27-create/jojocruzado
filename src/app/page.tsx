@@ -1,9 +1,14 @@
 import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
 import SlotImage from "@/components/SlotImage";
-import { articles } from "@/content/insights";
+import { articles as fallbackArticles } from "@/content/insights";
+import { getArticles, getSiteSettings, resolveImage } from "@/sanity/lib/queries";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
 import styles from "./page.module.css";
+
+// Revalidate so a new article or photo published in the Studio shows up within a
+// minute instead of needing a redeploy.
+export const revalidate = 60;
 
 const audiences = [
   {
@@ -96,9 +101,12 @@ const reasons = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
   const layers = siteConfig.showLegacyLayer ? frameworkLayers : frameworkLayers.slice(0, 5);
   const steps = siteConfig.showReviewStep ? processSteps : processSteps.slice(0, 3);
+
+  const [sanityArticles, settings] = await Promise.all([getArticles(), getSiteSettings()]);
+  const articles = (sanityArticles.length > 0 ? sanityArticles : fallbackArticles).slice(0, 3);
 
   return (
     <main>
@@ -129,12 +137,12 @@ export default function HomePage() {
             <span className={styles.heroNote}>Start with clarity. No pressure to commit.</span>
           </div>
 
-          {/* TODO(assets): replace with the real portrait — relaxed seated half-body,
-              calm home office, natural expression, soft daylight. */}
+          {/* Falls back to the placeholder file until a real photo is uploaded in
+              Sanity Studio (/studio -> Site Settings -> Homepage hero photo). */}
           <SlotImage
             className={styles.heroImage}
-            src="/images/jojo-hero.png"
-            alt="Placeholder for a portrait of Jojo Cruzado"
+            src={resolveImage(settings?.heroImage, "/images/jojo-hero.png", 1000, 1250)}
+            alt={settings?.heroImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
             ratio="4 / 5"
             edgeFade
             maxHeight="min(620px, 68vh)"
@@ -253,10 +261,11 @@ export default function HomePage() {
 
       <section className="band-story">
         <div className={`container autogrid ${styles.band} ${styles.story}`}>
-          {/* TODO(assets): replace with the real photo — Jojo at his desk reviewing a plan. */}
+          {/* Falls back to the placeholder file until a real photo is uploaded in
+              Sanity Studio (/studio -> Site Settings -> "Personal story" photo). */}
           <SlotImage
-            src="/images/jojo-story.png"
-            alt="Placeholder for a photo of Jojo Cruzado at his desk"
+            src={resolveImage(settings?.storyImage, "/images/jojo-story.png", 1250, 1000)}
+            alt={settings?.storyImageAlt || "Placeholder for a photo of Jojo Cruzado at his desk"}
             ratio="5 / 4"
             edgeFade
           />

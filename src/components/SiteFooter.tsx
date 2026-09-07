@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { SAFETY_MARGIN_URL, MESSENGER_URL } from "@/config/site";
+import { getSiteSettings } from "@/sanity/lib/queries";
 import styles from "./SiteFooter.module.css";
 
-export default function SiteFooter() {
+export default async function SiteFooter() {
+  const settings = await getSiteSettings();
+
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
@@ -36,22 +39,40 @@ export default function SiteFooter() {
             </Link>
           </div>
 
-          {/* TODO(compliance): LinkedIn, Instagram and a personal email are still
-              unconfirmed — Jojo must confirm before these become links. Facebook is
-              resolved below via the Messenger channel already live on safetymargin.app. */}
+          {/* Facebook falls back to the real, already-live Messenger channel.
+              LinkedIn, Instagram and email stay TBC until filled in via Sanity
+              Studio (/studio -> Site Settings -> Contact details). */}
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Connect</h3>
             <Link
-              href={MESSENGER_URL}
+              href={settings?.facebookUrl || MESSENGER_URL}
               className={styles.link}
               target="_blank"
               rel="noopener noreferrer"
             >
               Facebook
             </Link>
-            <span className={styles.pending}>LinkedIn &mdash; TBC</span>
-            <span className={styles.pending}>Instagram &mdash; TBC</span>
-            <span className={styles.pending}>Email &mdash; TBC</span>
+            {settings?.linkedinUrl ? (
+              <Link href={settings.linkedinUrl} className={styles.link} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </Link>
+            ) : (
+              <span className={styles.pending}>LinkedIn &mdash; TBC</span>
+            )}
+            {settings?.instagramUrl ? (
+              <Link href={settings.instagramUrl} className={styles.link} target="_blank" rel="noopener noreferrer">
+                Instagram
+              </Link>
+            ) : (
+              <span className={styles.pending}>Instagram &mdash; TBC</span>
+            )}
+            {settings?.contactEmail ? (
+              <Link href={`mailto:${settings.contactEmail}`} className={styles.link}>
+                Email
+              </Link>
+            ) : (
+              <span className={styles.pending}>Email &mdash; TBC</span>
+            )}
           </div>
 
           <div className={styles.column}>

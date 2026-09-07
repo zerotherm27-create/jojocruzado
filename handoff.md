@@ -24,13 +24,13 @@ animation library (deliberate — see `memory.md`). React 19.
 
 | What | Where |
 |---|---|
-| This site | **https://jojocruzado.vercel.app** (production) |
-| Vercel project | `jojocruzado`, team `zerotherm27-8336s-projects` |
-| Intended final domain | `jojocruzado.safetymargin.app` — **not yet attached** |
+| This site | **https://jojocruzado.safetymargin.app** (production) — also reachable at `jojocruzado.vercel.app` |
+| Vercel project | `jojocruzado`, team `zerotherm27-8336s-projects`, git-connected to `github.com/zerotherm27-create/jojocruzado` (private) |
+| Custom domain | Attached automatically when the project was created — this team already has `safetymargin.app` configured, so a project literally named `jojocruzado` claimed the matching subdomain with no manual step |
 | The real Safety Margin quiz | `https://safetymargin.app` — separate Vercel project named `insurance`, same team |
 | Leads database | Supabase project "Safety Margin Funnel", ref `xcifmbfxatkunsjoozyv`, table `funnel_leads` |
-| CMS (in progress) | Sanity, project ID `7i8w96gp`, dataset `production` — installed via Vercel Marketplace, **not yet wired into code** |
-| Version control | **None.** No git repo exists. Deploys go straight from local files via `vercel` CLI. |
+| CMS | Sanity, project ID `7i8w96gp`, dataset `production` — installed via Vercel Marketplace, wired into code, content seeded |
+| Version control | Git repo initialized, pushed to `github.com/zerotherm27-create/jojocruzado` (private), Vercel git-connected — pushes to `main` now auto-deploy, matching every other project under this team. |
 
 ## Routes (9)
 
@@ -64,7 +64,7 @@ Nav bar: About, How I Help, Insights, **Sun Life** (→ `/resources`), **Safety 
   `support@safetymargin.app` as the privacy contact.
 - Deployed to Vercel, verified live.
 
-## In progress — Sanity CMS
+## Sanity CMS — done
 
 Jojo asked for a real dashboard to manage: Insights articles, the hero/story/about
 photos, and contact details (booking link, Messenger, Viber, email, socials). Direction
@@ -72,26 +72,42 @@ chosen: a headless CMS, provisioned via the Vercel Marketplace flow (per this
 environment's rules, provider choice isn't free-form — see `memory.md`). Sanity was the
 only/top result for the `cms` category.
 
-**Done:** `vercel integration add sanity/project` completed — the Sanity project exists,
+**Provisioning:** `vercel integration add sanity/project` — the Sanity project exists,
 is connected to the `jojocruzado` Vercel project, and its credentials are in
 `.env.local` (`NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`,
-`SANITY_API_READ_TOKEN`, `SANITY_API_WRITE_TOKEN`, etc.).
+`SANITY_API_READ_TOKEN`, `SANITY_API_WRITE_TOKEN`, etc.) and pulled from Vercel's own
+Environment Variables.
 
-**Not done — this is where work stopped:** no Sanity code exists in this repo yet. Zero
-schema files, no client, no `/studio` route, `sanity`/`next-sanity` aren't even installed
-(`npm install` failed with `ENOSPC: no space left on device` — the machine's disk was
-full; confirmed recovered as of this writing, 1.1Gi free).
+**Schema** (`src/sanity/schemaTypes/`):
+- `article` — title, category (fixed list matching the `/insights` pills), dek,
+  readTime, image, imageAlt. Replaces the hardcoded array in `src/content/insights.ts`.
+- `siteSettings` — a singleton (hero/story/about images + booking/Messenger/Viber/
+  email/social links). Pinned as a true singleton in `src/sanity/structure.ts`.
 
-Planned shape (not yet built):
-- `article` document type (title, category, dek, readTime, image, imageAlt) — replaces
-  the hardcoded array in `src/content/insights.ts`
-- `siteSettings` singleton (hero/story/about images + booking/Messenger/Viber/email/
-  social links) — replaces hardcoded image paths in `src/app/page.tsx` /
-  `src/app/about/page.tsx`, and the channel list in `src/app/contact/page.tsx` +
-  the Connect column in `src/components/SiteFooter.tsx`
-- `/studio` embedded route for Jojo to log into and edit content himself
-- A seed script to push the *current* placeholder content into Sanity first, so the
-  site doesn't go blank the moment it switches to reading from the CMS
+**Data flow:** `src/sanity/lib/queries.ts` (`getArticles`, `getSiteSettings`,
+`resolveImage`) is called from `src/app/page.tsx`, `about/page.tsx`,
+`insights/page.tsx`, `contact/page.tsx`, and `src/components/SiteFooter.tsx`. Every one
+of those falls back to the existing hardcoded placeholder content/images if Sanity has
+no data yet, so the site never goes blank. `export const revalidate = 60` on every page
+(plus `layout.tsx` for the footer) means Studio edits show up live within a minute — no
+redeploy needed.
+
+**Seeded:** `scripts/seed-sanity.mjs` has already been run once — it pushed the 3
+existing placeholder articles and the current placeholder images into Sanity as a
+starting point.
+
+**Studio architecture — important, don't "fix" this:** the Studio is intentionally
+**not** embedded in the Next.js app. An embedded `/studio` route was built and then
+deleted, because `sanity@5.x` uses React's `useEffectEvent` hook in a way Next.js's
+webpack build cannot statically analyze (a real bundler incompatibility, not a
+misconfiguration). Instead, Studio runs via Sanity's own CLI tooling, configured in the
+root `sanity.config.ts` (schema/structure, hardcoded `projectId`/`dataset` since Vite
+doesn't reliably expose `process.env.*`) and `sanity.cli.ts` (CLI-only config):
+- **Local editing:** `npx sanity dev` — runs a local Studio (Vite, not Next's webpack).
+- **Hosted studio** (`*.sanity.studio` URL): `npx sanity deploy` — currently blocked by
+  a missing `deployStudio` grant on the provisioned token. Not attempted as a
+  workaround; Jojo would need to grant that permission himself (or deploy while logged
+  into the Sanity dashboard) if he wants a hosted URL instead of running it locally.
 
 **Deliberately out of scope for this CMS work:** the `/disclaimer` page's privacy
 contact email stays hardcoded (it's tied to specific, carefully-worded legal text, not
@@ -108,11 +124,9 @@ general contact info) — not something to make casually CMS-editable.
    Settings → Environment Variables) — anything only in local `.env.local` gets wiped
    the next time `vercel env pull` runs (it already happened once, during the Sanity
    install).
-3. **Attach the custom domain** `jojocruzado.safetymargin.app` to the `jojocruzado`
-   Vercel project.
+3. ~~Attach the custom domain~~ — done, see above.
 4. **Resolve the `/disclaimer` flagged assumptions** (retention period, privacy contact
    email) — see `memory.md` for why they're flagged rather than settled.
 5. **Resolve `/resources`' compliance gate** before it's linked anywhere prominent with
    real artwork.
-6. Consider initializing a real git repo — there isn't one. Every other project under
-   this Vercel team is GitHub-linked; this one currently deploys from raw local files.
+6. ~~Initialize a git repo~~ — done, see above.

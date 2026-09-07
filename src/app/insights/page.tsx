@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import ArticleCard from "@/components/ArticleCard";
-import { articles } from "@/content/insights";
+import { articles as fallbackArticles } from "@/content/insights";
+import { getArticles } from "@/sanity/lib/queries";
 import styles from "./page.module.css";
+
+// Revalidate so a new article published in the Studio shows up within a minute
+// instead of needing a redeploy.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Insights",
@@ -17,7 +22,10 @@ const categories = [
   "Retirement",
 ];
 
-export default function InsightsPage() {
+export default async function InsightsPage() {
+  const sanityArticles = await getArticles();
+  const articles = sanityArticles.length > 0 ? sanityArticles : fallbackArticles;
+
   return (
     <main>
       <section className="band-surface-bottom">
@@ -26,7 +34,8 @@ export default function InsightsPage() {
             Insights
           </span>
           <h1 className={`h1-sub ${styles.heroTitle}`}>Practical financial conversations.</h1>
-          {/* TODO: category pills are display-only — wire to real filters when the CMS exists. */}
+          {/* TODO: category pills are display-only — filtering itself isn't built yet,
+              only content storage (the CMS) is. */}
           <div className={styles.pills}>
             {categories.map((category) => (
               <span key={category} className={styles.pill}>

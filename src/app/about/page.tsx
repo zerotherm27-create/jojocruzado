@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SlotImage from "@/components/SlotImage";
 import { SAFETY_MARGIN_URL } from "@/config/site";
+import { getSiteSettings, resolveImage } from "@/sanity/lib/queries";
 import styles from "./page.module.css";
+
+// Revalidate so a new photo published in the Studio shows up within a minute
+// instead of needing a redeploy.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About",
@@ -17,7 +22,9 @@ const audiences = [
   "Young professionals",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const settings = await getSiteSettings();
+
   return (
     <main>
       <section className="band-surface-bottom">
@@ -35,10 +42,11 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* TODO(assets): replace with the real portrait — relaxed office setup. */}
+          {/* Falls back to the placeholder file until a real photo is uploaded in
+              Sanity Studio (/studio -> Site Settings -> About page photo). */}
           <SlotImage
-            src="/images/jojo-about.png"
-            alt="Placeholder for a portrait of Jojo Cruzado"
+            src={resolveImage(settings?.aboutImage, "/images/jojo-about.png", 1000, 1250)}
+            alt={settings?.aboutImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
             ratio="4 / 5"
             edgeFade
             maxHeight="min(560px, 70vh)"

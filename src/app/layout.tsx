@@ -21,6 +21,10 @@ const manrope = Manrope({
   display: "swap",
 });
 
+// Footer reads Sanity data (Connect column) on every page — revalidate so an edit
+// in the Studio shows up within a minute instead of needing a redeploy.
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://jojocruzado.safetymargin.app"),
   title: {
