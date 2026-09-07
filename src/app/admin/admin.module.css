@@ -288,3 +288,33 @@
   font-size: 13px;
   color: var(--ink-500);
 }
+
+/* A visible flash banner at the top of the page, not just small text near the
+   submit button — on a long form (Site Settings has 3 photo fields + 7 text
+   fields), a redirect-and-tiny-caption pattern near the button is easy to miss
+   entirely since the reloaded page starts scrolled to the top. */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.bannerSuccess {
+  composes: banner;
+  background: #eaf6ec;
+  color: #1e6b31;
+  border: 1px solid #bfe3c6;
+}
+
+.bannerError {
+  composes: banner;
+  background: #fbeceb;
+  color: var(--danger);
+  border: 1px solid #f0c6c2;
+}

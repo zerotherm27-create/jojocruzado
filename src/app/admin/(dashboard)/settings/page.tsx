@@ -22,6 +22,16 @@ export default async function SettingsPage({
   return (
     <>
       <h1 className={styles.title}>Site settings</h1>
+      {success && (
+        <div className={styles.bannerSuccess} role="status">
+          Changes saved — your live site now reflects this.
+        </div>
+      )}
+      {error && (
+        <div className={styles.bannerError} role="alert">
+          {error}
+        </div>
+      )}
       <form action={updateSiteSettings} className={styles.form}>
         <ImageField
           label="Hero photo (homepage)"
@@ -110,13 +120,6 @@ export default async function SettingsPage({
             className={styles.input}
           />
         </label>
-
-        {error && (
-          <span role="alert" className={styles.error}>
-            {error}
-          </span>
-        )}
-        {success && <span className={styles.success}>Saved.</span>}
 
         <SubmitButton>Save changes</SubmitButton>
       </form>
