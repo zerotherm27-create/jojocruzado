@@ -1,4 +1,5 @@
 import ImageField from "@/app/admin/_components/ImageField";
+import SubmitButton from "@/app/admin/_components/SubmitButton";
 import { createServiceRoleClient } from "@/lib/supabase/client";
 import { updateSiteSettings } from "./actions";
 import styles from "../../admin.module.css";
@@ -117,9 +118,7 @@ export default async function SettingsPage({
         )}
         {success && <span className={styles.success}>Saved.</span>}
 
-        <button type="submit" className={styles.button}>
-          Save changes
-        </button>
+        <SubmitButton>Save changes</SubmitButton>
       </form>
     </>
   );

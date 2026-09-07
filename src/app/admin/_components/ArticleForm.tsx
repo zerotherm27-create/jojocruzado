@@ -1,4 +1,5 @@
 import ImageField from "./ImageField";
+import SubmitButton from "./SubmitButton";
 import styles from "../admin.module.css";
 
 const CATEGORIES = ["Financial Foundation", "Protection", "Business", "Professionals", "Family", "Retirement"];
@@ -69,9 +70,7 @@ export default function ArticleForm({ action, submitLabel, error, initial }: Art
         </span>
       )}
 
-      <button type="submit" className={styles.button}>
-        {submitLabel}
-      </button>
+      <SubmitButton>{submitLabel}</SubmitButton>
     </form>
   );
 }
