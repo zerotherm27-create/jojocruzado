@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
       ? [{ protocol: "https", hostname: supabaseHostname }]
       : [],
   },
+  experimental: {
+    serverActions: {
+      // Default is 1MB, which a single real photo already exceeds — the Site
+      // Settings form can submit up to three photos (hero/story/about) in one
+      // Server Action call, hence the 413 crash on /admin/settings in production.
+      bodySizeLimit: "15mb",
+    },
+  },
 };
 
 export default nextConfig;
