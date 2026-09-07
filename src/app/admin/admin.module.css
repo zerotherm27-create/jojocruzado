@@ -1,0 +1,290 @@
+.authWrap {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background: var(--surface);
+}
+
+.authCard {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: var(--shadow-form);
+}
+
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px var(--gutter);
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.navBrand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: auto;
+}
+
+.navLink {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--dark-body);
+}
+
+.navLink:hover {
+  color: var(--white);
+}
+
+.navButton {
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--dark-body);
+  cursor: pointer;
+  padding: 0;
+}
+
+.navButton:hover {
+  color: var(--white);
+}
+
+.main {
+  flex: 1;
+  padding: 32px var(--gutter);
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink-900);
+  margin-bottom: 8px;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.rowThumb {
+  width: 56px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--surface);
+  flex: none;
+}
+
+.rowBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.rowTitle {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink-900);
+}
+
+.rowMeta {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.rowActions {
+  display: flex;
+  gap: 10px;
+  flex: none;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--ink-500);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 560px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-900);
+}
+
+.input,
+.select {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-900);
+  background: var(--white);
+}
+
+.textarea {
+  padding: 12px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-900);
+  background: var(--white);
+  resize: vertical;
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  border-color: var(--navy-900);
+}
+
+.imagePreview {
+  width: 160px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.fileHint {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.button {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--navy-900);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
+}
+
+.button:hover {
+  background: var(--navy-800);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.buttonSecondary {
+  composes: button;
+  background: var(--white);
+  color: var(--ink-900);
+  border: 1px solid var(--border-strong);
+}
+
+.buttonSecondary:hover {
+  background: var(--surface);
+}
+
+.buttonDanger {
+  composes: button;
+  background: var(--white);
+  color: var(--danger);
+  border: 1px solid var(--border-strong);
+}
+
+.buttonDanger:hover {
+  background: var(--surface);
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+}
+
+.error {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.success {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--ink-500);
+}

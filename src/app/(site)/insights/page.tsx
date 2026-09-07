@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import ArticleCard from "@/components/ArticleCard";
 import { articles as fallbackArticles } from "@/content/insights";
-import { getArticles } from "@/sanity/lib/queries";
+import { getArticles } from "@/lib/supabase/queries";
 import styles from "./page.module.css";
 
 // Revalidate so a new article published in the Studio shows up within a minute

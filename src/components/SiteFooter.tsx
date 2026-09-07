@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SAFETY_MARGIN_URL, MESSENGER_URL } from "@/config/site";
-import { getSiteSettings } from "@/sanity/lib/queries";
+import { getSiteSettings } from "@/lib/supabase/queries";
 import styles from "./SiteFooter.module.css";
 
 export default async function SiteFooter() {

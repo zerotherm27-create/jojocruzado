@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { submitContactForm } from "@/app/contact/actions";
+import { submitContactForm } from "@/app/(site)/contact/actions";
 import styles from "./ContactForm.module.css";
 
 const roles = ["Business Owner", "Professional", "Employee", "OFW", "Parent", "Other"];

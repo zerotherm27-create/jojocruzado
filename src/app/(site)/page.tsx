@@ -2,7 +2,7 @@ import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
 import SlotImage from "@/components/SlotImage";
 import { articles as fallbackArticles } from "@/content/insights";
-import { getArticles, getSiteSettings, resolveImage } from "@/sanity/lib/queries";
+import { getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
 import styles from "./page.module.css";
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { CALENDLY_URL, MESSENGER_URL } from "@/config/site";
-import { getSiteSettings } from "@/sanity/lib/queries";
+import { getSiteSettings } from "@/lib/supabase/queries";
 import styles from "./page.module.css";
 
 // Revalidate so updated contact details published in the Studio show up within a

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { Inter, Manrope } from "next/font/google";
-import SiteHeader from "@/components/SiteHeader";
-import SiteFooter from "@/components/SiteFooter";
-import MobileStickyCta from "@/components/MobileStickyCta";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -21,10 +18,6 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Footer reads Sanity data (Connect column) on every page — revalidate so an edit
-// in the Studio shows up within a minute instead of needing a redeploy.
-export const revalidate = 60;
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://jojocruzado.safetymargin.app"),
   title: {
@@ -35,6 +28,9 @@ export const metadata: Metadata = {
     "I help professionals, families, and business owners understand their financial picture, see what may need attention, and make practical decisions without feeling pressured.",
 };
 
+/* Deliberately just the <html>/<body> shell — the public site's nav/footer/sticky
+   CTA live in src/app/(site)/layout.tsx instead, so /admin (outside that route
+   group) renders with none of it. */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
@@ -42,17 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${manrope.variable}`}
       style={{ "--accent": siteConfig.accent } as CSSProperties}
     >
-      <body>
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <SiteHeader />
-        <div id="main-content" tabIndex={-1}>
-          {children}
-        </div>
-        <SiteFooter />
-        <MobileStickyCta />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

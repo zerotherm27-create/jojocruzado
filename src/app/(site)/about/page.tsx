@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SlotImage from "@/components/SlotImage";
 import { SAFETY_MARGIN_URL } from "@/config/site";
-import { getSiteSettings, resolveImage } from "@/sanity/lib/queries";
+import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import styles from "./page.module.css";
 
 // Revalidate so a new photo published in the Studio shows up within a minute
