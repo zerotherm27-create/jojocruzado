@@ -1,0 +1,202 @@
+.card {
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: var(--shadow-form);
+  min-width: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 14px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink-900);
+}
+
+/* 16px keeps iOS from zooming the viewport on focus. */
+.input,
+.select {
+  min-height: 48px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--ink-900);
+  background: var(--white);
+}
+
+.input {
+  padding: 0 14px;
+}
+
+.select {
+  padding: 0 12px;
+}
+
+.textarea {
+  padding: 12px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-900);
+  background: var(--white);
+  resize: vertical;
+}
+
+/* Focus comes from the global :focus-visible rule in globals.css. A gold ring
+   here was only 2.03:1 against white, below the 3:1 WCAG 2.4.11 requires. */
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  border-color: var(--navy-900);
+}
+
+.consentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+/* Sits below its field, per the handoff's label-above / error-below rhythm.
+   The message itself is the non-colour indicator — colour alone never carries it. */
+.error {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--danger);
+}
+
+.invalid,
+.invalid:focus-visible {
+  border-color: var(--danger);
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex: none;
+  accent-color: var(--navy-900);
+}
+
+.submit {
+  min-height: 52px;
+  border: none;
+  border-radius: 12px;
+  background: var(--navy-900);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--dur-hover) ease,
+    transform var(--dur-press) var(--ease-out);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submit:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .submit:hover {
+    background: var(--navy-800);
+  }
+}
+
+.footnote {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+.successBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-500);
+}
+
+.successButton {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--ink-900);
+  cursor: pointer;
+  transition: border-color var(--dur-hover) ease,
+    transform var(--dur-press) var(--ease-out);
+}
+
+.successButton:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .successButton:hover {
+    border-color: var(--accent);
+  }
+}

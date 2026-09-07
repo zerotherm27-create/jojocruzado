@@ -1,0 +1,44 @@
+.spacer {
+  display: none;
+  height: 76px;
+}
+
+.bar {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(11, 18, 32, 0.97);
+  backdrop-filter: blur(6px);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--ink-900);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+
+/* No :hover rule here on purpose — this bar only renders below 900px, so a hover
+   state could only ever fire as a stuck post-tap artefact. Press state instead. */
+.cta:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 900px) {
+  .spacer,
+  .bar {
+    display: block;
+  }
+}

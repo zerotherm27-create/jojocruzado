@@ -1,0 +1,205 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 14px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.identityName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--navy-900);
+  transition: color var(--dur-hover) ease;
+}
+
+/* The lockup is the primary home link; without this it had no hover affordance
+   at all, because its children set their own colours. */
+@media (hover: hover) and (pointer: fine) {
+  .identity:hover .identityName {
+    color: var(--accent-on-light);
+  }
+}
+
+.identityRole {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 30px);
+}
+
+/* min-height meets the handoff's "all interactive targets >= 44px"; the row is
+   already taller than this, so the text sits exactly where it did before. */
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--ink-900);
+  transition: color var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover {
+    color: var(--accent-on-light);
+  }
+}
+
+/* Active page: weight change + gold rule, so it never reads by colour alone. */
+.navLinkActive {
+  position: relative;
+  font-weight: 600;
+}
+
+.navLinkActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.panelLinkActive {
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--accent);
+  padding-left: 12px;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 46px;
+  height: 46px;
+  padding: 0 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+
+.burger:active {
+  transform: scale(0.97);
+}
+
+.burgerBar {
+  display: block;
+  height: 2px;
+  background: var(--navy-900);
+  border-radius: 2px;
+}
+
+/* The panel is conditionally rendered, so @starting-style supplies the entry
+   frame — a plain transition has nothing to animate from on mount. Browsers
+   without support simply show it instantly, which is the current behaviour. */
+.panel {
+  border-top: 1px solid var(--border);
+  background: var(--white);
+  padding: 12px var(--gutter) 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--dur-enter) var(--ease-out),
+    transform var(--dur-enter) var(--ease-out);
+}
+
+@starting-style {
+  .panel {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.panelLink {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1;
+  color: var(--ink-900);
+  transition: color var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .panelLink:hover {
+    color: var(--accent-on-light);
+  }
+}
+
+.panelCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: 8px;
+  border-radius: 12px;
+  background: var(--navy-900);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  transition: background-color var(--dur-hover) ease,
+    transform var(--dur-press) var(--ease-out);
+}
+
+/* The panel only exists below 900px, so this is a press state, not a hover one. */
+.panelCta:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 900px) {
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+}
+
+@media (min-width: 901px) {
+  .panel {
+    display: none;
+  }
+}

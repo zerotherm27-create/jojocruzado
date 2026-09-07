@@ -1,0 +1,86 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-block: clamp(48px, 7vw, 88px);
+}
+
+.heroTitle {
+  max-width: 30ch;
+  color: var(--white);
+}
+
+.heroLead {
+  max-width: 60ch;
+  color: var(--dark-body);
+}
+
+.cards {
+  --min: 300px;
+  padding-block: clamp(48px, 7vw, 96px);
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.cardNote {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-500);
+}
+
+.closing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: clamp(40px, 6vw, 72px);
+}
+
+.closingText {
+  max-width: 44ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 26px);
+  line-height: 1.4;
+  color: var(--ink-900);
+}
+
+/* flex-basis pushes this onto its own line below the CTA row without restructuring it. */
+.materialNote {
+  flex-basis: 100%;
+  max-width: 62ch;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+.materialNote a {
+  color: var(--ink-900);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,116 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import SlotImage from "@/components/SlotImage";
+import { SAFETY_MARGIN_URL } from "@/config/site";
+import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "I'm Jojo Cruzado, a Sun Life Financial Advisor. I help people organize the financial side of the life they're already working hard to build.",
+};
+
+const audiences = [
+  "Business owners",
+  "Doctors and licensed professionals",
+  "Young families",
+  "Young professionals",
+];
+
+export default function AboutPage() {
+  return (
+    <main>
+      <section className="band-surface-bottom">
+        <div className={`container autogrid ${styles.hero}`}>
+          <div className={`stack ${styles.heroText}`}>
+            <span className="eyebrow" style={{ color: "var(--ink-500)" }}>
+              About Jojo
+            </span>
+            <h1 className={`h1-sub ${styles.heroTitle}`}>
+              Financial planning is personal. Your advice should be too.
+            </h1>
+            <p className={`lead ${styles.heroLead}`}>
+              I&apos;m Jojo Cruzado, a Sun Life Financial Advisor. I help people organize the
+              financial side of the life they&apos;re already working hard to build.
+            </p>
+          </div>
+
+          {/* TODO(assets): replace with the real portrait — relaxed office setup. */}
+          <SlotImage
+            src="/images/jojo-about.png"
+            alt="Placeholder for a portrait of Jojo Cruzado"
+            ratio="4 / 5"
+            edgeFade
+            maxHeight="min(560px, 70vh)"
+            priority
+          />
+        </div>
+      </section>
+
+      <section className="band-white">
+        <div className={`container autogrid ${styles.columns}`}>
+          <div className={`stack ${styles.column}`}>
+            <h2 className={styles.columnTitle}>How I got here</h2>
+            {/* TODO(compliance): Jojo's real background. Credentials, awards, years of
+                experience and client counts must not be published until confirmed. */}
+            <p className={styles.prose}>
+              Placeholder: Jojo&apos;s real background, professional experience and advisor journey
+              go here. Nothing about credentials, awards or years of experience should be published
+              until it is confirmed.
+            </p>
+            <p className={styles.prose}>
+              Placeholder: entrepreneurship experience, family perspective and community
+              involvement, if Jojo wants these public.
+            </p>
+          </div>
+
+          <div className={`stack ${styles.column}`}>
+            <h2 className={styles.columnTitle}>How I work with clients</h2>
+            <p className={styles.prose}>
+              We start with your situation, not a product. I ask about income, responsibilities,
+              existing protection and what you want the next few years to look like.
+            </p>
+            <p className={styles.prose}>
+              From there we sort priorities together. If a solution makes sense, we talk about it
+              properly. If it can wait, I&apos;ll say so.
+            </p>
+            <p className={`pull-quote ${styles.quote}`}>The goal is clarity before commitment.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="band-surface-top">
+        <div className={`container ${styles.band}`}>
+          <h2 className="h2-band">Who I typically help</h2>
+          <div className={`autogrid ${styles.chipGrid}`}>
+            {audiences.map((audience) => (
+              <div key={audience} className={styles.chip}>
+                {audience}
+              </div>
+            ))}
+          </div>
+
+          {/* Required verbatim: the advisor/corporate distinction (handoff README). */}
+          <div className={styles.disclosure}>
+            <h3 className={styles.disclosureTitle}>Advisor disclosure</h3>
+            <p className={styles.disclosureBody}>
+              Jojo Cruzado is a Sun Life Financial Advisor. This is his personal advisor website and
+              is not the official corporate website of Sun Life Philippines. Product information,
+              where discussed, should be verified against official Sun Life materials and applicable
+              policy contracts.
+            </p>
+          </div>
+
+          <div className={styles.ctaRow}>
+            <Link href={SAFETY_MARGIN_URL} className="btn btn-navy">
+              Check My Safety Margin
+            </Link>
+            <Link href="/contact" className="btn btn-outline-light">
+              Talk to Jojo
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

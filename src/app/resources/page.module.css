@@ -1,0 +1,55 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block: clamp(44px, 6vw, 80px);
+}
+
+.heroTitle {
+  max-width: 24ch;
+  font-size: clamp(32px, 4.2vw, 48px);
+  line-height: 1.12;
+  color: var(--ink-900);
+}
+
+.heroLead {
+  max-width: 62ch;
+  color: var(--ink-500);
+}
+
+.band {
+  padding-block: clamp(48px, 7vw, 96px);
+}
+
+.issuer {
+  display: block;
+  color: var(--ink-500);
+}
+
+/* The tiles, grid and enlarged-view dialog live in ArtcardDialog.module.css, since
+   that interactivity is isolated in its own Client Component. This just carries the
+   band's own vertical rhythm above the grid. */
+.gridWrap {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.closing {
+  padding-block: clamp(44px, 6vw, 80px);
+}
+
+.disclaimer {
+  max-width: 80ch;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-500);
+  text-wrap: pretty;
+}
+
+.ctaRow {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}

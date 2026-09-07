@@ -1,0 +1,117 @@
+.footer {
+  background: var(--navy-900);
+  color: var(--white);
+  --focus-ring: var(--white);
+}
+
+.inner {
+  padding-block: clamp(44px, 6vw, 72px);
+}
+
+.columns {
+  --min: 190px;
+  gap: 32px;
+}
+
+/* Link columns use gap 0 because each link now carries its own 44px target
+   height (handoff: "all interactive targets >= 44px"). The heading keeps its
+   12px separation via .columnTitle margin. */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.identityName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+
+.identityRole {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+}
+
+.tagline {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--accent);
+}
+
+.byline {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--dark-faint);
+}
+
+.columnTitle {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+  margin: 0 0 8px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--dark-link);
+  transition: color var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--accent);
+  }
+}
+
+.pending {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--dark-faint);
+}
+
+.disclaimer {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--navy-700);
+  max-width: 100ch;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--dark-faint);
+}

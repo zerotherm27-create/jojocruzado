@@ -1,0 +1,166 @@
+.grid {
+  --min: 300px;
+  gap: 24px;
+}
+
+/* Grid tile: a real <button> so it's keyboard- and screen-reader-reachable, styled
+   to match the .card visual language already used across the site. */
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+
+.tile:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    border-color: var(--border-strong);
+  }
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.captionName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.captionMeta {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-500);
+}
+
+/* Dialog ---------------------------------------------------------------- */
+
+.dialog {
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  box-shadow: var(--shadow-form);
+  max-width: min(600px, calc(100vw - 40px));
+  width: 100%;
+  background: var(--white);
+  color: var(--ink-900);
+
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity var(--dur-enter) var(--ease-out),
+    transform var(--dur-enter) var(--ease-out), overlay var(--dur-enter) allow-discrete,
+    display var(--dur-enter) allow-discrete;
+}
+
+.dialog::backdrop {
+  background: rgba(11, 18, 32, 0.6);
+  transition: opacity var(--dur-enter) var(--ease-out), overlay var(--dur-enter) allow-discrete,
+    display var(--dur-enter) allow-discrete;
+  opacity: 1;
+}
+
+/* Starting styles for the dialog's own open/close transition (native, not React-driven) —
+   mirrors the mobile menu panel's entrance in SiteHeader.module.css. */
+@starting-style {
+  .dialog[open] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.dialog:not([open]) {
+  opacity: 0;
+  transform: scale(0.97);
+  pointer-events: none;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--ink-900);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
+}
+
+.closeButton:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .closeButton:hover {
+    border-color: var(--accent);
+  }
+}
+
+.needBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-500);
+}
+
+.attribution {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-500);
+}
+
+.dialogCta {
+  align-self: flex-start;
+}

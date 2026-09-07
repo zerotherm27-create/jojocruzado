@@ -1,0 +1,292 @@
+/* Shared band rhythm for the home page (handoff README: clamp(56px,8vw,104px)). */
+.band {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+
+.gridTop {
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+/* Hero ---------------------------------------------------------------- */
+
+.hero {
+  --min: 320px;
+  padding-block: clamp(48px, 7vw, 96px);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+
+.heroText {
+  gap: 22px;
+}
+
+.heroTitle {
+  color: var(--white);
+}
+
+.heroLead {
+  max-width: 54ch;
+  color: var(--dark-body);
+}
+
+.heroButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.heroNote {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--dark-muted);
+}
+
+.heroImage {
+  order: 0;
+}
+
+@media (max-width: 900px) {
+  .heroImage {
+    order: -1;
+  }
+}
+
+/* Trust intro --------------------------------------------------------- */
+
+.intro {
+  --min: 340px;
+  gap: clamp(28px, 4vw, 64px);
+}
+
+.introCopy {
+  gap: 18px;
+}
+
+.introQuote {
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.5;
+}
+
+/* Who I help ---------------------------------------------------------- */
+
+.audienceHeading {
+  margin-top: 14px;
+  max-width: 22ch;
+}
+
+.audienceGrid {
+  --min: 260px;
+  gap: 20px;
+}
+
+.audienceCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.audienceCard p {
+  flex: 1;
+}
+
+/* Safety Margin framework --------------------------------------------- */
+
+.frameworkIntro {
+  max-width: 64ch;
+  gap: 16px;
+}
+
+.frameworkGrid {
+  --min: 180px;
+  gap: 14px;
+}
+
+.tile {
+  padding: 24px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.tileNumber {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: var(--accent-on-light);
+}
+
+.tileTitle {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.tileBody {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+.frameworkCta {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.frameworkCtaNote {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-500);
+}
+
+/* Process -------------------------------------------------------------- */
+
+.processGrid {
+  --min: 240px;
+  gap: 24px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 22px;
+  border-top: 2px solid var(--navy-900);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--accent-on-light);
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+/* Why work with Jojo --------------------------------------------------- */
+
+.whyGrid {
+  --min: 230px;
+  gap: 20px;
+}
+
+.whyCard {
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.whyTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+.whyBody {
+  margin-top: 10px;
+}
+
+/* Personal story -------------------------------------------------------- */
+
+.story {
+  --min: 300px;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+
+.storyText {
+  gap: 18px;
+}
+
+.storyHeading {
+  color: var(--white);
+}
+
+.storyBody {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: var(--dark-body);
+}
+
+.storyNote {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--dark-faint);
+}
+
+/* Insights preview ------------------------------------------------------ */
+
+.insightsHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.insightsGrid {
+  --min: 280px;
+  gap: 20px;
+}
+
+/* Closing CTA ----------------------------------------------------------- */
+
+.closing {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.closingHeading {
+  max-width: 26ch;
+  font-size: clamp(28px, 3.6vw, 46px);
+  line-height: 1.14;
+  color: var(--white);
+}
+
+.closingLead {
+  max-width: 58ch;
+  color: var(--dark-body);
+}
+
+.closingButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.closingNote {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--dark-muted);
+}

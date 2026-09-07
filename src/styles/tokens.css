@@ -1,0 +1,60 @@
+:root {
+  --navy-900: #0b1220;
+  --navy-800: #172033;
+  --navy-700: #222c40;
+
+  /* Applied at runtime so the accent stays themeable — see src/config/site.ts */
+  --accent: #f5a623;
+  --accent-hover: #f7b84b;
+
+  /* DEVIATION FROM HANDOFF (a11y): the handoff uses --accent for gold *text* on any
+     background, but #F5A623 is only 2.03:1 on white and 1.92:1 on #F8F9FB — both well
+     under WCAG AA 4.5:1. This is the smallest darkening that clears AA on both
+     (4.82:1 / 4.58:1). Use it for gold TEXT on light bands only; gold fills, rules and
+     gold text on navy keep --accent exactly (9.24:1 there, already compliant). */
+  --accent-on-light: #9c6700;
+
+  --ink-900: #111827;
+  --ink-500: #5e6878;
+  /* DEVIATION FROM HANDOFF (a11y): --ink-400 is 2.88:1 on white / 2.73:1 on #F8F9FB,
+     so it fails AA as text. Kept here as the documented palette value, but meta and
+     caption text now uses --ink-500 (5.63:1). Do not reintroduce it for text. */
+  --ink-400: #8e99ac;
+
+  --dark-body: #c7cedb;
+  --dark-muted: #9aa5b8;
+  --dark-faint: #7e899c;
+  --dark-link: #dce2ed;
+
+  --surface: #f8f9fb;
+  --border: #e8ebf0;
+  --border-strong: #c9cfda;
+  --border-dark: #3a445c;
+  --white: #ffffff;
+
+  /* NOT IN THE HANDOFF: the palette has no error colour because the prototype had
+     no error states. Muted rather than alarm-red to sit with the navy/slate
+     neutrals — 7.18:1 on white, 6.81:1 on #F8F9FB. */
+  --danger: #a32b22;
+
+  --font-body: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), sans-serif;
+
+  --gutter: clamp(20px, 5vw, 40px);
+  --maxw: 1240px;
+  --maxw-prose: 820px;
+
+  --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.04);
+  --shadow-form: 0 2px 10px rgba(11, 18, 32, 0.05);
+
+  /* Focus indicator. Inherited, so dark bands re-declare it as --white below.
+     Both directions are 18.7:1 — a gold ring would only be 2.03:1 on white. */
+  --focus-ring: var(--navy-900);
+
+  /* Motion. Colour changes use plain `ease`; entrances and press feedback use a
+     stronger ease-out so movement starts immediately and settles. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --dur-hover: 150ms;
+  --dur-press: 160ms;
+  --dur-enter: 200ms;
+}
