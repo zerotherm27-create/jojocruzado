@@ -228,7 +228,8 @@
   text-decoration: none;
   cursor: pointer;
   transition: background-color var(--dur-hover) ease, border-color var(--dur-hover) ease,
-    color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
+    color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out),
+    box-shadow var(--dur-hover) ease;
 }
 
 /* DEVIATION FROM HANDOFF (craft): the brief says "no transforms, no scale" under
@@ -264,6 +265,16 @@
 /* Hover is gated so a tap on a touch device cannot leave a control stuck in its
    hover state until the next tap elsewhere. */
 @media (hover: hover) and (pointer: fine) {
+  /* Shared across every variant: a slight lift + soft shadow on top of each
+     variant's own color/background hover rule below. Kept subtle (1px, a
+     tinted shadow rather than a generic dark one) so it reads as tactile
+     feedback, not flashy motion -- :active's press-scale still wins over
+     this during an actual click, same as before. */
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(var(--navy-900-rgb), 0.16);
+  }
+
   .btn-gold:hover {
     background: var(--accent-hover);
     color: var(--ink-900);
