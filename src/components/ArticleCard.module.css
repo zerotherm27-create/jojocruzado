@@ -5,6 +5,23 @@
   border-radius: 18px;
   overflow: hidden;
   background: var(--white);
+  text-decoration: none;
+  transition: transform var(--dur-press) var(--ease-out), border-color var(--dur-hover) ease;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: var(--border-strong);
+  }
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--focus-ring, var(--navy-900));
+  outline-offset: 3px;
 }
 
 .body {
@@ -24,12 +41,18 @@
   margin: 0;
 }
 
+/* Root-cause fix for cards showing an entire article: caps the preview at 3
+   lines regardless of how much text is in dek. */
 .dek {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 15px;
   line-height: 1.6;
   color: var(--ink-500);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .readTime {

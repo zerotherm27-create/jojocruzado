@@ -1,4 +1,5 @@
 import ImageField from "./ImageField";
+import RichTextEditor from "./RichTextEditor";
 import SubmitButton from "./SubmitButton";
 import styles from "../admin.module.css";
 
@@ -8,6 +9,7 @@ export type ArticleFormInitial = {
   category: string;
   title: string;
   dek: string;
+  body?: string;
   readTime: string;
   imageUrl?: string | null;
   imageAlt?: string | null;
@@ -43,6 +45,8 @@ export default function ArticleForm({ action, submitLabel, error, initial }: Art
         Dek (short summary)
         <textarea name="dek" rows={3} defaultValue={initial?.dek} required className={styles.textarea} />
       </label>
+
+      <RichTextEditor name="body" label="Article body" defaultValue={initial?.body} />
 
       <label className={styles.label}>
         Read time

@@ -1,4 +1,5 @@
 import type { Article } from "@/content/insights";
+import { articles as fallbackArticles } from "@/content/insights";
 import type { Artcard } from "@/components/ArtcardDialog";
 import { needs } from "@/content/needs";
 import { createServiceRoleClient } from "./client";
@@ -17,9 +18,11 @@ type ArticleRow = {
   category: string;
   title: string;
   dek: string;
+  body: string | null;
   read_time: string;
   image_url: string | null;
   image_alt: string;
+  slug: string;
 };
 
 type SiteSettingsRow = {
@@ -83,9 +86,11 @@ function toArtcard(row: ArtcardRow): Artcard | null {
 function toArticle(row: ArticleRow): Article {
   return {
     id: row.id,
+    slug: row.slug,
     category: row.category,
     title: row.title,
     dek: row.dek,
+    body: row.body ?? undefined,
     readTime: row.read_time,
     image: row.image_url ?? "",
     imageAlt: row.image_alt,
@@ -125,7 +130,7 @@ export async function getArticles(): Promise<Article[]> {
     const supabase = createServiceRoleClient();
     const { data, error } = await supabase
       .from("articles")
-      .select("id, category, title, dek, read_time, image_url, image_alt")
+      .select("id, category, title, dek, body, read_time, image_url, image_alt, slug")
       .order("created_at", { ascending: false });
 
     if (error) throw error;
@@ -133,6 +138,24 @@ export async function getArticles(): Promise<Article[]> {
   } catch (error) {
     console.error("getArticles failed", error);
     return [];
+  }
+}
+
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  try {
+    const supabase = createServiceRoleClient();
+    const { data, error } = await supabase
+      .from("articles")
+      .select("id, category, title, dek, body, read_time, image_url, image_alt, slug")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (error) throw error;
+    if (data) return toArticle(data as ArticleRow);
+    return fallbackArticles.find((article) => article.slug === slug) ?? null;
+  } catch (error) {
+    console.error("getArticleBySlug failed", error);
+    return fallbackArticles.find((article) => article.slug === slug) ?? null;
   }
 }
 

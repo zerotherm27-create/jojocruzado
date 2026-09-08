@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Article } from "@/content/insights";
 import SlotImage from "./SlotImage";
 import styles from "./ArticleCard.module.css";
@@ -12,7 +13,7 @@ export default function ArticleCard({ article, headingLevel = "h3" }: Props) {
   const Heading = headingLevel;
 
   return (
-    <article className={styles.card}>
+    <Link href={`/insights/${article.slug}`} className={styles.card}>
       <SlotImage
         src={article.image}
         alt={article.imageAlt}
@@ -25,6 +26,6 @@ export default function ArticleCard({ article, headingLevel = "h3" }: Props) {
         <p className={styles.dek}>{article.dek}</p>
         <span className={styles.readTime}>{article.readTime}</span>
       </div>
-    </article>
+    </Link>
   );
 }

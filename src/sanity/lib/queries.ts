@@ -41,6 +41,7 @@ const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
 function toArticle(a: SanityArticle): Article {
   return {
     id: a._id,
+    slug: a._id,
     category: a.category,
     title: a.title,
     dek: a.dek,

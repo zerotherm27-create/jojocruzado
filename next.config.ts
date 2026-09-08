@@ -10,6 +10,10 @@ const supabaseHostname = process.env.SUPABASE_URL
 const nextConfig: NextConfig = {
   // A lockfile in a parent directory otherwise makes Next infer the wrong workspace root.
   outputFileTracingRoot: path.join(__dirname),
+  // isomorphic-dompurify pulls in jsdom, which loads internal assets (e.g.
+  // default-stylesheet.css) via paths that break when webpack bundles it --
+  // keeping it external makes Node require() it normally at runtime instead.
+  serverExternalPackages: ["isomorphic-dompurify", "jsdom"],
   images: {
     remotePatterns: supabaseHostname
       ? [{ protocol: "https", hostname: supabaseHostname }]

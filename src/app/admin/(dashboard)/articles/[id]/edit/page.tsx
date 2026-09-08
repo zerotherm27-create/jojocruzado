@@ -17,7 +17,7 @@ export default async function EditArticlePage({
   const supabase = createServiceRoleClient();
   const { data: article } = await supabase
     .from("articles")
-    .select("category, title, dek, read_time, image_url, image_alt")
+    .select("category, title, dek, body, read_time, image_url, image_alt")
     .eq("id", id)
     .maybeSingle();
 
@@ -34,6 +34,7 @@ export default async function EditArticlePage({
           category: article.category,
           title: article.title,
           dek: article.dek,
+          body: article.body ?? undefined,
           readTime: article.read_time,
           imageUrl: article.image_url,
           imageAlt: article.image_alt,
