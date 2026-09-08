@@ -1,7 +1,7 @@
 # Handoff — Jojo Cruzado Advisor Site
 
-_Last updated: 2026-09-07. Written to let anyone (or any future session) pick this up
-without re-deriving the last two days of decisions._
+_Last updated: 2026-09-09. Written to let anyone (or any future session) pick this up
+without re-deriving the last several days of decisions._
 
 ## What this is
 
@@ -17,116 +17,143 @@ elsewhere (see Safety Margin, below).
 
 ## Stack
 
-Next.js 15 (App Router) + TypeScript + CSS Modules. No Tailwind, no UI library, no
-animation library (deliberate — see `memory.md`). React 19.
+Next.js 15 (App Router) + TypeScript + CSS Modules. No Tailwind, no UI library. React 19.
+Supabase (Postgres + Auth + Storage) is the sole live data layer — Sanity was fully
+replaced (see "CMS history" below) but its packages/schema files are still present,
+unused, in the repo. `framer-motion` was added 2026-09-08 for scroll-reveal entrance
+animations — this reverses an earlier "no animation library" decision; see `memory.md`
+for why and what the tradeoff was. `sanitize-html` and Tiptap (`@tiptap/react`,
+`@tiptap/pm`, `@tiptap/starter-kit`) back the rich-text article editor.
 
 ## Live infrastructure
 
 | What | Where |
 |---|---|
 | This site | **https://jojocruzado.safetymargin.app** (production) — also reachable at `jojocruzado.vercel.app` |
-| Vercel project | `jojocruzado`, team `zerotherm27-8336s-projects`, git-connected to `github.com/zerotherm27-create/jojocruzado` (private) |
-| Custom domain | Attached automatically when the project was created — this team already has `safetymargin.app` configured, so a project literally named `jojocruzado` claimed the matching subdomain with no manual step |
-| The real Safety Margin quiz | `https://safetymargin.app` — separate Vercel project named `insurance`, same team |
-| Leads database | Supabase project "Safety Margin Funnel", ref `xcifmbfxatkunsjoozyv`, table `funnel_leads` |
-| CMS | Sanity, project ID `7i8w96gp`, dataset `production` — installed via Vercel Marketplace, wired into code, content seeded |
-| Version control | Git repo initialized, pushed to `github.com/zerotherm27-create/jojocruzado` (private), Vercel git-connected — pushes to `main` now auto-deploy, matching every other project under this team. |
+| Vercel project | `jojocruzado` (`prj_59AlChc3PER0sk5bMY8ofq989npt`), team `zerotherm27-8336s-projects` (`team_I6jgfHPrez0G1ZvYMOkNQhRn`), git-connected to `github.com/zerotherm27-create/jojocruzado` (public) — pushes to `main` auto-deploy |
+| The real Safety Margin quiz | `https://safetymargin.app` — separate Vercel project, same team |
+| Database | Supabase project ref `xcifmbfxatkunsjoozyv` ("Safety Margin Funnel"). Tables: `funnel_leads` (external/shared, also written by safetymargin.app's own quiz), `site_settings` (singleton), `articles`, `artcards`. Photo storage: bucket `site-media`. |
+| Admin dashboard | `/admin`, gated by Supabase Auth restricted to a single `ADMIN_EMAIL` (checked in middleware and again in every write Server Action). Manages: Insights articles (rich text), Sun Life artcards, and Site Settings (photos, card details, contact links). Replaces Sanity entirely — see "CMS history" below. |
 
-## Routes (9)
+## Routes
 
-`/`, `/about`, `/how-i-help`, `/insights`, `/safety-margin`, `/contact`, `/disclaimer`,
-`/resources`. All static/prerendered except `/contact` (has a Server Action).
+Public (`(site)` route group, all under `src/app/(site)/`):
+`/`, `/about`, `/how-i-help`, `/insights`, `/insights/[slug]` (first public dynamic
+route in the app), `/safety-margin`, `/contact`, `/disclaimer`, `/resources`.
+
+Digital business card (sibling to `(site)`, own chrome-free layout, `noindex`):
+`/card` (photo, title, bio, tap-to-call/text/Viber/email, "Save to Contacts" vCard
+download at `/card/vcard`, and a mutual contact-exchange form writing into
+`funnel_leads` with `source: 'business_card'`).
+
+Admin (`/admin`, all gated): `/admin` (dashboard home), `/admin/login`,
+`/admin/settings`, `/admin/articles` (+ `/new`, `/[id]/edit`), `/admin/artcards`
+(+ `/new`, `/[id]/edit`).
 
 Nav bar: About, How I Help, Insights, **Sun Life** (→ `/resources`), **Safety Margin**
-(→ external `https://safetymargin.app`, same tab), Talk to Jojo (→ `/contact`).
+(→ external `https://safetymargin.app`, opens in a **new tab** — every Safety Margin
+link sitewide does, changed 2026-09-08 so this site's tab stays open), Talk to Jojo
+(→ `/contact`).
 
 ## What's done
 
-- All 7 MVP pages built to the design handoff's exact tokens (colors, type scale,
-  spacing) and copy.
-- Full accessibility pass: AA contrast fixes (new `--accent-on-light` token, `--danger`
-  token), skip link, focus rings, 44px touch targets, `aria-current`, `autocomplete`.
-- Motion pass: press states, hover transitions gated behind `(hover: hover)`, mobile menu
-  entrance via `@starting-style`. Deliberately no animation library — see `memory.md`.
-- `/resources` — a quarantined page for Sun Life-approved artcards. **Blocked**: needs
-  written confirmation the artcards are approved for *website* use (not just social),
-  the real files + product names + issue dates from Jojo, and a check on any rate/payout
-  figures. Currently 3 placeholder slots.
+- All public pages built to the design handoff's tokens (colors, type scale, spacing)
+  and copy, plus the full accessibility pass from the original build (AA contrast,
+  skip link, focus rings, 44px touch targets, `aria-current`, `autocomplete`).
+- **Scroll-reveal entrance animations** (2026-09-08, via `framer-motion`): a shared
+  `Reveal` component (`src/components/Reveal.tsx`) fades+rises each below-the-fold
+  section into view once, respecting `prefers-reduced-motion`. Applied to `/`, `/about`,
+  `/how-i-help`, `/resources`, `/safety-margin`, `/insights`, `/insights/[slug]`,
+  `/contact`. Hero/above-the-fold content is left alone. `/card` keeps its own separate,
+  earlier entrance animation. Known cost: those pages are no longer zero-JS Server
+  Components.
+- **`/resources`** — no longer blocked. Jojo confirmed written approval for artcard
+  web display; `/admin/artcards` is a full CRUD (mirrors the articles admin pattern)
+  so real Sun Life artcards can be added without a code change. Empty state shown until
+  at least one is published.
+- **`/insights`** — real blog behavior (2026-09-08): cards link to a real detail page
+  at `/insights/[slug]` instead of showing the entire article text in the card; the
+  card preview (`dek`) is now line-clamped. Articles are authored in `/admin/articles`
+  with a real WYSIWYG toolbar (Tiptap: bold/italic/headings/lists/quote/link), sanitized
+  server-side (`sanitize-html`) before storage. Pasting pre-written text with markdown
+  syntax (`##`, `*`, `**`) is converted to real formatting at paste time
+  (`src/lib/markdownPaste.ts`) — Tiptap's own shortcuts only fire on live typing.
+- **`/card`** — a digital business card page for NFC taps (added 2026-09-06), styled
+  like Linkit-style profile pages. Physically writing the NFC tag/card with the page's
+  URL is done by Jojo himself via an NFC-writing app (e.g. NFC Tools); the linked
+  physical card he had was found to be password-locked by its original vendor
+  (Linkit), so a new blank NFC tag/card is needed before it can be reprogrammed.
 - All "Safety Margin" links sitewide point to the real external quiz
-  (`https://safetymargin.app`), not an internal stub.
-- `/contact` form actually submits — `src/app/contact/actions.ts` is a Server Action
-  that inserts into the shared `funnel_leads` table, tagged `source: 'contact_form'`.
-  **Currently fails safely** with "Contact form is not yet configured." because
-  `SUPABASE_SERVICE_ROLE_KEY` is blank in `.env.local` — see Next Steps.
-- `/disclaimer` has a real, original privacy notice (not copied from Safety Margin's —
-  the brief explicitly forbids that). Two assumptions in it are flagged inline and need
-  Jojo's confirmation: the 24-month retention period, and reusing
-  `support@safetymargin.app` as the privacy contact.
-- Deployed to Vercel, verified live.
+  (`https://safetymargin.app`), opening in a new tab.
+- `/contact` form actually submits and works end-to-end — `SUPABASE_SERVICE_ROLE_KEY`
+  is set both locally and in Vercel's Environment Variables (was the blocking Next Step
+  in the previous version of this doc; now resolved).
+- `/disclaimer` has a real, original privacy notice (not copied from Safety Margin's).
+  **Still flagged, unresolved:** the 24-month retention period and reusing
+  `support@safetymargin.app` as the privacy contact — both need Jojo's explicit
+  confirmation before the `TODO(compliance)` comments and the inline caveat can come out.
+- `/safety-margin`'s FAQ still has two placeholder answers pending Jojo's confirmation:
+  exact fields/retention/processors collected by the quiz, and whether consultations
+  are free / which meeting channels are supported.
+- Deployed to Vercel, verified live after every change (build clean + a Vercel
+  deployment-status check is standard practice now, not just for major changes).
 
-## Sanity CMS — done
+## CMS history — Sanity was replaced, not extended
 
-Jojo asked for a real dashboard to manage: Insights articles, the hero/story/about
-photos, and contact details (booking link, Messenger, Viber, email, socials). Direction
-chosen: a headless CMS, provisioned via the Vercel Marketplace flow (per this
-environment's rules, provider choice isn't free-form — see `memory.md`). Sanity was the
-only/top result for the `cms` category.
+The original plan (see the now-historical "Sanity CMS" section this doc used to have)
+was a Sanity-backed CMS for articles, photos, and contact details. It was fully **replaced**
+by a custom Supabase-backed `/admin` dashboard (commit "Replace Sanity CMS with a custom
+Supabase-backed /admin dashboard"). Reasons included wanting one consistent backend
+(Supabase already held `funnel_leads`) rather than two parallel data stores, and
+Sanity Studio's embedding problems in this Next.js version (documented in git history).
 
-**Provisioning:** `vercel integration add sanity/project` — the Sanity project exists,
-is connected to the `jojocruzado` Vercel project, and its credentials are in
-`.env.local` (`NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`,
-`SANITY_API_READ_TOKEN`, `SANITY_API_WRITE_TOKEN`, etc.) and pulled from Vercel's own
-Environment Variables.
+**Sanity's packages (`sanity`, `next-sanity`, `@sanity/image-url`), schema
+(`src/sanity/schemaTypes/`), and its own `queries.ts`/`resolveImage` are still present
+in the repo but are dead code** — no live page imports from `src/sanity/...` anymore
+except one legacy type-compatibility shim in `src/sanity/lib/queries.ts` (kept
+compiling only because it shares the `Article` type with the real, live data layer).
+Do not resurrect or "fix" the Sanity path without being asked; if it's ever confirmed
+fully unused, removing it outright (packages + `src/sanity/`) is a reasonable cleanup,
+not a risky one.
 
-**Schema** (`src/sanity/schemaTypes/`):
-- `article` — title, category (fixed list matching the `/insights` pills), dek,
-  readTime, image, imageAlt. Replaces the hardcoded array in `src/content/insights.ts`.
-- `siteSettings` — a singleton (hero/story/about images + booking/Messenger/Viber/
-  email/social links). Pinned as a true singleton in `src/sanity/structure.ts`.
+**The real, live data layer is `src/lib/supabase/queries.ts`** — `getArticles`,
+`getArticleBySlug`, `getArtcards`, `getSiteSettings`, `resolveImage`. Every consumer
+fails soft (falls back to hardcoded placeholder content) if Supabase is unreachable or
+a table/column doesn't exist yet, which happens routinely right after a schema change
+until its migration is run.
 
-**Data flow:** `src/sanity/lib/queries.ts` (`getArticles`, `getSiteSettings`,
-`resolveImage`) is called from `src/app/page.tsx`, `about/page.tsx`,
-`insights/page.tsx`, `contact/page.tsx`, and `src/components/SiteFooter.tsx`. Every one
-of those falls back to the existing hardcoded placeholder content/images if Sanity has
-no data yet, so the site never goes blank. `export const revalidate = 60` on every page
-(plus `layout.tsx` for the footer) means Studio edits show up live within a minute — no
-redeploy needed.
+## Database migrations — always a manual step for the user
 
-**Seeded:** `scripts/seed-sanity.mjs` has already been run once — it pushed the 3
-existing placeholder articles and the current placeholder images into Sanity as a
-starting point.
+This assistant has never had live write access to this project's Supabase database
+(the Supabase MCP tools available in past sessions only reached an unrelated project).
+Every schema change ships as a new file in `supabase/migrations/`, and **the user runs
+it themselves** in the Supabase SQL Editor after the code deploys:
 
-**Studio architecture — important, don't "fix" this:** the Studio is intentionally
-**not** embedded in the Next.js app. An embedded `/studio` route was built and then
-deleted, because `sanity@5.x` uses React's `useEffectEvent` hook in a way Next.js's
-webpack build cannot statically analyze (a real bundler incompatibility, not a
-misconfiguration). Instead, Studio runs via Sanity's own CLI tooling, configured in the
-root `sanity.config.ts` (schema/structure, hardcoded `projectId`/`dataset` since Vite
-doesn't reliably expose `process.env.*`) and `sanity.cli.ts` (CLI-only config):
-- **Local editing:** `npx sanity dev` — runs a local Studio (Vite, not Next's webpack).
-- **Hosted studio** (`*.sanity.studio` URL): `npx sanity deploy` — currently blocked by
-  a missing `deployStudio` grant on the provisioned token. Not attempted as a
-  workaround; Jojo would need to grant that permission himself (or deploy while logged
-  into the Sanity dashboard) if he wants a hosted URL instead of running it locally.
+- `0001_articles_and_site_settings.sql` — `articles`, `site_settings` tables, storage
+  bucket `site-media`.
+- `0002_business_card.sql` — `site_settings.card_*` columns for `/card`.
+- `0003_funnel_leads_business_card_source.sql` — widens `funnel_leads.source` CHECK to
+  allow `'business_card'`.
+- `0004_artcards.sql` — the `artcards` table.
+- `0005_article_body_and_slug.sql` — `articles.body`/`articles.slug` (backfilled +
+  made `unique not null`) for the rich-text blog feature.
+- `0006_how_i_help_image.sql` — `site_settings.how_i_help_image_url/alt`.
 
-**Deliberately out of scope for this CMS work:** the `/disclaimer` page's privacy
-contact email stays hardcoded (it's tied to specific, carefully-worded legal text, not
-general contact info) — not something to make casually CMS-editable.
+All six have been run against the live database as of this writing.
 
 ## Next steps, roughly in order
 
-1. **Resume the Sanity build** — install packages, write the two schemas, the client,
-   the `/studio` route, wire the four consumers listed above, seed initial data.
-2. **Get the Supabase `service_role` key into `.env.local`** — from
-   `supabase.com/dashboard/project/xcifmbfxatkunsjoozyv/settings/api-keys`. This has to
-   be pasted in directly by Jojo; it's a real secret and won't be handled by an
-   assistant. Also needs setting under Vercel's own Environment Variables (Project
-   Settings → Environment Variables) — anything only in local `.env.local` gets wiped
-   the next time `vercel env pull` runs (it already happened once, during the Sanity
-   install).
-3. ~~Attach the custom domain~~ — done, see above.
-4. **Resolve the `/disclaimer` flagged assumptions** (retention period, privacy contact
+1. **Resolve the `/disclaimer` flagged assumptions** (retention period, privacy contact
    email) — see `memory.md` for why they're flagged rather than settled.
-5. **Resolve `/resources`' compliance gate** before it's linked anywhere prominent with
-   real artwork.
-6. ~~Initialize a git repo~~ — done, see above.
+2. **Resolve `/safety-margin`'s two remaining FAQ placeholders** (exact data collected
+   by the quiz; consultation pricing/meeting channels).
+3. **Get a working NFC tag/card** — the physical card Jojo already has is
+   password-locked by its previous vendor and can't be reprogrammed; a new blank
+   NTAG213/215/216 card or sticker is needed, then written with
+   `https://jojocruzado.safetymargin.app/card` via an app like NFC Tools.
+4. **Upload real photos** where placeholders still show — the How I Help hero photo
+   was added 2026-09-09 and is still on its placeholder image pending a real upload via
+   `/admin/settings`.
+5. Consider removing the dead Sanity code path (packages + `src/sanity/`) once confirmed
+   nobody's relying on it — not urgent, but it's the one deliberately-left piece of
+   cruft in an otherwise clean codebase.
