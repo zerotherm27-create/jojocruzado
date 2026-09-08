@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { CALENDLY_URL, MESSENGER_URL } from "@/config/site";
 import { getSiteSettings } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Revalidate so updated contact details published in the Studio show up within a
 // minute instead of needing a redeploy.
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Book a Conversation",
   description:
     "Whether you're reviewing your current protection, planning for your family, building a business or simply trying to understand where to start, we can look at it together.",
-};
+  path: "/contact",
+});
 
 type Channel = { label: string; href?: string };
 

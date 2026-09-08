@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { SAFETY_MARGIN_URL } from "@/config/site";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Disclaimer & Privacy",
   description:
     "This is the personal website of Jojo Cruzado, a Sun Life Financial Advisor. It is not the official corporate website of Sun Life Philippines.",
-};
+  path: "/disclaimer",
+});
 
 export default function DisclaimerPage() {
   return (

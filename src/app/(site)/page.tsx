@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
@@ -10,6 +11,13 @@ import styles from "./page.module.css";
 // Revalidate so a new article or photo published in /admin shows up within a
 // minute instead of needing a redeploy.
 export const revalidate = 60;
+
+// Root layout's title/openGraph/twitter defaults already describe this exact
+// page, so only the canonical URL needs adding here (the layout has no
+// per-path awareness to set one itself).
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const audiences = [
   {

@@ -23,6 +23,7 @@
 
 .issuer {
   display: block;
+  margin-top: 8px;
   color: var(--ink-500);
 }
 

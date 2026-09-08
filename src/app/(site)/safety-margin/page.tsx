@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Safety Margin",
   description:
     "Safety Margin is a simple way to look at the important parts of your financial foundation and identify areas that may deserve more attention.",
-};
+  path: "/safety-margin",
+});
 
 const explainers = [
   {

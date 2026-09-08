@@ -1,21 +1,22 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { needs } from "@/content/needs";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Revalidate so a new photo published in /admin shows up within a minute
 // instead of needing a redeploy.
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "How I Help",
   description:
     "These are the areas we usually look at together. Which ones matter most depends entirely on where you are right now.",
-};
+  path: "/how-i-help",
+});
 
 export default async function HowIHelpPage() {
   const settings = await getSiteSettings();
@@ -74,8 +75,8 @@ export default async function HowIHelpPage() {
           {/* Quiet reference only. The eight need-categories above stay the structure of
               this page; product material sits one link away, never in front of it. */}
           <p className={styles.materialNote}>
-            If you would rather read Sun Life&apos;s own product material first,{" "}
-            <Link href="/resources">it is here</Link>.
+            If you would rather read Sun Life&apos;s own product material first, you can{" "}
+            <Link href="/resources">read it here</Link>.
           </p>
         </Reveal>
       </section>

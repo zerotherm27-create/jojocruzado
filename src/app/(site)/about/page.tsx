@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Revalidate so a new photo published in /admin shows up within a minute
 // instead of needing a redeploy.
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description:
     "I'm Jojo Cruzado, a Sun Life Financial Advisor. I help people organize the financial side of the life they're already working hard to build.",
-};
+  path: "/about",
+});
 
 const audiences = [
   "Business owners",

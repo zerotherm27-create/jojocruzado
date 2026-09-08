@@ -5,6 +5,7 @@ import SlotImage from "@/components/SlotImage";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getArticleBySlug } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Revalidate so an article published/edited in /admin shows up here within a
@@ -17,7 +18,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) return { title: "Insights" };
-  return { title: article.title, description: article.dek };
+
+  // Uses the article's own real photo as the share thumbnail when it has one,
+  // instead of the sitewide generic brand card -- more relevant when an
+  // article link specifically gets shared.
+  const base = pageMetadata({
+    title: article.title,
+    description: article.dek,
+    path: `/insights/${article.slug}`,
+    images: article.image ? [article.image] : undefined,
+  });
+
+  return { ...base, openGraph: { ...base.openGraph, type: "article" } };
 }
 
 export default async function ArticleDetailPage({ params }: Props) {

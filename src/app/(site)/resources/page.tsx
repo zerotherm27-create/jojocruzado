@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import ArtcardGrid from "@/components/ArtcardDialog";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getArtcards } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Sun Life Material",
   description:
     "Different priorities call for different plans. Sun Life's own product material, organized by what it's for.",
-};
+  path: "/resources",
+});
 
 // Revalidate so a card added/edited/removed in /admin -> Sun Life Artcards
 // shows up here within a minute instead of needing a redeploy.
@@ -37,6 +38,7 @@ export default async function ResourcesPage() {
 
       <section className="band-white">
         <Reveal className={`container ${styles.band}`}>
+          <h2 className="h2-band">Available material</h2>
           <span className={`eyebrow ${styles.issuer}`}>Issued by Sun Life Philippines</span>
 
           <div className={styles.gridWrap}>

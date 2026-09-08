@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
 import ArticleCard from "@/components/ArticleCard";
 import { articles as fallbackArticles } from "@/content/insights";
 import { getArticles } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Revalidate so a new article published in the Studio shows up within a minute
 // instead of needing a redeploy.
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Insights",
   description: "Practical financial conversations.",
-};
+  path: "/insights",
+});
 
 const categories = [
   "Financial Foundation",
