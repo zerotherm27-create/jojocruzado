@@ -53,52 +53,17 @@
   max-width: 34ch;
 }
 
-.iconRow {
+.socialRow {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: 6px;
 }
 
-.iconButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0 16px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 14px;
-  transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
-}
-
-.iconButton:active {
-  transform: scale(0.94);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  /* Explicit color here, not just background: the global a:hover rule
-     (globals.css) turns link text gold, which would otherwise win over this
-     class's base color on specificity — same fix applied to .socialButton
-     and .saveButton below. */
-  .iconButton:hover {
-    background: rgba(255, 255, 255, 0.16);
-    color: var(--white);
-  }
-}
-
-.socialRow {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 4px;
-}
-
+/* Explicit color in :hover below, not just background: the global a:hover
+   rule (globals.css) turns link text gold, which would otherwise win over
+   this class's base color on specificity — same fix applied to .saveButton. */
 .socialButton {
   display: flex;
   align-items: center;

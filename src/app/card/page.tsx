@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CardExchangeForm from "./CardExchangeForm";
-import { EmailIcon, FacebookIcon, WebsiteIcon } from "./icons";
+import { EmailIcon, FacebookIcon, MessageIcon, PhoneIcon, ViberIcon, WebsiteIcon } from "./icons";
 import { CALENDLY_URL, CARD_FULL_NAME, SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import styles from "./page.module.css";
@@ -45,29 +45,26 @@ export default async function CardPage() {
       <p className={styles.title}>{title}</p>
       <p className={styles.bio}>{bio}</p>
 
-      <div className={styles.iconRow}>
+      <div className={styles.socialRow}>
         {phone && (
-          <a href={`tel:${phone}`} className={styles.iconButton} aria-label="Call Jojo">
-            Call
+          <a href={`tel:${phone}`} className={styles.socialButton} aria-label="Call Jojo">
+            <PhoneIcon className={styles.socialIcon} />
           </a>
         )}
         {phone && (
-          <a href={`sms:${phone}`} className={styles.iconButton} aria-label="Text Jojo">
-            Text
+          <a href={`sms:${phone}`} className={styles.socialButton} aria-label="Text Jojo">
+            <MessageIcon className={styles.socialIcon} />
           </a>
         )}
         {viber && (
           <a
             href={`viber://chat?number=${encodeURIComponent(sanitizeForViber(viber))}`}
-            className={styles.iconButton}
+            className={styles.socialButton}
             aria-label="Message Jojo on Viber"
           >
-            Viber
+            <ViberIcon className={styles.socialIcon} />
           </a>
         )}
-      </div>
-
-      <div className={styles.socialRow}>
         <Link href="/" className={styles.socialButton} aria-label="Visit Jojo's website">
           <WebsiteIcon className={styles.socialIcon} />
         </Link>
