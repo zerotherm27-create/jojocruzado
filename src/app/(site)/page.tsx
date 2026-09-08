@@ -148,8 +148,13 @@ export default async function HomePage() {
               pressured.
             </p>
             <div className={styles.heroButtons}>
+              {/* Benefit-led copy test (2026-09-09): this hero instance only, since
+                  it's the first thing a cold visitor sees before any "Safety Margin"
+                  context exists. Every other instance sitewide stays the branded
+                  "Check My Safety Margin" -- see memory.md if this gets reverted or
+                  made permanent, so the reasoning isn't lost either way. */}
               <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
-                Check My Safety Margin
+                Check My Protection Gap
               </Link>
               <Link href="/contact" className="btn btn-outline-dark">
                 Talk to Jojo
