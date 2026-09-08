@@ -222,6 +222,9 @@
 
 .button {
   align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   min-height: 44px;
   padding: 0 20px;
   border: none;
@@ -246,6 +249,23 @@
 .button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Only border-color + transform — both cheap, GPU-friendly properties.
+   Respects prefers-reduced-motion via the sitewide rule in globals.css. */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 600ms linear infinite;
 }
 
 .buttonSecondary {
