@@ -57,21 +57,21 @@ export default async function SiteFooter() {
                 LinkedIn
               </Link>
             ) : (
-              <span className={styles.pending}>LinkedIn &mdash; TBC</span>
+              <span className={styles.pending}>LinkedIn: TBC</span>
             )}
             {settings?.instagramUrl ? (
               <Link href={settings.instagramUrl} className={styles.link} target="_blank" rel="noopener noreferrer">
                 Instagram
               </Link>
             ) : (
-              <span className={styles.pending}>Instagram &mdash; TBC</span>
+              <span className={styles.pending}>Instagram: TBC</span>
             )}
             {settings?.contactEmail ? (
               <Link href={`mailto:${settings.contactEmail}`} className={styles.link}>
                 Email
               </Link>
             ) : (
-              <span className={styles.pending}>Email &mdash; TBC</span>
+              <span className={styles.pending}>Email: TBC</span>
             )}
           </div>
 

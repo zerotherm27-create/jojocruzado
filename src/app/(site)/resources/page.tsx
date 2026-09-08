@@ -44,7 +44,7 @@ export default function ResourcesPage() {
           <h1 className={`h1-sub ${styles.heroTitle}`}>Different priorities. Different plans.</h1>
           <p className={`lead ${styles.heroLead}`}>
             These are Sun Life&apos;s own materials, shared as published. Which one is relevant
-            depends on your situation, your existing coverage and your priorities &mdash; and that
+            depends on your situation, your existing coverage and your priorities, and that
             is what a conversation is for.
           </p>
         </div>

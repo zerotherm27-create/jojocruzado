@@ -81,7 +81,7 @@ export default function DisclaimerPage() {
               independently confirmed for contact-form submissions specifically. Confirm or
               adjust before treating this as final. */}
           Submissions are kept for 24 months from the date sent, after which they are deleted. You
-          may request earlier deletion at any time — see &quot;Your rights,&quot; below.
+          may request earlier deletion at any time. See &quot;Your rights,&quot; below.
         </p>
 
         <h3 className={styles.itemHeading}>Third-party processors</h3>

@@ -287,7 +287,7 @@ export default async function HomePage() {
                 teaser; the fuller version lives on /about. */}
             <p className={`lead ${styles.storyBody}`}>
               When I moved to Singapore as a Field Service Engineer, I thought the hard part was
-              over &mdash; good salary, better life ahead. I was wrong. Like a lot of OFWs, the income
+              over. Good salary, better life ahead. I was wrong. Like a lot of OFWs, the income
               went up, but the savings didn&apos;t.
             </p>
             <p className={`lead ${styles.storyBody}`}>
@@ -297,7 +297,7 @@ export default async function HomePage() {
             </p>
             <p className={`lead ${styles.storyBody}`}>
               In 2018, I came home to help run what we&apos;d built with my family. I joined Sun Life
-              because insurance was the one piece I kept seeing missing &mdash; even in people who
+              because insurance was the one piece I kept seeing missing, even in people who
               were already doing everything else right.
             </p>
             <Link href="/about" className="arrow-link arrow-link-gold">

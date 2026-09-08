@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const explainers = [
   {
     title: "What you'll look at",
-    body: "Cash flow, emergency reserves, health and protection, long-term goals and growth — the five parts of the framework.",
+    body: "Cash flow, emergency reserves, health and protection, long-term goals and growth: the five parts of the framework.",
   },
   {
     title: "What happens after",
@@ -25,7 +25,7 @@ const explainers = [
   },
   {
     title: "How it is treated",
-    body: "This is an educational assessment and a starting point for a conversation — a financial snapshot, not a formal recommendation.",
+    body: "This is an educational assessment and a starting point for a conversation: a financial snapshot, not a formal recommendation.",
   },
 ];
 

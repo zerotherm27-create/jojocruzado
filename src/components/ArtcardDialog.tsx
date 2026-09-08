@@ -46,7 +46,7 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
               src={card.image}
               alt={
                 card.productName
-                  ? `${card.productName} — Sun Life artcard, tap to enlarge`
+                  ? `${card.productName}: Sun Life artcard, tap to enlarge`
                   : "Placeholder slot awaiting a Sun Life-approved artcard"
               }
               ratio="1 / 1"
@@ -56,7 +56,7 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
             <span className={styles.caption}>
               <span className={styles.captionName}>{card.need.title}</span>
               <span className={styles.captionMeta}>
-                {card.productName ?? "Product name — to be supplied"}
+                {card.productName ?? "Product name (to be supplied)"}
               </span>
             </span>
           </button>
@@ -94,7 +94,7 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
               src={active.image}
               alt={
                 active.productName
-                  ? `${active.productName} — Sun Life artcard`
+                  ? `${active.productName}: Sun Life artcard`
                   : "Placeholder slot awaiting a Sun Life-approved artcard"
               }
               ratio="1 / 1"
@@ -106,7 +106,7 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
             <p className={styles.needBody}>{active.need.body}</p>
 
             <span className={styles.attribution}>
-              {active.productName ?? "Product name — to be supplied"}
+              {active.productName ?? "Product name (to be supplied)"}
               {active.issuedOn ? ` · Issued ${active.issuedOn}` : " · Issue date to be supplied"}
               {" · Issued by Sun Life Philippines"}
             </span>

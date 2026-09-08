@@ -22,16 +22,16 @@ export default async function ContactPage() {
 
   // Booking/Messenger fall back to the real, already-live Safety Margin channels;
   // Viber/email fall back to a plain TBC placeholder until filled in via
-  // Sanity Studio (/studio -> Site Settings -> Contact details).
+  // /admin -> Site Settings -> Contact details.
   const channels: Channel[] = [
     { label: "Schedule a conversation", href: settings?.bookingUrl || CALENDLY_URL },
     { label: "Message on Facebook", href: settings?.messengerUrl || MESSENGER_URL },
     settings?.viberNumber
-      ? { label: `Viber — ${settings.viberNumber}` }
-      : { label: "Viber — number TBC" },
+      ? { label: `Viber: ${settings.viberNumber}` }
+      : { label: "Viber: number TBC" },
     settings?.contactEmail
       ? { label: settings.contactEmail, href: `mailto:${settings.contactEmail}` }
-      : { label: "Email — address TBC" },
+      : { label: "Email: address TBC" },
   ];
 
   const stillHasPlaceholders = !settings?.viberNumber || !settings?.contactEmail;

@@ -66,16 +66,16 @@ export default async function AboutPage() {
             <p className={styles.prose}>
               When I arrived in Singapore as a Field Service Engineer, I thought the hard part was
               over. I was wrong. Like a lot of OFWs, the higher income didn&apos;t translate into
-              savings &mdash; at one point, my family and I were just surviving.
+              savings. At one point, my family and I were just surviving.
             </p>
             <p className={styles.prose}>
               That wake-up call led us to a community of Filipinos asking the same hard questions
               about money. We learned investing, business and personal development together, and
               slowly built real estate, a laundry business, a design-and-build company, and a few
-              other ventures &mdash; things we&apos;re genuinely proud of.
+              other ventures. Things we&apos;re genuinely proud of.
             </p>
             <p className={styles.prose}>
-              In 2018, I came home &mdash; not just to the Philippines, but to my family, to help run
+              In 2018, I came home, not just to the Philippines, but to my family, to help run
               what we&apos;d built together. I joined Sun Life because insurance was the one piece I
               kept seeing missing, even in people already doing everything else right. One health
               crisis or one loss in the family can undo it all without protection in place.
