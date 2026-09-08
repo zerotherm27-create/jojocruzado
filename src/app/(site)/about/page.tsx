@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import SlotImage from "@/components/SlotImage";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import styles from "./page.module.css";
 
-// Revalidate so a new photo published in the Studio shows up within a minute
+// Revalidate so a new photo published in /admin shows up within a minute
 // instead of needing a redeploy.
 export const revalidate = 60;
 
@@ -27,10 +27,22 @@ export default async function AboutPage() {
 
   return (
     <main>
-      <section className="band-surface-bottom">
-        <div className={`container autogrid ${styles.hero}`}>
+      <section className={`band-navy ${styles.heroSection}`}>
+        {/* Falls back to the placeholder file until a real photo is uploaded in
+            /admin -> Site Settings -> About page photo. */}
+        <Image
+          src={resolveImage(settings?.aboutImage, "/images/jojo-about.png", 1600, 900)}
+          alt={settings?.aboutImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
+          fill
+          sizes="100vw"
+          priority
+          className={styles.heroMedia}
+          style={{ objectFit: "cover", objectPosition: "78% 30%" }}
+        />
+        <div className={`scrim-navy ${styles.heroScrim}`} />
+        <div className={`container ${styles.heroInner}`}>
           <div className={`stack ${styles.heroText}`}>
-            <span className="eyebrow" style={{ color: "var(--ink-500)" }}>
+            <span className="eyebrow" style={{ color: "var(--accent)" }}>
               About Jojo
             </span>
             <h1 className={`h1-sub ${styles.heroTitle}`}>
@@ -41,17 +53,6 @@ export default async function AboutPage() {
               financial side of the life they&apos;re already working hard to build.
             </p>
           </div>
-
-          {/* Falls back to the placeholder file until a real photo is uploaded in
-              Sanity Studio (/studio -> Site Settings -> About page photo). */}
-          <SlotImage
-            src={resolveImage(settings?.aboutImage, "/images/jojo-about.png", 1000, 1250)}
-            alt={settings?.aboutImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
-            ratio="4 / 5"
-            edgeFade
-            maxHeight="min(560px, 70vh)"
-            priority
-          />
         </div>
       </section>
 
