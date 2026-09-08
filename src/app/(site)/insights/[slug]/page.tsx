@@ -4,6 +4,7 @@ import Link from "next/link";
 import SlotImage from "@/components/SlotImage";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getArticleBySlug } from "@/lib/supabase/queries";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 // Revalidate so an article published/edited in /admin shows up here within a
@@ -39,7 +40,7 @@ export default async function ArticleDetailPage({ params }: Props) {
 
       {article.image && (
         <section className="band-white">
-          <div className={`container-prose ${styles.imageWrap}`}>
+          <Reveal className={`container-prose ${styles.imageWrap}`}>
             <SlotImage
               src={article.image}
               alt={article.imageAlt}
@@ -48,12 +49,12 @@ export default async function ArticleDetailPage({ params }: Props) {
               sizes="(max-width: 900px) 100vw, 820px"
               priority
             />
-          </div>
+          </Reveal>
         </section>
       )}
 
       <section className="band-white">
-        <div className={`container-prose ${styles.body}`}>
+        <Reveal className={`container-prose ${styles.body}`}>
           {/* article.body is sanitized server-side before it's ever stored
               (see admin _actions.ts) -- scoped to admin-authored,
               already-sanitized HTML only. */}
@@ -61,11 +62,11 @@ export default async function ArticleDetailPage({ params }: Props) {
             className={styles.prose}
             dangerouslySetInnerHTML={{ __html: article.body ?? `<p>${article.dek}</p>` }}
           />
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-navy">
-        <div className={`container ${styles.closing}`}>
+        <Reveal className={`container ${styles.closing}`}>
           <h2 className="h2-section">Ready to talk it through.</h2>
           <div className={styles.ctaRow}>
             <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
@@ -75,7 +76,7 @@ export default async function ArticleDetailPage({ params }: Props) {
               Talk to Jojo
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

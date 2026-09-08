@@ -3,6 +3,7 @@ import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { CALENDLY_URL, MESSENGER_URL } from "@/config/site";
 import { getSiteSettings } from "@/lib/supabase/queries";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 // Revalidate so updated contact details published in the Studio show up within a
@@ -49,7 +50,7 @@ export default async function ContactPage() {
       </section>
 
       <section className="band-white">
-        <div className={`container autogrid ${styles.body}`}>
+        <Reveal className={`container autogrid ${styles.body}`}>
           <div className={`stack ${styles.channels}`}>
             <h2 className="h2-column">Other ways to reach Jojo</h2>
             <div className={styles.channelList}>
@@ -79,7 +80,7 @@ export default async function ContactPage() {
           </div>
 
           <ContactForm />
-        </div>
+        </Reveal>
       </section>
     </main>
   );

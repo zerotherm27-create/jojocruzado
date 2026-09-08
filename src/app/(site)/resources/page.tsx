@@ -3,6 +3,7 @@ import Link from "next/link";
 import ArtcardGrid from "@/components/ArtcardDialog";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getArtcards } from "@/lib/supabase/queries";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -35,7 +36,7 @@ export default async function ResourcesPage() {
       </section>
 
       <section className="band-white">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <span className={`eyebrow ${styles.issuer}`}>Issued by Sun Life Philippines</span>
 
           <div className={styles.gridWrap}>
@@ -45,11 +46,11 @@ export default async function ResourcesPage() {
               <p className={styles.empty}>Product material will be posted here soon.</p>
             )}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-surface-top">
-        <div className={`container ${styles.closing}`}>
+        <Reveal className={`container ${styles.closing}`}>
           {/* Required verbatim: the advisor/corporate distinction (handoff README).
               Matches the wording in SiteFooter.tsx and /disclaimer exactly. */}
           <p className={styles.disclaimer}>
@@ -66,7 +67,7 @@ export default async function ResourcesPage() {
               Check My Safety Margin
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

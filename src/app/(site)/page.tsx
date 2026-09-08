@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
+import Reveal from "@/components/Reveal";
 import { articles as fallbackArticles } from "@/content/insights";
 import { getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
@@ -152,7 +153,7 @@ export default async function HomePage() {
       </section>
 
       <section className="band-white">
-        <div className={`container autogrid ${styles.band} ${styles.intro}`}>
+        <Reveal className={`container autogrid ${styles.band} ${styles.intro}`}>
           <h2 className="h2-section">Financial advice should start with understanding you.</h2>
           <div className={`stack ${styles.introCopy}`}>
             <p className="lead" style={{ color: "var(--ink-500)" }}>
@@ -168,11 +169,11 @@ export default async function HomePage() {
               Advice first. Solutions only when they make sense.
             </p>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-surface">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <span className="eyebrow" style={{ color: "var(--ink-500)" }}>
             Who I help
           </span>
@@ -194,11 +195,11 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-white">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <div className={`stack ${styles.frameworkIntro}`}>
             {/* Gold eyebrow on a white band — needs the AA-safe gold, not --accent. */}
             <span className="eyebrow" style={{ color: "var(--accent-on-light)" }}>
@@ -227,11 +228,11 @@ export default async function HomePage() {
               Not every part applies to everyone. That&apos;s the point of looking first.
             </span>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-surface">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <h2 className="h2-section">A simpler way to start.</h2>
           <div className={`autogrid ${styles.gridTop} ${styles.processGrid}`}>
             {steps.map((step) => (
@@ -242,11 +243,11 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-white">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <h2 className="h2-section">More clarity. Less pressure.</h2>
           <div className={`autogrid ${styles.gridTop} ${styles.whyGrid}`}>
             {reasons.map((reason) => (
@@ -256,7 +257,7 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className={`band-story ${styles.storySection}`}>
@@ -274,7 +275,7 @@ export default async function HomePage() {
           className={`scrim-navy ${styles.storyScrim}`}
           style={{ "--scrim-angle": "270deg" } as React.CSSProperties}
         />
-        <div className={`container ${styles.storyInner}`}>
+        <Reveal className={`container ${styles.storyInner}`}>
           <div className={`stack ${styles.storyText}`}>
             <span className="eyebrow" style={{ color: "var(--accent)" }}>
               Personal
@@ -304,11 +305,11 @@ export default async function HomePage() {
               More About Jojo &rarr;
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-white">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <div className={styles.insightsHead}>
             <h2 className="h2-section">Practical financial conversations.</h2>
             <Link href="/insights" className="arrow-link">
@@ -320,11 +321,11 @@ export default async function HomePage() {
               <ArticleCard key={article.id} article={article} />
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-navy">
-        <div className={`container ${styles.band} ${styles.closing}`}>
+        <Reveal className={`container ${styles.band} ${styles.closing}`}>
           <h2 className={`h2-section ${styles.closingHeading}`}>
             You don&apos;t need to figure everything out today.
           </h2>
@@ -341,7 +342,7 @@ export default async function HomePage() {
             </Link>
           </div>
           <span className={styles.closingNote}>No pressure. Just a clearer financial picture.</span>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

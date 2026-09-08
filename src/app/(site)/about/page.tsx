@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 // Revalidate so a new photo published in /admin shows up within a minute
@@ -57,7 +58,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="band-white">
-        <div className={`container autogrid ${styles.columns}`}>
+        <Reveal className={`container autogrid ${styles.columns}`}>
           <div className={`stack ${styles.column}`}>
             <h2 className={styles.columnTitle}>How I got here</h2>
             {/* Adapted from Jojo's own story on safetymargin.app's About section —
@@ -94,11 +95,11 @@ export default async function AboutPage() {
             </p>
             <p className={`pull-quote ${styles.quote}`}>The goal is clarity before commitment.</p>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-surface-top">
-        <div className={`container ${styles.band}`}>
+        <Reveal className={`container ${styles.band}`}>
           <h2 className="h2-band">Who I typically help</h2>
           <div className={`autogrid ${styles.chipGrid}`}>
             {audiences.map((audience) => (
@@ -127,7 +128,7 @@ export default async function AboutPage() {
               Talk to Jojo
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

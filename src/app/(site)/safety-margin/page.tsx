@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SAFETY_MARGIN_URL } from "@/config/site";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -93,18 +94,18 @@ export default function SafetyMarginPage() {
       </section>
 
       <section className="band-white">
-        <div className={`container autogrid ${styles.explainers}`}>
+        <Reveal className={`container autogrid ${styles.explainers}`}>
           {explainers.map((explainer) => (
             <div key={explainer.title} className={styles.explainer}>
               <h2 className="h2-column">{explainer.title}</h2>
               <p className={styles.explainerBody}>{explainer.body}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-surface-top">
-        <div className={`container ${styles.faq}`}>
+        <Reveal className={`container ${styles.faq}`}>
           <h2 className="h2-band">Common questions</h2>
           <div className={styles.faqList}>
             {faqs.map((faq) => (
@@ -114,7 +115,7 @@ export default function SafetyMarginPage() {
               </details>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

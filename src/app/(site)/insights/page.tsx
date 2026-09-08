@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ArticleCard from "@/components/ArticleCard";
 import { articles as fallbackArticles } from "@/content/insights";
 import { getArticles } from "@/lib/supabase/queries";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 // Revalidate so a new article published in the Studio shows up within a minute
@@ -47,14 +48,14 @@ export default async function InsightsPage() {
       </section>
 
       <section className="band-white">
-        <div className={`container ${styles.body}`}>
+        <Reveal className={`container ${styles.body}`}>
           <div className={`autogrid ${styles.grid}`}>
             {articles.map((article) => (
               <ArticleCard key={article.id} article={article} headingLevel="h2" />
             ))}
           </div>
           <p className={styles.note}>More practical financial conversations are coming soon.</p>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

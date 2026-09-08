@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { needs } from "@/content/needs";
 import { SAFETY_MARGIN_URL } from "@/config/site";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function HowIHelpPage() {
       </section>
 
       <section className="band-white">
-        <div className={`container autogrid ${styles.cards}`}>
+        <Reveal className={`container autogrid ${styles.cards}`}>
           {needs.map((need) => (
             <div key={need.id} className={styles.card}>
               <h2 className={styles.cardTitle}>{need.title}</h2>
@@ -37,11 +38,11 @@ export default function HowIHelpPage() {
               </span>
             </div>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       <section className="band-surface-top">
-        <div className={`container ${styles.closing}`}>
+        <Reveal className={`container ${styles.closing}`}>
           <p className={styles.closingText}>
             Not sure which of these applies to you? That&apos;s what the check is for.
           </p>
@@ -54,7 +55,7 @@ export default function HowIHelpPage() {
             If you would rather read Sun Life&apos;s own product material first,{" "}
             <Link href="/resources">it is here</Link>.
           </p>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
