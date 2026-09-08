@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
+import { DOMParser as ProseMirrorDOMParser } from "@tiptap/pm/model";
 import StarterKit from "@tiptap/starter-kit";
+import { markdownLinesToHtml } from "@/lib/markdownPaste";
 import {
   TextBIcon,
   TextItalicIcon,
@@ -133,6 +135,19 @@ export default function RichTextEditor({ name, label, defaultValue = "" }: Props
     editorProps: {
       attributes: {
         class: styles.editorArea,
+      },
+      // Tiptap's markdown shortcuts (## heading, * bullet, **bold**) only fire
+      // on live typing (input rules) -- paste bypasses them entirely, so
+      // without this, pasted "## Heading" stays literal text instead of
+      // becoming a real heading. Only invoked for plain-text clipboard data
+      // (no HTML mime type present), which is exactly the case that needs it.
+      clipboardTextParser(text, $context, _plain, view) {
+        const dom = document.createElement("div");
+        dom.innerHTML = markdownLinesToHtml(text);
+        return ProseMirrorDOMParser.fromSchema(view.state.schema).parseSlice(dom, {
+          preserveWhitespace: true,
+          context: $context,
+        });
       },
     },
   });
