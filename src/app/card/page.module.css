@@ -82,8 +82,13 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  /* Explicit color here, not just background: the global a:hover rule
+     (globals.css) turns link text gold, which would otherwise win over this
+     class's base color on specificity — same fix applied to .socialButton
+     and .saveButton below. */
   .iconButton:hover {
     background: rgba(255, 255, 255, 0.16);
+    color: var(--white);
   }
 }
 
@@ -114,6 +119,7 @@
 @media (hover: hover) and (pointer: fine) {
   .socialButton:hover {
     background: rgba(255, 255, 255, 0.16);
+    color: var(--white);
   }
 }
 
@@ -145,6 +151,7 @@
 @media (hover: hover) and (pointer: fine) {
   .saveButton:hover {
     background: var(--accent-hover);
+    color: var(--navy-900);
   }
 }
 
