@@ -44,6 +44,8 @@ type SiteSettingsRow = {
   card_title: string | null;
   card_bio: string | null;
   card_phone: string | null;
+  how_i_help_image_url: string | null;
+  how_i_help_image_alt: string | null;
 };
 
 export type SiteSettings = {
@@ -65,6 +67,8 @@ export type SiteSettings = {
   cardTitle: string | null;
   cardBio: string | null;
   cardPhone: string | null;
+  howIHelpImage: string | null;
+  howIHelpImageAlt: string | null;
 } | null;
 
 // Rows whose need_id no longer matches an id in content/needs.ts (a need was
@@ -117,6 +121,8 @@ function toSiteSettings(row: SiteSettingsRow): SiteSettings {
     cardTitle: row.card_title,
     cardBio: row.card_bio,
     cardPhone: row.card_phone,
+    howIHelpImage: row.how_i_help_image_url,
+    howIHelpImageAlt: row.how_i_help_image_alt,
   };
 }
 
@@ -181,7 +187,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     const { data, error } = await supabase
       .from("site_settings")
       .select(
-        "hero_image_url, hero_image_alt, story_image_url, story_image_alt, about_image_url, about_image_alt, booking_url, messenger_url, viber_number, contact_email, facebook_url, linkedin_url, instagram_url, card_photo_url, card_photo_alt, card_title, card_bio, card_phone",
+        "hero_image_url, hero_image_alt, story_image_url, story_image_alt, about_image_url, about_image_alt, booking_url, messenger_url, viber_number, contact_email, facebook_url, linkedin_url, instagram_url, card_photo_url, card_photo_alt, card_title, card_bio, card_phone, how_i_help_image_url, how_i_help_image_alt",
       )
       .eq("id", true)
       .maybeSingle();

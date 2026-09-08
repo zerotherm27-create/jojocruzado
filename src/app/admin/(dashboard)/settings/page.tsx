@@ -61,6 +61,13 @@ export default async function SettingsPage({
           currentUrl={settings?.card_photo_url}
           currentAlt={settings?.card_photo_alt}
         />
+        <ImageField
+          label="How I Help photo (/how-i-help)"
+          name="howIHelpImage"
+          altName="howIHelpImageAlt"
+          currentUrl={settings?.how_i_help_image_url}
+          currentAlt={settings?.how_i_help_image_alt}
+        />
         <label className={styles.label}>
           Card title line
           <input

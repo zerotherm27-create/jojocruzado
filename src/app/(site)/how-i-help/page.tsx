@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { needs } from "@/content/needs";
 import { SAFETY_MARGIN_URL } from "@/config/site";
+import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
+
+// Revalidate so a new photo published in /admin shows up within a minute
+// instead of needing a redeploy.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "How I Help",
@@ -11,19 +17,35 @@ export const metadata: Metadata = {
     "These are the areas we usually look at together. Which ones matter most depends entirely on where you are right now.",
 };
 
-export default function HowIHelpPage() {
+export default async function HowIHelpPage() {
+  const settings = await getSiteSettings();
+
   return (
     <main>
-      <section className="band-navy">
-        <div className={`container ${styles.hero}`}>
-          <span className="eyebrow" style={{ color: "var(--accent)" }}>
-            How I help
-          </span>
-          <h1 className={`h1-sub ${styles.heroTitle}`}>Organized around needs, not products.</h1>
-          <p className={`lead ${styles.heroLead}`}>
-            These are the areas we usually look at together. Which ones matter most depends entirely
-            on where you are right now.
-          </p>
+      <section className={`band-navy ${styles.heroSection}`}>
+        {/* Falls back to the placeholder file until a real photo is uploaded in
+            /admin -> Site Settings -> How I Help photo. */}
+        <Image
+          src={resolveImage(settings?.howIHelpImage, "/images/jojo-about.png", 1600, 900)}
+          alt={settings?.howIHelpImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
+          fill
+          sizes="100vw"
+          priority
+          className={styles.heroMedia}
+          style={{ objectFit: "cover", objectPosition: "78% 30%" }}
+        />
+        <div className={`scrim-navy ${styles.heroScrim}`} />
+        <div className={`container ${styles.heroInner}`}>
+          <div className={`stack ${styles.heroText}`}>
+            <span className="eyebrow" style={{ color: "var(--accent)" }}>
+              How I help
+            </span>
+            <h1 className={`h1-sub ${styles.heroTitle}`}>Organized around needs, not products.</h1>
+            <p className={`lead ${styles.heroLead}`}>
+              These are the areas we usually look at together. Which ones matter most depends entirely
+              on where you are right now.
+            </p>
+          </div>
         </div>
       </section>
 

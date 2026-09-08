@@ -31,7 +31,7 @@ export async function updateSiteSettings(formData: FormData) {
 
   const { data: current } = await supabase
     .from("site_settings")
-    .select("hero_image_url, story_image_url, about_image_url, card_photo_url")
+    .select("hero_image_url, story_image_url, about_image_url, card_photo_url, how_i_help_image_url")
     .eq("id", true)
     .maybeSingle();
 
@@ -39,12 +39,20 @@ export async function updateSiteSettings(formData: FormData) {
   let storyImageUrl: string | null;
   let aboutImageUrl: string | null;
   let cardImageUrl: string | null;
+  let howIHelpImageUrl: string | null;
 
   try {
     heroImageUrl = await resolveImage(supabase, formData, "heroImage", current?.hero_image_url, "hero");
     storyImageUrl = await resolveImage(supabase, formData, "storyImage", current?.story_image_url, "story");
     aboutImageUrl = await resolveImage(supabase, formData, "aboutImage", current?.about_image_url, "about");
     cardImageUrl = await resolveImage(supabase, formData, "cardImage", current?.card_photo_url, "card");
+    howIHelpImageUrl = await resolveImage(
+      supabase,
+      formData,
+      "howIHelpImage",
+      current?.how_i_help_image_url,
+      "how-i-help",
+    );
   } catch (uploadError) {
     const message = uploadError instanceof Error ? uploadError.message : "Image upload failed.";
     redirect(`/admin/settings?error=${encodeURIComponent(message)}`);
@@ -63,6 +71,8 @@ export async function updateSiteSettings(formData: FormData) {
       about_image_alt: String(formData.get("aboutImageAlt") || ""),
       card_photo_url: cardImageUrl,
       card_photo_alt: String(formData.get("cardImageAlt") || ""),
+      how_i_help_image_url: howIHelpImageUrl,
+      how_i_help_image_alt: String(formData.get("howIHelpImageAlt") || ""),
       card_title: orNull("cardTitle"),
       card_bio: orNull("cardBio"),
       card_phone: orNull("cardPhone"),
@@ -83,5 +93,6 @@ export async function updateSiteSettings(formData: FormData) {
 
   revalidatePath("/", "layout");
   revalidatePath("/card");
+  revalidatePath("/how-i-help");
   redirect("/admin/settings?success=1");
 }
