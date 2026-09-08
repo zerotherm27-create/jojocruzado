@@ -45,7 +45,7 @@ export default function HowIHelpPage() {
           <p className={styles.closingText}>
             Not sure which of these applies to you? That&apos;s what the check is for.
           </p>
-          <Link href={SAFETY_MARGIN_URL} className="btn btn-gold">
+          <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
             Check My Safety Margin
           </Link>
           {/* Quiet reference only. The eight need-categories above stay the structure of

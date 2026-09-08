@@ -25,10 +25,13 @@ export default function SiteHeader() {
         <nav className={styles.nav}>
           {NAV_ITEMS.map((item) => {
             const active = pathname === item.href;
+            const external = item.href.startsWith("http");
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
                 aria-current={active ? "page" : undefined}
                 className={`${styles.navLink} ${active ? styles.navLinkActive : ""}`}
               >
@@ -62,10 +65,13 @@ export default function SiteHeader() {
         <nav className={styles.panel}>
           {NAV_ITEMS.map((item) => {
             const active = pathname === item.href;
+            const external = item.href.startsWith("http");
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
                 aria-current={active ? "page" : undefined}
                 className={`${styles.panelLink} ${active ? styles.panelLinkActive : ""}`}
               >

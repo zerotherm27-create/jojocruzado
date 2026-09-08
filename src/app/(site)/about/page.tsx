@@ -120,7 +120,7 @@ export default async function AboutPage() {
           </div>
 
           <div className={styles.ctaRow}>
-            <Link href={SAFETY_MARGIN_URL} className="btn btn-navy">
+            <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-navy">
               Check My Safety Margin
             </Link>
             <Link href="/contact" className="btn btn-outline-light">

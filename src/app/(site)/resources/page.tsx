@@ -74,7 +74,7 @@ export default function ResourcesPage() {
             <Link href="/contact" className="btn btn-navy">
               Talk to Jojo
             </Link>
-            <Link href={SAFETY_MARGIN_URL} className="btn btn-outline-light">
+            <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-outline-light">
               Check My Safety Margin
             </Link>
           </div>

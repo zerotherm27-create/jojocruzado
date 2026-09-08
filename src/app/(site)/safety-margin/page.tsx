@@ -74,7 +74,12 @@ export default function SafetyMarginPage() {
             Safety Margin is a simple way to look at the important parts of your financial
             foundation and identify areas that may deserve more attention.
           </p>
-          <Link href={SAFETY_MARGIN_URL} className={`btn btn-gold ${styles.heroCta}`}>
+          <Link
+            href={SAFETY_MARGIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`btn btn-gold ${styles.heroCta}`}
+          >
             Start My Safety Margin Check
           </Link>
           {/* Required verbatim: the Safety Margin educational framing (handoff README). */}

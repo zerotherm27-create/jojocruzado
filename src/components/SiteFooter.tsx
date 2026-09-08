@@ -31,7 +31,7 @@ export default async function SiteFooter() {
             <Link href="/resources" className={styles.link}>
               Sun Life
             </Link>
-            <Link href={SAFETY_MARGIN_URL} className={styles.link}>
+            <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className={styles.link}>
               Safety Margin
             </Link>
             <Link href="/contact" className={styles.link}>

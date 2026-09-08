@@ -14,7 +14,7 @@ export default function MobileStickyCta() {
     <>
       <div className={styles.spacer} />
       <div className={styles.bar}>
-        <Link href={SAFETY_MARGIN_URL} className={styles.cta}>
+        <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className={styles.cta}>
           Check My Safety Margin
         </Link>
       </div>

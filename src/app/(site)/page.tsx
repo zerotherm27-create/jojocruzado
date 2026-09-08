@@ -139,7 +139,7 @@ export default async function HomePage() {
               pressured.
             </p>
             <div className={styles.heroButtons}>
-              <Link href={SAFETY_MARGIN_URL} className="btn btn-gold">
+              <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
                 Check My Safety Margin
               </Link>
               <Link href="/contact" className="btn btn-outline-dark">
@@ -220,7 +220,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div className={styles.frameworkCta}>
-            <Link href={SAFETY_MARGIN_URL} className="btn btn-navy">
+            <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-navy">
               Check My Financial Picture
             </Link>
             <span className={styles.frameworkCtaNote}>
@@ -333,7 +333,7 @@ export default async function HomePage() {
             and what can wait.
           </p>
           <div className={styles.closingButtons}>
-            <Link href={SAFETY_MARGIN_URL} className="btn btn-gold">
+            <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
               Check My Safety Margin
             </Link>
             <Link href="/contact" className="btn btn-outline-dark">

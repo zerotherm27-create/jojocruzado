@@ -101,7 +101,9 @@ export default async function CardPage() {
 
       <nav className={`${styles.links} ${styles.enter}`} style={{ animationDelay: "315ms" }}>
         <Link href="/">Main site</Link>
-        <a href={SAFETY_MARGIN_URL}>Safety Margin</a>
+        <a href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer">
+          Safety Margin
+        </a>
         {settings?.facebookUrl && (
           <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer">
             Facebook
