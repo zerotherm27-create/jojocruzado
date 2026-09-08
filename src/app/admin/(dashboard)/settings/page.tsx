@@ -24,7 +24,7 @@ export default async function SettingsPage({
       <h1 className={styles.title}>Site settings</h1>
       {success && (
         <div className={styles.bannerSuccess} role="status">
-          Changes saved — your live site now reflects this.
+          Changes saved. Your live site now reflects this.
         </div>
       )}
       {error && (

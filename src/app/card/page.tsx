@@ -115,7 +115,12 @@ export default async function CardPage() {
         )}
       </nav>
 
-      <a href={settings?.bookingUrl || CALENDLY_URL} className={styles.footerCta}>
+      <a
+        href={settings?.bookingUrl || CALENDLY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.footerCta}
+      >
         Prefer to talk? Book a free 30-minute call
       </a>
     </main>

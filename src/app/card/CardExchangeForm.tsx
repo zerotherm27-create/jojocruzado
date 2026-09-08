@@ -42,23 +42,36 @@ export default function CardExchangeForm() {
         <p className={styles.exchangeSuccess}>Thanks. I&apos;ll reach out soon.</p>
       ) : (
         <form className={styles.exchangeForm} onSubmit={handleSubmit}>
+          <label className="sr-only" htmlFor="card-exchange-name">
+            Your name
+          </label>
           <input
+            id="card-exchange-name"
             type="text"
             name="name"
             placeholder="Your name"
             required
             className={styles.exchangeInput}
           />
+          <span className={styles.exchangeNote}>Phone or email (at least one)</span>
+          <label className="sr-only" htmlFor="card-exchange-phone">
+            Your phone number
+          </label>
           <input
+            id="card-exchange-phone"
             type="tel"
             name="phone"
-            placeholder="Your phone number"
+            placeholder="Phone number"
             className={styles.exchangeInput}
           />
+          <label className="sr-only" htmlFor="card-exchange-email">
+            Your email
+          </label>
           <input
+            id="card-exchange-email"
             type="email"
             name="email"
-            placeholder="Your email"
+            placeholder="Email address"
             className={styles.exchangeInput}
           />
           {error && (

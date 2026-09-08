@@ -15,6 +15,11 @@
   text-align: center;
   background: var(--navy-900);
   color: var(--white);
+  /* Without this, the global :focus-visible ring (navy by default) would be
+     invisible against this dark background — band-navy/band-story in
+     primitives.css do the same override, but this page doesn't use those
+     classes (see the note above). */
+  --focus-ring: var(--white);
 }
 
 .avatar {
@@ -227,17 +232,30 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
+  gap: 8px;
   margin-top: 22px;
   font-family: var(--font-body);
   font-size: 14px;
 }
 
+/* min-height 44px + padding matches the tap-target convention already used
+   for links elsewhere on the site (see .channel in the /contact page's CSS)
+   — plain small text links are too easy to mis-tap right after an NFC scan. */
 .links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
   color: var(--dark-body);
 }
 
 .footerCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  text-align: center;
   margin-top: 18px;
   font-family: var(--font-body);
   font-weight: 600;
