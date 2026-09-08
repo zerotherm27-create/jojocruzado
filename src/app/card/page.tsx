@@ -38,14 +38,20 @@ export default async function CardPage() {
         alt={settings?.cardPhotoAlt || CARD_FULL_NAME}
         width={128}
         height={128}
-        className={styles.avatar}
+        className={`${styles.avatar} ${styles.enter}`}
         priority
       />
-      <h1 className={styles.name}>{CARD_FULL_NAME}</h1>
-      <p className={styles.title}>{title}</p>
-      <p className={styles.bio}>{bio}</p>
+      <h1 className={`${styles.name} ${styles.enter}`} style={{ animationDelay: "45ms" }}>
+        {CARD_FULL_NAME}
+      </h1>
+      <p className={`${styles.title} ${styles.enter}`} style={{ animationDelay: "90ms" }}>
+        {title}
+      </p>
+      <p className={`${styles.bio} ${styles.enter}`} style={{ animationDelay: "135ms" }}>
+        {bio}
+      </p>
 
-      <div className={styles.socialRow}>
+      <div className={`${styles.socialRow} ${styles.enter}`} style={{ animationDelay: "180ms" }}>
         {phone && (
           <a href={`tel:${phone}`} className={styles.socialButton} aria-label="Call Jojo">
             <PhoneIcon className={styles.socialIcon} />
@@ -86,13 +92,17 @@ export default async function CardPage() {
         )}
       </div>
 
-      <a href="/card/vcard" className={styles.saveButton}>
+      <a
+        href="/card/vcard"
+        className={`${styles.saveButton} ${styles.enter}`}
+        style={{ animationDelay: "225ms" }}
+      >
         Save to Contacts
       </a>
 
       <CardExchangeForm />
 
-      <nav className={styles.links}>
+      <nav className={`${styles.links} ${styles.enter}`} style={{ animationDelay: "315ms" }}>
         <Link href="/">Main site</Link>
         <a href={SAFETY_MARGIN_URL}>Safety Margin</a>
         {settings?.facebookUrl && (
@@ -116,7 +126,8 @@ export default async function CardPage() {
         href={settings?.bookingUrl || CALENDLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className={styles.footerCta}
+        className={`${styles.footerCta} ${styles.enter}`}
+        style={{ animationDelay: "360ms" }}
       >
         Prefer to talk? Book a free 30-minute call
       </a>

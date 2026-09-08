@@ -36,7 +36,7 @@ export default function CardExchangeForm() {
   }
 
   return (
-    <div className={styles.exchangeCard}>
+    <div className={`${styles.exchangeCard} ${styles.enter}`} style={{ animationDelay: "270ms" }}>
       <p className={styles.exchangeTitle}>Let&apos;s stay in touch</p>
       {submitted ? (
         <p className={styles.exchangeSuccess}>Thanks. I&apos;ll reach out soon.</p>

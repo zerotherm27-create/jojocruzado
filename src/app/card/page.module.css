@@ -22,6 +22,28 @@
   --focus-ring: var(--white);
 }
 
+/* A one-time staggered entrance, not a repeated interaction — this page is a
+   first impression (someone scanning the card meets you), so a brief fade +
+   rise on load earns its keep in a way it wouldn't on something tapped
+   constantly. `both` fill-mode holds opacity:0 during the delay so nothing
+   flashes at full opacity before its turn. Respects prefers-reduced-motion
+   via the sitewide rule in globals.css, which forces animation-duration to
+   near-zero for every element. */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.enter {
+  animation: cardEnter 380ms var(--ease-out) both;
+}
+
 .avatar {
   width: 128px;
   height: 128px;
@@ -78,7 +100,7 @@
 }
 
 .socialButton:active {
-  transform: scale(0.94);
+  transform: scale(0.96);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -168,7 +190,7 @@
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
-  transition: transform var(--dur-press) var(--ease-out);
+  transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
 }
 
 .exchangeButton:active {
@@ -178,6 +200,12 @@
 .exchangeButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .exchangeButton:hover:not(:disabled) {
+    background: var(--dark-body);
+  }
 }
 
 .exchangeError {
