@@ -282,27 +282,27 @@ export default async function HomePage() {
             <h2 className={`h2-section ${styles.storyHeading}`}>
               Why I became a financial advisor.
             </h2>
-            {/* TODO(compliance): placeholder story copy — replace with Jojo's own words.
-                No credentials, awards, years of experience or client counts until confirmed. */}
+            {/* Adapted from Jojo's own story on safetymargin.app's About section —
+                real, already-published content, not invented. Condensed for this
+                teaser; the fuller version lives on /about. */}
             <p className={`lead ${styles.storyBody}`}>
-              I&apos;ve always believed that financial decisions become easier when someone helps you
-              see the bigger picture.
+              When I moved to Singapore as a Field Service Engineer, I thought the hard part was
+              over &mdash; good salary, better life ahead. I was wrong. Like a lot of OFWs, the income
+              went up, but the savings didn&apos;t.
             </p>
             <p className={`lead ${styles.storyBody}`}>
-              As I learned more about protection, planning and the responsibilities we carry for our
-              families and businesses, I realized how valuable the right conversation can be.
+              That wake-up call led me to a community of Filipinos asking the same hard questions
+              about money. We learned investing, business and personal development together, and
+              slowly built things I&apos;m still proud of today.
             </p>
             <p className={`lead ${styles.storyBody}`}>
-              Today, as a Sun Life Financial Advisor, my role is simple: help people understand their
-              financial situation, ask better questions and make decisions they can feel confident
-              about.
+              In 2018, I came home to help run what we&apos;d built with my family. I joined Sun Life
+              because insurance was the one piece I kept seeing missing &mdash; even in people who
+              were already doing everything else right.
             </p>
             <Link href="/about" className="arrow-link arrow-link-gold">
               More About Jojo &rarr;
             </Link>
-            <span className={styles.storyNote}>
-              Placeholder copy &mdash; to be replaced with Jojo&apos;s own story before launch.
-            </span>
           </div>
         </div>
       </section>

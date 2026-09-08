@@ -60,16 +60,25 @@ export default async function AboutPage() {
         <div className={`container autogrid ${styles.columns}`}>
           <div className={`stack ${styles.column}`}>
             <h2 className={styles.columnTitle}>How I got here</h2>
-            {/* TODO(compliance): Jojo's real background. Credentials, awards, years of
-                experience and client counts must not be published until confirmed. */}
+            {/* Adapted from Jojo's own story on safetymargin.app's About section —
+                real, already-published content, not invented. Confirm wording/
+                facts with him before treating this as final. */}
             <p className={styles.prose}>
-              Placeholder: Jojo&apos;s real background, professional experience and advisor journey
-              go here. Nothing about credentials, awards or years of experience should be published
-              until it is confirmed.
+              When I arrived in Singapore as a Field Service Engineer, I thought the hard part was
+              over. I was wrong. Like a lot of OFWs, the higher income didn&apos;t translate into
+              savings &mdash; at one point, my family and I were just surviving.
             </p>
             <p className={styles.prose}>
-              Placeholder: entrepreneurship experience, family perspective and community
-              involvement, if Jojo wants these public.
+              That wake-up call led us to a community of Filipinos asking the same hard questions
+              about money. We learned investing, business and personal development together, and
+              slowly built real estate, a laundry business, a design-and-build company, and a few
+              other ventures &mdash; things we&apos;re genuinely proud of.
+            </p>
+            <p className={styles.prose}>
+              In 2018, I came home &mdash; not just to the Philippines, but to my family, to help run
+              what we&apos;d built together. I joined Sun Life because insurance was the one piece I
+              kept seeing missing, even in people already doing everything else right. One health
+              crisis or one loss in the family can undo it all without protection in place.
             </p>
           </div>
 
