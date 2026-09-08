@@ -67,6 +67,23 @@ export function ViberIcon({ className }: IconProps) {
   );
 }
 
+export function MessengerIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M12 4C6.9 4 3 7.6 3 12.3c0 2.6 1.2 4.9 3.2 6.4V22l3-1.6c.9.2 1.8.4 2.8.4 5.1 0 9-3.6 9-8.3S17.1 4 12 4z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7 13.5l3.4-3.6 2.4 2 3.5-2.6-3.6 3.8-2.4-2-3.3 2.4z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export function FacebookIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">

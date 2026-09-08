@@ -8,7 +8,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  /* Tight by default (suits the identity block: avatar/name/title/bio read as
+     one unit); sections after it add their own margin-top on top of this to
+     read as distinct zones instead of one undifferentiated stack. */
+  gap: 8px;
   max-width: 420px;
   margin: 0 auto;
   padding: clamp(28px, 6vw, 48px) var(--gutter) 56px;
@@ -60,10 +63,15 @@
   margin-top: 4px;
 }
 
+/* Eyebrow-label treatment, matching the .eyebrow convention used across the
+   rest of the site (src/styles/primitives.css) — reads as a label under the
+   name rather than a second line of body copy competing with .bio. */
 .title {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--accent);
 }
 
@@ -73,14 +81,17 @@
   line-height: 1.6;
   color: var(--dark-body);
   max-width: 34ch;
+  margin-top: 4px;
 }
 
+/* margin-top (on top of .card's 8px gap) marks this as the start of a new
+   zone — "how to reach me" — distinct from the identity block above it. */
 .socialRow {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  margin-top: 6px;
+  margin-top: 16px;
 }
 
 /* Explicit color in :hover below, not just background: the global a:hover
@@ -127,7 +138,7 @@
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 14px;
   transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
 }
 
@@ -144,7 +155,7 @@
 
 .exchangeCard {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 22px;
   padding: 20px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
@@ -233,7 +244,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  margin-top: 22px;
+  margin-top: 24px;
   font-family: var(--font-body);
   font-size: 14px;
 }
@@ -256,7 +267,7 @@
   min-height: 44px;
   padding: 0 16px;
   text-align: center;
-  margin-top: 18px;
+  margin-top: 20px;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 14px;

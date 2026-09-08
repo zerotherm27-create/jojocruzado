@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CardExchangeForm from "./CardExchangeForm";
-import { EmailIcon, FacebookIcon, MessageIcon, PhoneIcon, ViberIcon, WebsiteIcon } from "./icons";
+import { EmailIcon, MessageIcon, MessengerIcon, PhoneIcon, ViberIcon } from "./icons";
 import { CALENDLY_URL, CARD_FULL_NAME, SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import styles from "./page.module.css";
@@ -71,9 +71,6 @@ export default async function CardPage() {
             <ViberIcon className={styles.socialIcon} />
           </a>
         )}
-        <Link href="/" className={styles.socialButton} aria-label="Visit Jojo's website">
-          <WebsiteIcon className={styles.socialIcon} />
-        </Link>
         {email && (
           <a href={`mailto:${email}`} className={styles.socialButton} aria-label="Email Jojo">
             <EmailIcon className={styles.socialIcon} />
@@ -85,9 +82,9 @@ export default async function CardPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialButton}
-            aria-label="Message Jojo on Facebook"
+            aria-label="Message Jojo on Messenger"
           >
-            <FacebookIcon className={styles.socialIcon} />
+            <MessengerIcon className={styles.socialIcon} />
           </a>
         )}
       </div>
