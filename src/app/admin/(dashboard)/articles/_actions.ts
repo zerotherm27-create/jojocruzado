@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireAdmin } from "@/lib/supabase/admin";
 import { createServiceRoleClient } from "@/lib/supabase/client";
@@ -10,14 +10,17 @@ import { uploadImage } from "@/lib/supabase/storage";
 import { slugify } from "@/lib/slug";
 
 const ALLOWED_TAGS = ["p", "strong", "em", "h2", "h3", "ul", "ol", "li", "blockquote", "a", "br"];
-const ALLOWED_ATTR = ["href", "target", "rel"];
+const ALLOWED_ATTRIBUTES = { a: ["href", "target", "rel"] };
 
 // Sanitized once here, at the point admin-authored HTML enters storage --
 // the same boundary-validation pattern this codebase already uses for image
 // uploads (sniffImageType in src/lib/supabase/storage.ts) -- rather than at
-// every future render site.
+// every future render site. Uses sanitize-html (pure JS, no DOM emulation)
+// rather than isomorphic-dompurify: the latter pulls in jsdom, whose
+// html-encoding-sniffer dependency requires an ESM-only package via
+// require(), which crashes with ERR_REQUIRE_ESM on Vercel's Node runtime.
 function sanitizeBody(html: string): string {
-  return DOMPurify.sanitize(html, { ALLOWED_TAGS, ALLOWED_ATTR });
+  return sanitizeHtml(html, { allowedTags: ALLOWED_TAGS, allowedAttributes: ALLOWED_ATTRIBUTES });
 }
 
 function revalidateArticles(slug?: string) {

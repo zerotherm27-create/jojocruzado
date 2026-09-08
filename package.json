@@ -15,11 +15,11 @@
     "@tiptap/pm": "^3.31.3",
     "@tiptap/react": "^3.31.3",
     "@tiptap/starter-kit": "^3.31.3",
-    "isomorphic-dompurify": "^4.2.0",
     "next": "^15.5.4",
     "next-sanity": "^11.6.13",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "sanitize-html": "^2.17.7",
     "sanity": "^5.31.2",
     "styled-components": "^6.5.3"
   },
@@ -27,6 +27,7 @@
     "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@types/sanitize-html": "^2.16.1",
     "typescript": "^5.9.2"
   }
 }
