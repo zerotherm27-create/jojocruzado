@@ -1,5 +1,16 @@
 import type { Article } from "@/content/insights";
+import type { Artcard } from "@/components/ArtcardDialog";
+import { needs } from "@/content/needs";
 import { createServiceRoleClient } from "./client";
+
+type ArtcardRow = {
+  id: string;
+  need_id: string;
+  image_url: string;
+  image_alt: string;
+  product_name: string | null;
+  issued_on: string | null;
+};
 
 type ArticleRow = {
   id: string;
@@ -53,6 +64,22 @@ export type SiteSettings = {
   cardPhone: string | null;
 } | null;
 
+// Rows whose need_id no longer matches an id in content/needs.ts (a need was
+// renamed/removed after the card was uploaded) are dropped rather than shown
+// with a broken/blank category.
+function toArtcard(row: ArtcardRow): Artcard | null {
+  const need = needs.find((candidate) => candidate.id === row.need_id);
+  if (!need) return null;
+  return {
+    id: row.id,
+    image: row.image_url,
+    imageAlt: row.image_alt,
+    need,
+    productName: row.product_name ?? undefined,
+    issuedOn: row.issued_on ?? undefined,
+  };
+}
+
 function toArticle(row: ArticleRow): Article {
   return {
     id: row.id,
@@ -105,6 +132,22 @@ export async function getArticles(): Promise<Article[]> {
     return (data as ArticleRow[]).map(toArticle);
   } catch (error) {
     console.error("getArticles failed", error);
+    return [];
+  }
+}
+
+export async function getArtcards(): Promise<Artcard[]> {
+  try {
+    const supabase = createServiceRoleClient();
+    const { data, error } = await supabase
+      .from("artcards")
+      .select("id, need_id, image_url, image_alt, product_name, issued_on")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return (data as ArtcardRow[]).map(toArtcard).filter((card): card is Artcard => card !== null);
+  } catch (error) {
+    console.error("getArtcards failed", error);
     return [];
   }
 }

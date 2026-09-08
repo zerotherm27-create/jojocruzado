@@ -9,9 +9,8 @@ import styles from "./ArtcardDialog.module.css";
 export type Artcard = {
   id: string;
   image: string;
+  imageAlt?: string;
   need: Need;
-  /* TODO(compliance): populate once Jojo supplies the real files — see the gate
-     comment in src/app/resources/page.tsx. */
   productName?: string;
   issuedOn?: string;
 };
@@ -45,9 +44,10 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
             <SlotImage
               src={card.image}
               alt={
-                card.productName
+                card.imageAlt ||
+                (card.productName
                   ? `${card.productName}: Sun Life artcard, tap to enlarge`
-                  : "Placeholder slot awaiting a Sun Life-approved artcard"
+                  : "Placeholder slot awaiting a Sun Life-approved artcard")
               }
               ratio="1 / 1"
               radius={12}
@@ -93,9 +93,10 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
             <SlotImage
               src={active.image}
               alt={
-                active.productName
+                active.imageAlt ||
+                (active.productName
                   ? `${active.productName}: Sun Life artcard`
-                  : "Placeholder slot awaiting a Sun Life-approved artcard"
+                  : "Placeholder slot awaiting a Sun Life-approved artcard")
               }
               ratio="1 / 1"
               radius={12}

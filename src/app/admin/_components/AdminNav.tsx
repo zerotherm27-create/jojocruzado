@@ -9,6 +9,9 @@ export default function AdminNav() {
       <Link href="/admin/articles" className={styles.navLink}>
         Articles
       </Link>
+      <Link href="/admin/artcards" className={styles.navLink}>
+        Sun Life Artcards
+      </Link>
       <Link href="/admin/settings" className={styles.navLink}>
         Site Settings
       </Link>
