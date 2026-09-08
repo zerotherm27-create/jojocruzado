@@ -38,6 +38,7 @@ export async function createArticle(formData: FormData) {
     try {
       imageUrl = await uploadImage(supabase, "articles", crypto.randomUUID(), file);
     } catch (uploadError) {
+      console.error("Article image upload failed", uploadError);
       const message = uploadError instanceof Error ? uploadError.message : "Image upload failed.";
       redirect(`/admin/articles/new?error=${encodeURIComponent(message)}`);
     }
@@ -81,6 +82,7 @@ export async function updateArticle(id: string, formData: FormData) {
     try {
       update.image_url = await uploadImage(supabase, "articles", crypto.randomUUID(), file);
     } catch (uploadError) {
+      console.error("Article image upload failed", uploadError);
       const message = uploadError instanceof Error ? uploadError.message : "Image upload failed.";
       redirect(`/admin/articles/${id}/edit?error=${encodeURIComponent(message)}`);
     }
