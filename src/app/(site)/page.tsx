@@ -1,12 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
-import SlotImage from "@/components/SlotImage";
 import { articles as fallbackArticles } from "@/content/insights";
 import { getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
 import styles from "./page.module.css";
 
-// Revalidate so a new article or photo published in the Studio shows up within a
+// Revalidate so a new article or photo published in /admin shows up within a
 // minute instead of needing a redeploy.
 export const revalidate = 60;
 
@@ -110,8 +110,20 @@ export default async function HomePage() {
 
   return (
     <main>
-      <section className="band-navy">
-        <div className={`container autogrid ${styles.hero}`}>
+      <section className={`band-navy ${styles.heroSection}`}>
+        {/* Falls back to the placeholder file until a real photo is uploaded in
+            /admin -> Site Settings -> Homepage hero photo. */}
+        <Image
+          src={resolveImage(settings?.heroImage, "/images/jojo-hero.png", 1600, 900)}
+          alt={settings?.heroImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
+          fill
+          sizes="100vw"
+          priority
+          className={styles.heroMedia}
+          style={{ objectFit: "cover", objectPosition: "78% 30%" }}
+        />
+        <div className={`scrim-navy ${styles.heroScrim}`} />
+        <div className={`container ${styles.heroInner}`}>
           <div className={`stack ${styles.heroText}`}>
             <span className="eyebrow" style={{ color: "var(--accent)" }}>
               Sun Life Financial Advisor
@@ -136,18 +148,6 @@ export default async function HomePage() {
             </div>
             <span className={styles.heroNote}>Start with clarity. No pressure to commit.</span>
           </div>
-
-          {/* Falls back to the placeholder file until a real photo is uploaded in
-              Sanity Studio (/studio -> Site Settings -> Homepage hero photo). */}
-          <SlotImage
-            className={styles.heroImage}
-            src={resolveImage(settings?.heroImage, "/images/jojo-hero.png", 1000, 1250)}
-            alt={settings?.heroImageAlt || "Placeholder for a portrait of Jojo Cruzado"}
-            ratio="4 / 5"
-            edgeFade
-            maxHeight="min(620px, 68vh)"
-            priority
-          />
         </div>
       </section>
 
@@ -259,16 +259,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="band-story">
-        <div className={`container autogrid ${styles.band} ${styles.story}`}>
-          {/* Falls back to the placeholder file until a real photo is uploaded in
-              Sanity Studio (/studio -> Site Settings -> "Personal story" photo). */}
-          <SlotImage
-            src={resolveImage(settings?.storyImage, "/images/jojo-story.png", 1250, 1000)}
-            alt={settings?.storyImageAlt || "Placeholder for a photo of Jojo Cruzado at his desk"}
-            ratio="5 / 4"
-            edgeFade
-          />
+      <section className={`band-story ${styles.storySection}`}>
+        {/* Falls back to the placeholder file until a real photo is uploaded in
+            /admin -> Site Settings -> "Personal story" photo. */}
+        <Image
+          src={resolveImage(settings?.storyImage, "/images/jojo-story.png", 1600, 1000)}
+          alt={settings?.storyImageAlt || "Placeholder for a photo of Jojo Cruzado at his desk"}
+          fill
+          sizes="100vw"
+          className={styles.storyMedia}
+          style={{ objectFit: "cover", objectPosition: "22% 35%" }}
+        />
+        <div
+          className={`scrim-navy ${styles.storyScrim}`}
+          style={{ "--scrim-angle": "270deg" } as React.CSSProperties}
+        />
+        <div className={`container ${styles.storyInner}`}>
           <div className={`stack ${styles.storyText}`}>
             <span className="eyebrow" style={{ color: "var(--accent)" }}>
               Personal

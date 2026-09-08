@@ -9,15 +9,32 @@
 
 /* Hero ---------------------------------------------------------------- */
 
-.hero {
-  --min: 320px;
-  padding-block: clamp(48px, 7vw, 96px);
-  gap: clamp(32px, 5vw, 64px);
+.heroSection {
+  position: relative;
+  min-height: min(720px, 92vh);
+  display: flex;
   align-items: center;
+  overflow: hidden;
+}
+
+.heroMedia {
+  z-index: 0;
+}
+
+.heroScrim {
+  z-index: 1;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-block: clamp(48px, 7vw, 96px);
 }
 
 .heroText {
   gap: 22px;
+  max-width: min(620px, 48vw);
 }
 
 .heroTitle {
@@ -44,13 +61,28 @@
   color: var(--dark-muted);
 }
 
-.heroImage {
-  order: 0;
-}
-
 @media (max-width: 900px) {
-  .heroImage {
-    order: -1;
+  .heroSection {
+    min-height: min(560px, 78vh);
+    align-items: flex-end;
+  }
+
+  .heroInner {
+    padding-block: clamp(32px, 8vw, 56px);
+  }
+
+  .heroText {
+    max-width: 100%;
+  }
+
+  .heroScrim {
+    --scrim-angle: 180deg;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--navy-900-rgb), 0.5) 0%,
+      rgba(var(--navy-900-rgb), 0.86) 40%,
+      rgba(var(--navy-900-rgb), 0.96) 100%
+    );
   }
 }
 
@@ -213,14 +245,34 @@
 
 /* Personal story -------------------------------------------------------- */
 
-.story {
-  --min: 300px;
-  gap: clamp(28px, 4vw, 64px);
+.storySection {
+  position: relative;
+  min-height: min(820px, 100vh);
+  display: flex;
   align-items: center;
+  overflow: hidden;
+}
+
+.storyMedia {
+  z-index: 0;
+}
+
+.storyScrim {
+  z-index: 1;
+}
+
+.storyInner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-block: clamp(48px, 7vw, 96px);
+  display: flex;
+  justify-content: flex-end;
 }
 
 .storyText {
   gap: 18px;
+  max-width: min(620px, 48vw);
 }
 
 .storyHeading {
@@ -238,6 +290,31 @@
   font-size: 13px;
   line-height: 1.5;
   color: var(--dark-faint);
+}
+
+@media (max-width: 900px) {
+  .storySection {
+    min-height: min(680px, 82vh);
+    align-items: flex-end;
+  }
+
+  .storyInner {
+    padding-block: clamp(32px, 8vw, 56px);
+    justify-content: flex-start;
+  }
+
+  .storyText {
+    max-width: 100%;
+  }
+
+  .storyScrim {
+    background: linear-gradient(
+      180deg,
+      rgba(var(--navy-900-rgb), 0.5) 0%,
+      rgba(var(--navy-900-rgb), 0.86) 40%,
+      rgba(var(--navy-900-rgb), 0.96) 100%
+    );
+  }
 }
 
 /* Insights preview ------------------------------------------------------ */

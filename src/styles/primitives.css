@@ -32,6 +32,26 @@
   --focus-ring: var(--white);
 }
 
+/* Full-bleed photo scrim: a directional dark gradient placed over a full-bleed
+   photo so light text sits on it with AA contrast, without flattening the
+   whole photo under one flat opacity. --scrim-angle defaults to 90deg (dark on
+   the left, fading toward transparent on the right) — override per section via
+   an inline custom property when the text sits on the opposite side. */
+.scrim-navy {
+  --scrim-angle: 90deg;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--scrim-angle),
+    rgba(var(--navy-900-rgb), 0.95) 0%,
+    rgba(var(--navy-900-rgb), 0.88) 38%,
+    rgba(var(--navy-900-rgb), 0.6) 58%,
+    rgba(var(--navy-900-rgb), 0.2) 80%,
+    rgba(var(--navy-900-rgb), 0) 100%
+  );
+  pointer-events: none;
+}
+
 .container {
   max-width: var(--maxw);
   margin: 0 auto;

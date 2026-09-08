@@ -2,6 +2,9 @@
   --navy-900: #0b1220;
   --navy-800: #172033;
   --navy-700: #222c40;
+  /* Same color as --navy-900, as r,g,b components for use inside rgba() —
+     needed by the .scrim-navy gradient primitive in primitives.css. */
+  --navy-900-rgb: 11, 18, 32;
 
   /* Applied at runtime so the accent stays themeable — see src/config/site.ts */
   --accent: #f5a623;
