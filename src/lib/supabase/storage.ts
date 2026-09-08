@@ -67,5 +67,10 @@ export async function uploadImage(
   }
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
-  return data.publicUrl;
+  // A cache-busting query param, not part of the storage path — the object
+  // itself still lives at the same fixed path (so upsert still replaces it,
+  // no orphaned files). Without this, browsers/Vercel's image optimizer cache
+  // the previous photo's bytes at this exact URL for up to an hour, making a
+  // fresh upload look like it "didn't save" until that cache expires.
+  return `${data.publicUrl}?v=${Date.now()}`;
 }
