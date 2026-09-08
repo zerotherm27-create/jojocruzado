@@ -31,18 +31,20 @@ export async function updateSiteSettings(formData: FormData) {
 
   const { data: current } = await supabase
     .from("site_settings")
-    .select("hero_image_url, story_image_url, about_image_url")
+    .select("hero_image_url, story_image_url, about_image_url, card_photo_url")
     .eq("id", true)
     .maybeSingle();
 
   let heroImageUrl: string | null;
   let storyImageUrl: string | null;
   let aboutImageUrl: string | null;
+  let cardImageUrl: string | null;
 
   try {
     heroImageUrl = await resolveImage(supabase, formData, "heroImage", current?.hero_image_url, "hero");
     storyImageUrl = await resolveImage(supabase, formData, "storyImage", current?.story_image_url, "story");
     aboutImageUrl = await resolveImage(supabase, formData, "aboutImage", current?.about_image_url, "about");
+    cardImageUrl = await resolveImage(supabase, formData, "cardImage", current?.card_photo_url, "card");
   } catch (uploadError) {
     const message = uploadError instanceof Error ? uploadError.message : "Image upload failed.";
     redirect(`/admin/settings?error=${encodeURIComponent(message)}`);
@@ -59,6 +61,11 @@ export async function updateSiteSettings(formData: FormData) {
       story_image_alt: String(formData.get("storyImageAlt") || ""),
       about_image_url: aboutImageUrl,
       about_image_alt: String(formData.get("aboutImageAlt") || ""),
+      card_photo_url: cardImageUrl,
+      card_photo_alt: String(formData.get("cardImageAlt") || ""),
+      card_title: orNull("cardTitle"),
+      card_bio: orNull("cardBio"),
+      card_phone: orNull("cardPhone"),
       booking_url: orNull("bookingUrl"),
       messenger_url: orNull("messengerUrl"),
       viber_number: orNull("viberNumber"),
@@ -75,5 +82,6 @@ export async function updateSiteSettings(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
+  revalidatePath("/card");
   redirect("/admin/settings?success=1");
 }

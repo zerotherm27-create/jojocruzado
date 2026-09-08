@@ -25,6 +25,11 @@ type SiteSettingsRow = {
   facebook_url: string | null;
   linkedin_url: string | null;
   instagram_url: string | null;
+  card_photo_url: string | null;
+  card_photo_alt: string | null;
+  card_title: string | null;
+  card_bio: string | null;
+  card_phone: string | null;
 };
 
 export type SiteSettings = {
@@ -41,6 +46,11 @@ export type SiteSettings = {
   facebookUrl: string | null;
   linkedinUrl: string | null;
   instagramUrl: string | null;
+  cardPhoto: string | null;
+  cardPhotoAlt: string | null;
+  cardTitle: string | null;
+  cardBio: string | null;
+  cardPhone: string | null;
 } | null;
 
 function toArticle(row: ArticleRow): Article {
@@ -70,6 +80,11 @@ function toSiteSettings(row: SiteSettingsRow): SiteSettings {
     facebookUrl: row.facebook_url,
     linkedinUrl: row.linkedin_url,
     instagramUrl: row.instagram_url,
+    cardPhoto: row.card_photo_url,
+    cardPhotoAlt: row.card_photo_alt,
+    cardTitle: row.card_title,
+    cardBio: row.card_bio,
+    cardPhone: row.card_phone,
   };
 }
 
@@ -100,7 +115,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     const { data, error } = await supabase
       .from("site_settings")
       .select(
-        "hero_image_url, hero_image_alt, story_image_url, story_image_alt, about_image_url, about_image_alt, booking_url, messenger_url, viber_number, contact_email, facebook_url, linkedin_url, instagram_url",
+        "hero_image_url, hero_image_alt, story_image_url, story_image_alt, about_image_url, about_image_alt, booking_url, messenger_url, viber_number, contact_email, facebook_url, linkedin_url, instagram_url, card_photo_url, card_photo_alt, card_title, card_bio, card_phone",
       )
       .eq("id", true)
       .maybeSingle();

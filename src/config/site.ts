@@ -9,6 +9,12 @@ export const SAFETY_MARGIN_URL = "https://safetymargin.app";
 export const CALENDLY_URL = "https://calendly.com/jojocruzado/30min";
 export const MESSENGER_URL = "https://m.me/safetymarginph";
 
+// Used by /card (the digital business card an NFC tap opens) and its vCard
+// download. Kept as a constant, not a site_settings column — this is a
+// single-owner site, and Jojo's name already appears as literal copy
+// everywhere else (e.g. /about), so this matches that convention.
+export const CARD_FULL_NAME = "Jojo Cruzado";
+
 export const NAV_ITEMS = [
   { href: "/about", label: "About" },
   { href: "/how-i-help", label: "How I Help" },

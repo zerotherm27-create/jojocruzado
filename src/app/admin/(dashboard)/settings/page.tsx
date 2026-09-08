@@ -54,6 +54,41 @@ export default async function SettingsPage({
           currentUrl={settings?.about_image_url}
           currentAlt={settings?.about_image_alt}
         />
+        <ImageField
+          label="Business card photo (square headshot, /card)"
+          name="cardImage"
+          altName="cardImageAlt"
+          currentUrl={settings?.card_photo_url}
+          currentAlt={settings?.card_photo_alt}
+        />
+        <label className={styles.label}>
+          Card title line
+          <input
+            type="text"
+            name="cardTitle"
+            defaultValue={settings?.card_title ?? ""}
+            placeholder="Sun Life | Licensed Insurance Advisor"
+            className={styles.input}
+          />
+        </label>
+        <label className={styles.label}>
+          Card bio (1-2 sentences)
+          <textarea
+            name="cardBio"
+            rows={3}
+            defaultValue={settings?.card_bio ?? ""}
+            className={styles.textarea}
+          />
+        </label>
+        <label className={styles.label}>
+          Card phone number (for call/text buttons on /card)
+          <input
+            type="tel"
+            name="cardPhone"
+            defaultValue={settings?.card_phone ?? ""}
+            className={styles.input}
+          />
+        </label>
 
         <label className={styles.label}>
           Booking link

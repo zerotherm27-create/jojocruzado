@@ -1,0 +1,246 @@
+/* Self-contained, mobile-first styles — deliberately not reusing
+   band-navy/container/autogrid from src/styles/primitives.css, which are
+   tuned for full-width marketing sections, not a compact single-column
+   card meant to be glanced at right after an NFC tap. */
+
+.card {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 48px) var(--gutter) 56px;
+  text-align: center;
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--white);
+  margin-top: 4px;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--accent);
+}
+
+.bio {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--dark-body);
+  max-width: 34ch;
+}
+
+.iconRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
+}
+
+.iconButton:active {
+  transform: scale(0.94);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .iconButton:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+.socialRow {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
+}
+
+.socialButton:active {
+  transform: scale(0.94);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .socialButton:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.saveButton {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--navy-900);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color var(--dur-hover) ease, transform var(--dur-press) var(--ease-out);
+}
+
+.saveButton:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .saveButton:hover {
+    background: var(--accent-hover);
+  }
+}
+
+.exchangeCard {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.exchangeTitle {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.exchangeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exchangeInput {
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+.exchangeInput::placeholder {
+  color: var(--dark-muted);
+}
+
+.exchangeButton {
+  min-height: 46px;
+  border-radius: 10px;
+  border: none;
+  background: var(--white);
+  color: var(--navy-900);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+
+.exchangeButton:active {
+  transform: scale(0.98);
+}
+
+.exchangeButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.exchangeError {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.exchangeSuccess {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--dark-body);
+}
+
+.exchangeNote {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dark-faint);
+  margin-top: 8px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.links a {
+  color: var(--dark-body);
+}
+
+.footerCta {
+  margin-top: 18px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--accent);
+}
