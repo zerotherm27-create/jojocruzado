@@ -7,6 +7,21 @@ import styles from "./TestimonialForm.module.css";
 
 const RATINGS = [5, 4, 3, 2, 1];
 
+const PROFESSIONS = [
+  "Business Owner",
+  "Entrepreneur",
+  "Engineer",
+  "Doctor",
+  "Nurse",
+  "Teacher",
+  "Lawyer",
+  "Accountant",
+  "IT Professional",
+  "OFW",
+  "Employee",
+  "Other",
+];
+
 export default function TestimonialForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -90,13 +105,17 @@ export default function TestimonialForm() {
         </label>
 
         <label className={styles.label}>
-          How do you know Jojo? (optional)
-          <input
-            type="text"
-            name="relationship"
-            placeholder="e.g. Client since 2023"
-            className={styles.input}
-          />
+          Profession (optional)
+          <select name="relationship" defaultValue="" className={styles.select}>
+            <option value="" disabled>
+              Select your profession
+            </option>
+            {PROFESSIONS.map((profession) => (
+              <option key={profession} value={profession}>
+                {profession}
+              </option>
+            ))}
+          </select>
         </label>
 
         <div className={styles.label}>

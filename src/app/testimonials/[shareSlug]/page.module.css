@@ -1,22 +1,74 @@
+/* Full-bleed photo hero, matching the same photo+scrim treatment already
+   used on the site's other hero sections (homepage/About/How I Help), so
+   this direct-link page reads as part of the same site rather than a
+   one-off design. */
+
+.hero {
+  position: relative;
+  min-height: min(420px, 60vh);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heroMedia {
+  z-index: 0;
+}
+
+.heroScrim {
+  z-index: 1;
+}
+
+/* Fades the bottom of the photo into .wrap's background color instead of
+   ending on a hard edge -- height is deliberately independent of .hero's
+   fluid min-height so the fade band stays a consistent size regardless of
+   viewport. */
+.heroFade {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0 0;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(248, 249, 251, 0) 0%, var(--surface) 100%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding-block: clamp(48px, 8vw, 88px);
+}
+
+.heroTitle {
+  color: var(--white);
+  margin-top: 2px;
+}
+
+.heroBody {
+  max-width: 54ch;
+  color: var(--dark-body);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: min(320px, 50vh);
+  }
+
+  .heroInner {
+    padding-block: clamp(32px, 8vw, 56px);
+  }
+
+  .heroScrim {
+    background: rgba(var(--navy-900-rgb), 0.6);
+  }
+}
+
 .wrap {
-  min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-  padding: clamp(40px, 8vw, 80px) var(--gutter);
+  justify-content: center;
+  padding: clamp(32px, 6vw, 56px) var(--gutter) 56px;
   background: var(--surface);
-}
-
-.intro {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 480px;
-  text-align: center;
-  align-items: center;
-}
-
-.title {
-  margin-top: 4px;
 }
