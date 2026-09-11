@@ -5,7 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import Reveal from "@/components/Reveal";
 import { articles as fallbackArticles } from "@/content/insights";
 import { getApprovedTestimonials, getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
-import ProtectionGapCalculator from "@/components/ProtectionGapCalculator";
+import ProtectionGapProvider, { ProtectionGapTrigger } from "@/components/ProtectionGapCalculator";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
 import styles from "./page.module.css";
 
@@ -123,6 +123,7 @@ export default async function HomePage() {
   const articles = (sanityArticles.length > 0 ? sanityArticles : fallbackArticles).slice(0, 3);
 
   return (
+    <ProtectionGapProvider>
     <main>
       <section className={`band-navy ${styles.heroSection}`}>
         {/* Falls back to the placeholder file until a real photo is uploaded in
@@ -157,10 +158,13 @@ export default async function HomePage() {
                   it's the first thing a cold visitor sees before any "Safety Margin"
                   context exists. Every other instance sitewide stays the branded
                   "Check My Safety Margin" -- see memory.md if this gets reverted or
-                  made permanent, so the reasoning isn't lost either way. */}
-              <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
+                  made permanent, so the reasoning isn't lost either way. Opens the
+                  on-site Protection Gap calculator now instead of linking straight to
+                  safetymargin.app, so a cold visitor engages (and is lead-captured)
+                  here first, then gets funneled to /contact from the result. */}
+              <ProtectionGapTrigger className="btn btn-gold">
                 Check My Protection Gap
-              </Link>
+              </ProtectionGapTrigger>
               <Link href="/contact" className="btn btn-outline-dark">
                 Talk to Jojo
               </Link>
@@ -235,7 +239,6 @@ export default async function HomePage() {
                 <span className={styles.tileNumber}>{layer.number}</span>
                 <h3 className={styles.tileTitle}>{layer.title}</h3>
                 <p className={styles.tileBody}>{layer.body}</p>
-                {layer.number === "03" && <ProtectionGapCalculator />}
               </div>
             ))}
           </div>
@@ -247,6 +250,23 @@ export default async function HomePage() {
               Not every part applies to everyone. That&apos;s the point of looking first.
             </span>
           </div>
+        </Reveal>
+      </section>
+
+      <section className="band-navy">
+        <Reveal className={`container ${styles.band} ${styles.gapSection}`}>
+          <span className="eyebrow" style={{ color: "var(--accent)" }}>
+            Protection Gap Calculator
+          </span>
+          <h2 className={`h2-section ${styles.gapHeading}`}>How big is your protection gap?</h2>
+          <p className={`lead ${styles.gapLead}`}>
+            Answer four quick questions and see a personalized, rough estimate of how much
+            additional life insurance coverage your family might need.
+          </p>
+          <ProtectionGapTrigger className="btn btn-gold">
+            Estimate My Protection Gap
+          </ProtectionGapTrigger>
+          <span className={styles.gapNote}>Takes about a minute. No pressure to commit.</span>
         </Reveal>
       </section>
 
@@ -398,5 +418,6 @@ export default async function HomePage() {
         </Reveal>
       </section>
     </main>
+    </ProtectionGapProvider>
   );
 }

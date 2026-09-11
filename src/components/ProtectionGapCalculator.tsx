@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { createContext, useContext, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import {
   calculateProtectionGap,
@@ -52,10 +52,40 @@ function isStepValid(answers: Answers, step: 0 | 1 | 2 | 3): boolean {
   return true; // existing coverage / debts default to 0, always valid
 }
 
-/* Client leaf, matching ArtcardDialog.tsx's pattern: a trigger + a native
-   <dialog> (free focus trap, Esc-to-dismiss, backdrop-click-to-close), so
-   only this small island needs to be a Client Component. */
-export default function ProtectionGapCalculator() {
+// One dialog, opened from multiple places on the page (the hero button and
+// a dedicated homepage section) -- a Context instead of each trigger owning
+// its own dialog, so there's exactly one lead-capture flow, not several
+// independent copies of it.
+const ProtectionGapContext = createContext<(() => void) | null>(null);
+
+function useProtectionGap(): () => void {
+  const open = useContext(ProtectionGapContext);
+  if (!open) {
+    throw new Error("ProtectionGapTrigger must be rendered inside a ProtectionGapProvider");
+  }
+  return open;
+}
+
+export function ProtectionGapTrigger({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  const open = useProtectionGap();
+  return (
+    <button type="button" className={className} onClick={open}>
+      {children}
+    </button>
+  );
+}
+
+/* Owns the dialog + all wizard state, matching ArtcardDialog.tsx's pattern
+   (native <dialog>: free focus trap, Esc-to-dismiss, backdrop-click-to-
+   close). Wrap the page content needing a trigger in this once; every
+   <ProtectionGapTrigger> inside it opens the same dialog. */
+export default function ProtectionGapProvider({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [stage, setStage] = useState<Stage>({ name: "question", step: 0 });
   const [answers, setAnswers] = useState<Answers>(INITIAL_ANSWERS);
@@ -140,10 +170,8 @@ export default function ProtectionGapCalculator() {
   }
 
   return (
-    <>
-      <button type="button" className={`arrow-link ${styles.trigger}`} onClick={open}>
-        Estimate my gap &rarr;
-      </button>
+    <ProtectionGapContext.Provider value={open}>
+      {children}
 
       {/* Native <dialog>, same mechanism as ArtcardDialog.tsx. */}
       <dialog
@@ -424,6 +452,6 @@ export default function ProtectionGapCalculator() {
           })()}
         </div>
       </dialog>
-    </>
+    </ProtectionGapContext.Provider>
   );
 }

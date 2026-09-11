@@ -377,3 +377,31 @@
   line-height: 1.4;
   color: var(--dark-muted);
 }
+
+/* Protection Gap Calculator CTA ------------------------------------------ */
+
+.gapSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.gapHeading {
+  max-width: 22ch;
+  color: var(--white);
+}
+
+.gapLead {
+  max-width: 56ch;
+  color: var(--dark-body);
+}
+
+.gapNote {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--dark-muted);
+  margin-top: -6px;
+}
