@@ -37,27 +37,12 @@
 }
 
 @media (max-width: 900px) {
-  .heroSection {
-    min-height: min(420px, 64vh);
-    align-items: flex-end;
-  }
-
-  .heroInner {
-    padding-block: clamp(32px, 8vw, 56px);
-  }
-
   .heroText {
     max-width: 100%;
   }
 
   .heroScrim {
-    --scrim-angle: 180deg;
-    background: linear-gradient(
-      180deg,
-      rgba(var(--navy-900-rgb), 0.5) 0%,
-      rgba(var(--navy-900-rgb), 0.86) 40%,
-      rgba(var(--navy-900-rgb), 0.96) 100%
-    );
+    background: rgba(var(--navy-900-rgb), 0.6);
   }
 }
 
