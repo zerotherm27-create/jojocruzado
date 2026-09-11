@@ -1,74 +1,48 @@
-/* Full-bleed photo hero, matching the same photo+scrim treatment already
-   used on the site's other hero sections (homepage/About/How I Help), so
-   this direct-link page reads as part of the same site rather than a
-   one-off design. */
+/* Full-page photo background: the photo covers the entire viewport as a
+   fixed backdrop, with the intro text and form card scrolling over it, so
+   there's no seam/boundary to fade or cut between a "hero band" and a
+   separate section -- it's one continuous photo behind everything. */
 
-.hero {
+.page {
   position: relative;
-  min-height: min(420px, 60vh);
-  display: flex;
-  align-items: center;
+  min-height: 100dvh;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   overflow: hidden;
 }
 
-.heroMedia {
-  z-index: 0;
-}
-
-.heroScrim {
-  z-index: 1;
-}
-
-/* Fades the bottom of the photo into .wrap's background color instead of
-   ending on a hard edge -- height is deliberately independent of .hero's
-   fluid min-height so the fade band stays a consistent size regardless of
-   viewport. */
-.heroFade {
+.scrim {
   position: absolute;
-  z-index: 1;
-  inset: auto 0 0 0;
-  height: 120px;
-  background: linear-gradient(180deg, rgba(248, 249, 251, 0) 0%, var(--surface) 100%);
-  pointer-events: none;
+  inset: 0;
+  background: rgba(var(--navy-900-rgb), 0.55);
 }
 
-.heroInner {
-  position: relative;
-  z-index: 2;
+.content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  padding-block: clamp(48px, 8vw, 88px);
+  align-items: center;
+  gap: 28px;
+  padding: clamp(40px, 8vw, 80px) var(--gutter) 56px;
 }
 
-.heroTitle {
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 480px;
+  text-align: center;
+}
+
+.title {
   color: var(--white);
   margin-top: 2px;
 }
 
-.heroBody {
-  max-width: 54ch;
+.body {
   color: var(--dark-body);
-}
-
-@media (max-width: 900px) {
-  .hero {
-    min-height: min(320px, 50vh);
-  }
-
-  .heroInner {
-    padding-block: clamp(32px, 8vw, 56px);
-  }
-
-  .heroScrim {
-    background: rgba(var(--navy-900-rgb), 0.6);
-  }
-}
-
-.wrap {
-  display: flex;
-  justify-content: center;
-  padding: clamp(32px, 6vw, 56px) var(--gutter) 56px;
-  background: var(--surface);
 }

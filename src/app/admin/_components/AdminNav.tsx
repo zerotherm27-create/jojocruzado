@@ -5,7 +5,7 @@ import styles from "../admin.module.css";
 export default function AdminNav() {
   return (
     <nav className={styles.nav}>
-      <span className={styles.navBrand}>Jojo Cruzado — Admin</span>
+      <span className={styles.navBrand}>Jojo Cruzado: Admin</span>
       <Link href="/admin/articles" className={styles.navLink}>
         Articles
       </Link>

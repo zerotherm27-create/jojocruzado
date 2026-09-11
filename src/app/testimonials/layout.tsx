@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: { absolute: "Share a Review — Jojo Cruzado" },
+  title: { absolute: "Share a Review: Jojo Cruzado" },
   description: "Share a short review of your experience working with Jojo Cruzado.",
   // A link shared directly with clients, not meant to rank in search or be
   // browsed to from elsewhere on the site — same reasoning /card already

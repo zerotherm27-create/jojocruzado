@@ -35,7 +35,6 @@
 }
 
 .input,
-.select,
 .textarea {
   min-height: 48px;
   border: 1px solid var(--border-strong);
@@ -47,8 +46,7 @@
   background: var(--white);
 }
 
-.input,
-.select {
+.input {
   padding: 0 14px;
 }
 
@@ -59,7 +57,6 @@
 }
 
 .input:focus-visible,
-.select:focus-visible,
 .textarea:focus-visible {
   border-color: var(--navy-900);
 }

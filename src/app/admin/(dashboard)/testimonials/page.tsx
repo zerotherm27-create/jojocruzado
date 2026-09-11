@@ -66,7 +66,7 @@ export default async function TestimonialsListPage({
             <div key={t.id} className={styles.row}>
               <div className={styles.rowBody}>
                 <div className={styles.rowTitle}>
-                  {t.client_name} — <Stars rating={t.rating} />
+                  {t.client_name} · <Stars rating={t.rating} />
                 </div>
                 {t.relationship && <div className={styles.rowMeta}>{t.relationship}</div>}
                 <div className={styles.rowMeta}>{t.review_body}</div>
@@ -105,7 +105,7 @@ export default async function TestimonialsListPage({
             <div key={t.id} className={styles.row}>
               <div className={styles.rowBody}>
                 <div className={styles.rowTitle}>
-                  {t.client_name} — <Stars rating={t.rating} />{" "}
+                  {t.client_name} · <Stars rating={t.rating} />{" "}
                   <span className={styles.rowMeta}>({t.status})</span>
                 </div>
                 {t.relationship && <div className={styles.rowMeta}>{t.relationship}</div>}

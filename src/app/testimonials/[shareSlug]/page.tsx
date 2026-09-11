@@ -25,30 +25,32 @@ export default async function TestimonialSubmitPage({
   const photo = resolveImage(settings?.aboutImage, "/images/jojo-about.png");
 
   return (
-    <main>
-      <section className={styles.hero}>
+    <main className={styles.page}>
+      {/* Fixed so it covers the viewport as one continuous backdrop behind
+          the whole page, not just a band at the top -- content below
+          scrolls over it instead of the photo stretching/cropping to
+          match the page's (variable, form-dependent) content height. */}
+      <div className={styles.backdrop}>
         <Image
           src={photo}
           alt={settings?.aboutImageAlt || CARD_FULL_NAME}
           fill
           sizes="100vw"
           priority
-          className={styles.heroMedia}
           style={{ objectFit: "cover", objectPosition: "78% 30%" }}
         />
-        <div className={`scrim-navy ${styles.heroScrim}`} />
-        <div className={styles.heroFade} />
-        <div className={`container ${styles.heroInner}`}>
+        <div className={styles.scrim} />
+      </div>
+
+      <div className={styles.content}>
+        <div className={styles.intro}>
           <span className="rule-gold" />
-          <h1 className={`h1-sub ${styles.heroTitle}`}>Share your experience</h1>
-          <p className={`lead ${styles.heroBody}`}>
-            Thank you for taking a moment to leave a review — it helps other people understand
+          <h1 className={`h1-sub ${styles.title}`}>Share your experience</h1>
+          <p className={`lead ${styles.body}`}>
+            Thank you for taking a moment to leave a review. It helps other people understand
             what it&apos;s like to work with Jojo.
           </p>
         </div>
-      </section>
-
-      <div className={styles.wrap}>
         <TestimonialForm />
       </div>
     </main>
