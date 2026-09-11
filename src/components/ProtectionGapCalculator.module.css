@@ -325,7 +325,71 @@
   font-size: clamp(32px, 6vw, 42px);
   line-height: 1.1;
   color: var(--navy-900);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+/* Status pill: kept inside the site's own navy/gold/danger palette rather
+   than a traffic-light scheme (tokens.css explicitly avoids alarm colors). */
+.statusBadge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.toneGood {
+  background: rgba(245, 166, 35, 0.16);
+  color: var(--accent-on-light);
+}
+
+.toneNeutral {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--ink-500);
+}
+
+.toneAttention {
+  background: rgba(163, 43, 34, 0.1);
+  color: var(--danger);
+}
+
+.gapVisual {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.gapBar {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.gapBarFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width var(--dur-enter) var(--ease-out);
+}
+
+.gapBarLabels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink-500);
 }
 
 .breakdown {
@@ -363,7 +427,23 @@
   color: var(--ink-500);
 }
 
-.recommendation {
+.insightBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.insightLabel {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-on-light);
+}
+
+.insightBody {
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
@@ -387,18 +467,4 @@
 
 .resultCtas .btn {
   width: 100%;
-}
-
-.secondaryLink {
-  align-self: center;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--navy-900);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .secondaryLink:hover {
-    color: var(--accent);
-  }
 }

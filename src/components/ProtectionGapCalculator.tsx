@@ -2,9 +2,10 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { PROTECTION_GAP_URL } from "@/config/site";
 import {
   calculateProtectionGap,
+  protectionStatus,
+  analysisCopy,
   recommendationCopy,
   type ProtectionGapInputs,
   type ProtectionGapResult,
@@ -39,6 +40,10 @@ const STAGE_TITLES: Record<Stage["name"], string> = {
 
 function formatPeso(amount: number): string {
   return `₱${Math.round(amount).toLocaleString()}`;
+}
+
+function capitalize<T extends string>(value: T): Capitalize<T> {
+  return (value.charAt(0).toUpperCase() + value.slice(1)) as Capitalize<T>;
 }
 
 function isStepValid(answers: Answers, step: 0 | 1 | 2 | 3): boolean {
@@ -352,59 +357,71 @@ export default function ProtectionGapCalculator() {
             </form>
           )}
 
-          {stage.name === "revealed" && result && (
-            <div className={styles.revealed}>
-              <span className={styles.resultLabel}>Your estimated protection gap</span>
-              <span className={styles.resultAmount}>{formatPeso(result.protectionGap)}</span>
+          {stage.name === "revealed" && result && (() => {
+            const status = protectionStatus(result, answers.existingCoverage);
+            return (
+              <div className={styles.revealed}>
+                <div className={`${styles.statusBadge} ${styles[`tone${capitalize(status.tone)}`]}`}>
+                  {status.label}
+                </div>
 
-              <div className={styles.breakdown}>
-                <div className={styles.breakdownRow}>
-                  <span>
-                    Income replacement ({result.incomeReplacementYears} years)
-                  </span>
-                  <span>{formatPeso(result.incomeReplacementNeed)}</span>
+                <span className={styles.resultLabel}>Your estimated protection gap</span>
+                <span className={styles.resultAmount}>{formatPeso(result.protectionGap)}</span>
+
+                <div className={styles.gapVisual}>
+                  <div className={styles.gapBar}>
+                    <div className={styles.gapBarFill} style={{ width: `${status.percent}%` }} />
+                  </div>
+                  <div className={styles.gapBarLabels}>
+                    <span>{status.percent}% covered</span>
+                    <span>{100 - status.percent}% gap</span>
+                  </div>
                 </div>
-                <div className={styles.breakdownRow}>
-                  <span>+ Outstanding debts</span>
-                  <span>{formatPeso(answers.outstandingDebts)}</span>
+
+                <div className={styles.breakdown}>
+                  <div className={styles.breakdownRow}>
+                    <span>Income replacement ({result.incomeReplacementYears} years)</span>
+                    <span>{formatPeso(result.incomeReplacementNeed)}</span>
+                  </div>
+                  <div className={styles.breakdownRow}>
+                    <span>+ Outstanding debts</span>
+                    <span>{formatPeso(answers.outstandingDebts)}</span>
+                  </div>
+                  <div className={styles.breakdownRow}>
+                    <span>&minus; Existing coverage</span>
+                    <span>{formatPeso(answers.existingCoverage)}</span>
+                  </div>
+                  <div className={styles.breakdownRowTotal}>
+                    <span>= Estimated protection gap</span>
+                    <span>{formatPeso(result.protectionGap)}</span>
+                  </div>
                 </div>
-                <div className={styles.breakdownRow}>
-                  <span>&minus; Existing coverage</span>
-                  <span>{formatPeso(answers.existingCoverage)}</span>
+
+                <p className={styles.methodNote}>
+                  This uses a simplified DIME method (Debt, Income replacement, Mortgage,
+                  Education), focused on your income and debts.
+                </p>
+
+                <div className={styles.insightBlock}>
+                  <span className={styles.insightLabel}>Analysis</span>
+                  <p className={styles.insightBody}>{analysisCopy(status)}</p>
                 </div>
-                <div className={styles.breakdownRowTotal}>
-                  <span>= Estimated protection gap</span>
-                  <span>{formatPeso(result.protectionGap)}</span>
+
+                <div className={styles.insightBlock}>
+                  <span className={styles.insightLabel}>Recommendation</span>
+                  <p className={styles.insightBody}>{recommendationCopy(status)}</p>
+                </div>
+
+                <p className={styles.disclaimer}>Educational estimate. Not formal financial advice.</p>
+
+                <div className={styles.resultCtas}>
+                  <Link href="/contact" className="btn btn-navy">
+                    Talk to Jojo About This
+                  </Link>
                 </div>
               </div>
-
-              <p className={styles.methodNote}>
-                This uses a simplified DIME method (Debt, Income replacement, Mortgage,
-                Education), the same approach behind Jojo&apos;s full Safety Margin protection
-                gap check, focused on your income and debts.
-              </p>
-
-              <p className={styles.recommendation}>
-                {recommendationCopy(result.protectionGap, answers.monthlyIncome ?? 0)}
-              </p>
-
-              <p className={styles.disclaimer}>Educational estimate. Not formal financial advice.</p>
-
-              <div className={styles.resultCtas}>
-                <Link href="/contact" className="btn btn-navy">
-                  Talk to Jojo About This
-                </Link>
-                <Link
-                  href={PROTECTION_GAP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.secondaryLink}
-                >
-                  See my full Safety Margin report &rarr;
-                </Link>
-              </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
       </dialog>
     </>
