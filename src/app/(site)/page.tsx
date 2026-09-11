@@ -5,6 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import Reveal from "@/components/Reveal";
 import { articles as fallbackArticles } from "@/content/insights";
 import { getApprovedTestimonials, getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
+import ProtectionGapCalculator from "@/components/ProtectionGapCalculator";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
 import styles from "./page.module.css";
 
@@ -234,6 +235,7 @@ export default async function HomePage() {
                 <span className={styles.tileNumber}>{layer.number}</span>
                 <h3 className={styles.tileTitle}>{layer.title}</h3>
                 <p className={styles.tileBody}>{layer.body}</p>
+                {layer.number === "03" && <ProtectionGapCalculator />}
               </div>
             ))}
           </div>

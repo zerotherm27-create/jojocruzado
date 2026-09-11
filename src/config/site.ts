@@ -4,6 +4,12 @@
 // bare domain, so link to the canonical form directly.
 export const SAFETY_MARGIN_URL = "https://safetymargin.app";
 
+// The specific deep link to Safety Margin's own protection-gap calculator
+// step (confirmed live: a real route, not just client-side state), used
+// where a CTA is specifically about coverage gaps rather than the general
+// "check my whole picture" link above.
+export const PROTECTION_GAP_URL = "https://safetymargin.app/protection-gap";
+
 // Jojo's real, live contact channels, confirmed on safetymargin.app. Viber and a
 // personal email remain unconfirmed — see the TODO(compliance) on /contact.
 export const CALENDLY_URL = "https://calendly.com/jojocruzado/30min";
