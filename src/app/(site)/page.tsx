@@ -4,7 +4,7 @@ import Link from "next/link";
 import ArticleCard from "@/components/ArticleCard";
 import Reveal from "@/components/Reveal";
 import { articles as fallbackArticles } from "@/content/insights";
-import { getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
+import { getApprovedTestimonials, getArticles, getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 import { siteConfig, SAFETY_MARGIN_URL } from "@/config/site";
 import styles from "./page.module.css";
 
@@ -114,7 +114,11 @@ export default async function HomePage() {
   const layers = siteConfig.showLegacyLayer ? frameworkLayers : frameworkLayers.slice(0, 5);
   const steps = siteConfig.showReviewStep ? processSteps : processSteps.slice(0, 3);
 
-  const [sanityArticles, settings] = await Promise.all([getArticles(), getSiteSettings()]);
+  const [sanityArticles, settings, testimonials] = await Promise.all([
+    getArticles(),
+    getSiteSettings(),
+    getApprovedTestimonials(),
+  ]);
   const articles = (sanityArticles.length > 0 ? sanityArticles : fallbackArticles).slice(0, 3);
 
   return (
@@ -272,6 +276,40 @@ export default async function HomePage() {
           </div>
         </Reveal>
       </section>
+
+      {testimonials.length > 0 && (
+        <section className="band-surface">
+          <Reveal className={`container ${styles.band}`}>
+            <span className="eyebrow" style={{ color: "var(--ink-500)" }}>
+              What clients say
+            </span>
+            <h2 className="h2-section">Real experiences, in their words.</h2>
+            <div className={`autogrid ${styles.gridTop} ${styles.testimonialGrid}`}>
+              {testimonials.map((testimonial) => (
+                <div key={testimonial.id} className={`card card-shadow ${styles.testimonialCard}`}>
+                  <span className="rule-gold" />
+                  <span
+                    className={styles.testimonialStars}
+                    aria-label={`Rated ${testimonial.rating} out of 5`}
+                  >
+                    {"★".repeat(testimonial.rating)}
+                    {"☆".repeat(5 - testimonial.rating)}
+                  </span>
+                  <p className="body">&ldquo;{testimonial.reviewBody}&rdquo;</p>
+                  <div className={styles.testimonialMeta}>
+                    <span className={styles.testimonialName}>{testimonial.clientName}</span>
+                    {testimonial.relationship && (
+                      <span className={styles.testimonialRelationship}>
+                        {testimonial.relationship}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+      )}
 
       <section className={`band-story ${styles.storySection}`}>
         {/* Falls back to the placeholder file until a real photo is uploaded in

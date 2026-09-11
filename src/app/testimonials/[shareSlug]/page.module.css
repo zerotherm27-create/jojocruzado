@@ -1,0 +1,22 @@
+.wrap {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: clamp(40px, 8vw, 80px) var(--gutter);
+  background: var(--surface);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  text-align: center;
+  align-items: center;
+}
+
+.title {
+  margin-top: 4px;
+}

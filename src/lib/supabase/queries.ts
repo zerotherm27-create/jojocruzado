@@ -25,6 +25,22 @@ type ArticleRow = {
   slug: string;
 };
 
+type TestimonialRow = {
+  id: string;
+  client_name: string;
+  relationship: string | null;
+  review_body: string;
+  rating: number;
+};
+
+export type Testimonial = {
+  id: string;
+  clientName: string;
+  relationship: string | null;
+  reviewBody: string;
+  rating: number;
+};
+
 type SiteSettingsRow = {
   hero_image_url: string | null;
   hero_image_alt: string | null;
@@ -98,6 +114,16 @@ function toArticle(row: ArticleRow): Article {
     readTime: row.read_time,
     image: row.image_url ?? "",
     imageAlt: row.image_alt,
+  };
+}
+
+function toTestimonial(row: TestimonialRow): Testimonial {
+  return {
+    id: row.id,
+    clientName: row.client_name,
+    relationship: row.relationship,
+    reviewBody: row.review_body,
+    rating: row.rating,
   };
 }
 
@@ -177,6 +203,29 @@ export async function getArtcards(): Promise<Artcard[]> {
     return (data as ArtcardRow[]).map(toArtcard).filter((card): card is Artcard => card !== null);
   } catch (error) {
     console.error("getArtcards failed", error);
+    return [];
+  }
+}
+
+/* Fails soft (empty array), same contract as getArticles/getArtcards — an
+   outage or an empty table must never take the homepage down. Deliberately
+   no fallback content here (unlike getArticleBySlug's fallbackArticles):
+   testimonials are named explicitly in this project's "never invent
+   compliance-sensitive content" rule, so an empty result must render as an
+   empty section, never invented reviews. */
+export async function getApprovedTestimonials(): Promise<Testimonial[]> {
+  try {
+    const supabase = createServiceRoleClient();
+    const { data, error } = await supabase
+      .from("testimonials")
+      .select("id, client_name, relationship, review_body, rating")
+      .eq("status", "approved")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return (data as TestimonialRow[]).map(toTestimonial);
+  } catch (error) {
+    console.error("getApprovedTestimonials failed", error);
     return [];
   }
 }
