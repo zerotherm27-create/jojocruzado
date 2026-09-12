@@ -2,6 +2,7 @@
 
 import { createServiceRoleClient } from "@/lib/supabase/client";
 import { calculateProtectionGap, type ProtectionGapInputs } from "@/lib/protectionGap";
+import { isValidEmail, isValidPhMobile } from "@/lib/leadValidation";
 
 export type ProtectionGapLeadSubmission = {
   name: string;
@@ -30,6 +31,14 @@ export async function submitProtectionGapLead(
 
   if (!name || (!phone && !email)) {
     return { success: false, error: "Enter your name and a phone number or email." };
+  }
+
+  if (email && !isValidEmail(email)) {
+    return { success: false, error: "Enter a valid email address." };
+  }
+
+  if (phone && !isValidPhMobile(phone)) {
+    return { success: false, error: "Enter a valid mobile number, e.g. 0917 123 4567." };
   }
 
   const result = calculateProtectionGap(data.inputs);

@@ -11,6 +11,7 @@ import {
   type ProtectionGapResult,
 } from "@/lib/protectionGap";
 import { submitProtectionGapLead } from "@/app/protection-gap/actions";
+import { isValidEmail, isValidPhMobile } from "@/lib/leadValidation";
 import styles from "./ProtectionGapCalculator.module.css";
 
 type Answers = {
@@ -141,6 +142,16 @@ export default function ProtectionGapProvider({ children }: { children: ReactNod
 
     if (!name || (!email && !phone)) {
       setError("Enter your name and a phone number or email.");
+      return;
+    }
+
+    if (email && !isValidEmail(email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
+
+    if (phone && !isValidPhMobile(phone)) {
+      setError("Enter a valid mobile number, e.g. 0917 123 4567.");
       return;
     }
 
@@ -360,7 +371,8 @@ export default function ProtectionGapProvider({ children }: { children: ReactNod
                 id="pgc-phone"
                 type="tel"
                 name="phone"
-                placeholder="Phone number"
+                inputMode="tel"
+                placeholder="e.g. 0917 123 4567"
                 className={styles.input}
               />
 
