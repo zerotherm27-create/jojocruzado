@@ -28,7 +28,15 @@ export async function resolveCardImageSrc(): Promise<string> {
   return `data:image/png;base64,${file.toString("base64")}`;
 }
 
-export function BrandCard({ imageSrc }: { imageSrc: string }) {
+const DEFAULT_TAGLINE = "Clear guidance. Practical protection.";
+
+export function BrandCard({
+  imageSrc,
+  tagline = DEFAULT_TAGLINE,
+}: {
+  imageSrc: string;
+  tagline?: string;
+}) {
   return (
     <div
       style={{
@@ -106,7 +114,7 @@ export function BrandCard({ imageSrc }: { imageSrc: string }) {
           Jojo Cruzado
         </div>
         <div style={{ display: "flex", marginTop: 28, fontSize: 28, color: DARK_BODY, maxWidth: 520 }}>
-          Clear guidance. Practical protection.
+          {tagline}
         </div>
       </div>
     </div>

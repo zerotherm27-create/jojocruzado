@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+// Title/description/openGraph/twitter now come from the page's own
+// generateMetadata (src/app/testimonials/[shareSlug]/page.tsx), which has
+// access to the actual shareSlug for a correct og:url and a dedicated
+// photo-based image -- a layout-level metadata object with no openGraph of
+// its own caused the ENTIRE parent (root) openGraph object to be inherited
+// wholesale, including the wrong URL and generic homepage image.
 export const metadata: Metadata = {
-  title: { absolute: "Share a Review: Jojo Cruzado" },
-  description: "Share a short review of your experience working with Jojo Cruzado.",
   // A link shared directly with clients, not meant to rank in search or be
   // browsed to from elsewhere on the site — same reasoning /card already
   // applies to itself.
