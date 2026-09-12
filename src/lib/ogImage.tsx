@@ -75,7 +75,7 @@ export function BrandCard({
           height: "100%",
           display: "flex",
           background:
-            "linear-gradient(90deg, rgba(11,18,32,0.97) 0%, rgba(11,18,32,0.94) 45%, rgba(11,18,32,0.8) 62%, rgba(11,18,32,0.4) 82%, rgba(11,18,32,0.12) 100%)",
+            "linear-gradient(90deg, rgba(11,18,32,0.82) 0%, rgba(11,18,32,0.68) 45%, rgba(11,18,32,0.45) 62%, rgba(11,18,32,0.18) 82%, rgba(11,18,32,0) 100%)",
         }}
       />
       <div
