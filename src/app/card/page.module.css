@@ -16,7 +16,12 @@
   margin: 0 auto;
   padding: clamp(28px, 6vw, 48px) var(--gutter) 56px;
   text-align: center;
-  background: var(--navy-900);
+  /* Faint dot grid over the flat navy, same white/low-alpha convention used
+     by .socialButton and .exchangeCard on this page — texture without
+     introducing a new color or breaking the site's flat-band look. */
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0) 0 0 / 24px 24px,
+    var(--navy-900);
   color: var(--white);
   /* Without this, the global :focus-visible ring (navy by default) would be
      invisible against this dark background — band-navy/band-story in
