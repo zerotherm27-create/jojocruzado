@@ -3,20 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChatCircleTextIcon, PaperPlaneTiltIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
+import { DEFAULT_CHATBOT_NAME } from "@/lib/chatbot/systemPrompt";
 import styles from "./ChatWidget.module.css";
 
 type Props = {
   enabled: boolean;
   introMessage?: string | null;
+  assistantName?: string | null;
 };
 
 type Message = { role: "user" | "assistant"; content: string };
 
-const DEFAULT_INTRO =
-  "Hi! I'm here to help you think through your family's protection needs — ask me anything.";
 const HISTORY_LIMIT = 16;
 
-export default function ChatWidget({ enabled, introMessage }: Props) {
+export default function ChatWidget({ enabled, introMessage, assistantName }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -36,7 +36,10 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
   // contact-capture UI stacked on that page.
   if (!enabled || pathname === "/contact") return null;
 
-  const intro = introMessage?.trim() || DEFAULT_INTRO;
+  const name = assistantName?.trim() || DEFAULT_CHATBOT_NAME;
+  const intro =
+    introMessage?.trim() ||
+    `Hi, I'm ${name}! I'm here to help you think through your family's protection needs — ask me anything.`;
 
   async function handleSend(event: React.FormEvent) {
     event.preventDefault();
@@ -75,7 +78,7 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls="chat-widget-panel"
-        aria-label={open ? "Close chat" : "Chat with Jojo's assistant"}
+        aria-label={open ? "Close chat" : `Chat with ${name}`}
         className={styles.bubble}
       >
         {open ? (
@@ -86,7 +89,7 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
       </button>
 
       {open && (
-        <div id="chat-widget-panel" role="dialog" aria-label="Chat with Jojo's assistant" className={styles.panel}>
+        <div id="chat-widget-panel" role="dialog" aria-label={`Chat with ${name}`} className={styles.panel}>
           <div className={styles.disclaimer}>
             This chat is a general conversation, not financial advice, and won&apos;t quote prices or
             guarantees. See our{" "}

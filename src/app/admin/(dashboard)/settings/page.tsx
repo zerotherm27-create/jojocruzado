@@ -1,6 +1,7 @@
 import ImageField from "@/app/admin/_components/ImageField";
 import SubmitButton from "@/app/admin/_components/SubmitButton";
 import { createServiceRoleClient } from "@/lib/supabase/client";
+import { DEFAULT_CHATBOT_NAME } from "@/lib/chatbot/systemPrompt";
 import { updateSiteSettings } from "./actions";
 import styles from "../../admin.module.css";
 
@@ -184,6 +185,16 @@ export default async function SettingsPage({
             className={styles.checkbox}
           />
           Enable site-wide chat assistant
+        </label>
+        <label className={styles.label}>
+          Assistant name
+          <input
+            type="text"
+            name="chatbotName"
+            defaultValue={settings?.chatbot_name ?? ""}
+            placeholder={DEFAULT_CHATBOT_NAME}
+            className={styles.input}
+          />
         </label>
         <label className={styles.label}>
           Chat opening message

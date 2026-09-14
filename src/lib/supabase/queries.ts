@@ -65,6 +65,7 @@ type SiteSettingsRow = {
   share_group_links: string | null;
   chatbot_enabled: boolean;
   chatbot_intro_message: string | null;
+  chatbot_name: string | null;
 };
 
 export type SiteSettings = {
@@ -92,6 +93,8 @@ export type SiteSettings = {
   shareGroupLinks: string | null;
   chatbotEnabled: boolean;
   chatbotIntroMessage: string | null;
+  /** As entered in /admin/settings -- falls back to DEFAULT_CHATBOT_NAME (systemPrompt.ts) when unset. */
+  chatbotName: string | null;
 } | null;
 
 // Rows whose need_id no longer matches an id in content/needs.ts (a need was
@@ -159,6 +162,7 @@ function toSiteSettings(row: SiteSettingsRow): SiteSettings {
     shareGroupLinks: row.share_group_links,
     chatbotEnabled: row.chatbot_enabled,
     chatbotIntroMessage: row.chatbot_intro_message,
+    chatbotName: row.chatbot_name,
   };
 }
 
@@ -246,7 +250,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     const { data, error } = await supabase
       .from("site_settings")
       .select(
-        "hero_image_url, hero_image_alt, story_image_url, story_image_alt, about_image_url, about_image_alt, booking_url, messenger_url, viber_number, contact_email, facebook_url, linkedin_url, instagram_url, card_photo_url, card_photo_alt, card_title, card_bio, card_phone, how_i_help_image_url, how_i_help_image_alt, share_group_links, chatbot_enabled, chatbot_intro_message",
+        "hero_image_url, hero_image_alt, story_image_url, story_image_alt, about_image_url, about_image_alt, booking_url, messenger_url, viber_number, contact_email, facebook_url, linkedin_url, instagram_url, card_photo_url, card_photo_alt, card_title, card_bio, card_phone, how_i_help_image_url, how_i_help_image_alt, share_group_links, chatbot_enabled, chatbot_intro_message, chatbot_name",
       )
       .eq("id", true)
       .maybeSingle();

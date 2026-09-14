@@ -28,7 +28,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       </div>
       <SiteFooter />
       <MobileStickyCta />
-      <ChatWidget enabled={settings?.chatbotEnabled ?? true} introMessage={settings?.chatbotIntroMessage} />
+      <ChatWidget
+        enabled={settings?.chatbotEnabled ?? true}
+        introMessage={settings?.chatbotIntroMessage}
+        assistantName={settings?.chatbotName}
+      />
     </>
   );
 }
