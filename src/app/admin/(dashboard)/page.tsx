@@ -18,6 +18,12 @@ export default function AdminDashboardPage() {
             <div className={styles.rowMeta}>Hero/story/about photos, booking link, Messenger, Viber, email, socials.</div>
           </div>
         </Link>
+        <Link href="/admin/analytics" className={styles.row}>
+          <div className={styles.rowBody}>
+            <div className={styles.rowTitle}>Analytics</div>
+            <div className={styles.rowMeta}>Page views, top pages/referrers, and chat engagement over the last 30 days.</div>
+          </div>
+        </Link>
       </div>
     </>
   );

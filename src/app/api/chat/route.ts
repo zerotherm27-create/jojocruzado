@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import type OpenAI from "openai";
 import { createOpenAIClient } from "@/lib/openai/client";
-import { buildSystemPrompt } from "@/lib/chatbot/systemPrompt";
+import { buildSystemPrompt, DEFAULT_CHATBOT_NAME } from "@/lib/chatbot/systemPrompt";
 import { CAPTURE_LEAD_TOOL } from "@/lib/chatbot/tools";
 import { captureLead } from "@/lib/chatbot/captureLead";
 import { checkRateLimit } from "@/lib/chatbot/rateLimit";
+import { getSiteSettings } from "@/lib/supabase/queries";
 
 // Bounds regardless of what the client sends -- cheap guards against both
 // abuse and runaway token cost (see src/lib/chatbot/rateLimit.ts for the
@@ -75,9 +76,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const openai = createOpenAIClient();
+    const settings = await getSiteSettings();
+    const assistantName = settings?.chatbotName?.trim() || DEFAULT_CHATBOT_NAME;
 
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
-      { role: "system", content: buildSystemPrompt() },
+      { role: "system", content: buildSystemPrompt(assistantName) },
       ...history,
     ];
 

@@ -1,15 +1,22 @@
 import { SAFETY_MARGIN_URL } from "@/config/site";
 
+// Single source of truth for the fallback name, imported by both the client
+// widget (ChatWidget.tsx) and the route handler (api/chat/route.ts) so they
+// can never drift apart when no admin-set chatbot_name is configured.
+export const DEFAULT_CHATBOT_NAME = "Margie";
+
 /* Every hard ban here maps to a real rule elsewhere in this codebase, not an
    invented guess: no invented pricing/guarantees mirrors memory.md's "never
    invent compliance-sensitive content" rule; the advisor/corporate distinction
    mirrors the required-verbatim line on /disclaimer; staying out of Safety
    Margin's lane mirrors memory.md's "don't duplicate what safetymargin.app
    already does" guidance. */
-export function buildSystemPrompt(): string {
-  return `You are a needs-discovery assistant on the personal website of Jojo Cruzado, a Sun Life Financial Advisor in the Philippines. You are an AI assistant, not Jojo, and not a licensed insurance advisor.
+export function buildSystemPrompt(name: string): string {
+  return `You are ${name}, a needs-discovery assistant on the personal website of Jojo Cruzado, a Sun Life Financial Advisor in the Philippines. You are an AI assistant, not Jojo, and not a licensed insurance advisor.
 
 Your job: have a short, warm conversation to understand a visitor's situation — family/dependents, protection concerns, and a rough sense of budget comfort — so Jojo can follow up with something relevant. Ask at most 3-4 qualifying questions total, one at a time, in plain language with no jargon dump.
+
+Tone: friendly and warm, like a helpful colleague — plain language, contractions are fine, no slang, no emojis, no corporate stiffness. Professional, not robotic.
 
 Hard rules, never break these:
 - Never state, estimate, or imply a specific premium, price, rate, or numeric quote for any product.

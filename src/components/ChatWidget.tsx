@@ -3,22 +3,31 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChatCircleTextIcon, PaperPlaneTiltIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
+import { DEFAULT_CHATBOT_NAME } from "@/lib/chatbot/systemPrompt";
+import { trackEvent } from "@/lib/analytics/track";
 import styles from "./ChatWidget.module.css";
 
 type Props = {
   enabled: boolean;
   introMessage?: string | null;
+  assistantName?: string | null;
 };
 
 type Message = { role: "user" | "assistant"; content: string };
 
-const DEFAULT_INTRO =
-  "Hi! I'm here to help you think through your family's protection needs — ask me anything.";
 const HISTORY_LIMIT = 16;
 
-export default function ChatWidget({ enabled, introMessage }: Props) {
+// Shows a one-time nudge bubble a couple seconds after a visitor lands, so
+// the chat icon doesn't rely on someone noticing an unlabeled circle in the
+// corner. Persisted so it doesn't nag on every repeat visit.
+const HINT_STORAGE_KEY = "jojo-chat-hint-seen";
+const HINT_DELAY_MS = 2500;
+const HINT_VISIBLE_MS = 7000;
+
+export default function ChatWidget({ enabled, introMessage, assistantName }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -31,12 +40,46 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
     }
   }, [messages, sending]);
 
+  useEffect(() => {
+    if (!enabled || pathname === "/contact" || open) return;
+
+    let alreadySeen = false;
+    try {
+      alreadySeen = localStorage.getItem(HINT_STORAGE_KEY) === "1";
+    } catch {
+      // Private browsing / blocked storage -- hint still works, it just
+      // won't remember being dismissed across visits.
+    }
+    if (alreadySeen) return;
+
+    const showTimer = window.setTimeout(() => setShowHint(true), HINT_DELAY_MS);
+    return () => window.clearTimeout(showTimer);
+  }, [enabled, pathname, open]);
+
+  useEffect(() => {
+    if (!showHint) return;
+    const hideTimer = window.setTimeout(() => dismissHint(), HINT_VISIBLE_MS);
+    return () => window.clearTimeout(hideTimer);
+  }, [showHint]);
+
+  function dismissHint() {
+    setShowHint(false);
+    try {
+      localStorage.setItem(HINT_STORAGE_KEY, "1");
+    } catch {
+      // Ignore -- worst case it can show again next visit.
+    }
+  }
+
   // Same pathname-hide convention as MobileStickyCta: /contact already has a
   // dedicated, fuller contact form -- no need for a second competing
   // contact-capture UI stacked on that page.
   if (!enabled || pathname === "/contact") return null;
 
-  const intro = introMessage?.trim() || DEFAULT_INTRO;
+  const name = assistantName?.trim() || DEFAULT_CHATBOT_NAME;
+  const intro =
+    introMessage?.trim() ||
+    `Hi, I'm ${name}! I'm here to help you think through your family's protection needs — ask me anything.`;
 
   async function handleSend(event: React.FormEvent) {
     event.preventDefault();
@@ -47,6 +90,7 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
     setMessages(nextMessages);
     setInput("");
     setSending(true);
+    trackEvent("chat_message_sent");
 
     try {
       const response = await fetch("/api/chat", {
@@ -70,12 +114,41 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
 
   return (
     <>
+      {showHint && !open && (
+        <div className={styles.hint} role="status">
+          <button
+            type="button"
+            onClick={() => {
+              dismissHint();
+              setOpen(true);
+              trackEvent("chat_opened");
+            }}
+            className={styles.hintText}
+          >
+            Chat with {name}
+          </button>
+          <button
+            type="button"
+            onClick={dismissHint}
+            aria-label="Dismiss"
+            className={styles.hintClose}
+          >
+            <XIcon size={14} weight="bold" />
+          </button>
+        </div>
+      )}
+
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          dismissHint();
+          const next = !open;
+          setOpen(next);
+          if (next) trackEvent("chat_opened");
+        }}
         aria-expanded={open}
         aria-controls="chat-widget-panel"
-        aria-label={open ? "Close chat" : "Chat with Jojo's assistant"}
+        aria-label={open ? "Close chat" : `Chat with ${name}`}
         className={styles.bubble}
       >
         {open ? (
@@ -86,7 +159,7 @@ export default function ChatWidget({ enabled, introMessage }: Props) {
       </button>
 
       {open && (
-        <div id="chat-widget-panel" role="dialog" aria-label="Chat with Jojo's assistant" className={styles.panel}>
+        <div id="chat-widget-panel" role="dialog" aria-label={`Chat with ${name}`} className={styles.panel}>
           <div className={styles.disclaimer}>
             This chat is a general conversation, not financial advice, and won&apos;t quote prices or
             guarantees. See our{" "}

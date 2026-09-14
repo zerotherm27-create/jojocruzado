@@ -2,6 +2,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import MobileStickyCta from "@/components/MobileStickyCta";
 import ChatWidget from "@/components/ChatWidget";
+import AnalyticsBeacon from "@/components/AnalyticsBeacon";
 import { getSiteSettings } from "@/lib/supabase/queries";
 
 // Footer reads Supabase data (Connect column) on every public page — revalidate
@@ -27,8 +28,13 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         {children}
       </div>
       <SiteFooter />
+      <AnalyticsBeacon />
       <MobileStickyCta />
-      <ChatWidget enabled={settings?.chatbotEnabled ?? true} introMessage={settings?.chatbotIntroMessage} />
+      <ChatWidget
+        enabled={settings?.chatbotEnabled ?? true}
+        introMessage={settings?.chatbotIntroMessage}
+        assistantName={settings?.chatbotName}
+      />
     </>
   );
 }
