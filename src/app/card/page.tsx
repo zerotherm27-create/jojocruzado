@@ -4,6 +4,7 @@ import CardExchangeForm from "./CardExchangeForm";
 import { EmailIcon, MessageIcon, MessengerIcon, PhoneIcon, ViberIcon } from "./icons";
 import { CALENDLY_URL, CARD_FULL_NAME, SAFETY_MARGIN_URL } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
+import { viberDeepLink } from "@/lib/viber";
 import styles from "./page.module.css";
 
 // Revalidate so a photo/detail edited in /admin -> Site Settings shows up
@@ -13,12 +14,6 @@ export const revalidate = 60;
 const DEFAULT_TITLE = "Sun Life | Licensed Insurance Advisor";
 const DEFAULT_BIO =
   "I help professionals, families, and business owners see their financial picture clearly and make practical decisions.";
-
-// Viber's deep link wants just digits and an optional leading "+" — admins
-// may type the stored number with spaces or dashes, so strip those first.
-function sanitizeForViber(raw: string): string {
-  return raw.replace(/(?!^\+)[^\d]/g, "");
-}
 
 export default async function CardPage() {
   const settings = await getSiteSettings();
@@ -64,7 +59,7 @@ export default async function CardPage() {
         )}
         {viber && (
           <a
-            href={`viber://chat?number=${encodeURIComponent(sanitizeForViber(viber))}`}
+            href={viberDeepLink(viber)}
             className={styles.socialButton}
             aria-label="Message Jojo on Viber"
           >

@@ -2,6 +2,7 @@ import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { CALENDLY_URL, MESSENGER_URL } from "@/config/site";
 import { getSiteSettings } from "@/lib/supabase/queries";
+import { viberDeepLink } from "@/lib/viber";
 import Reveal from "@/components/Reveal";
 import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -24,12 +25,13 @@ export default async function ContactPage() {
 
   // Booking/Messenger fall back to the real, already-live Safety Margin channels;
   // Viber/email fall back to a plain TBC placeholder until filled in via
-  // /admin -> Site Settings -> Contact details.
+  // /admin -> Site Settings -> Contact details. Viber's number itself stays
+  // off the page -- the link opens the app directly instead of printing digits.
   const channels: Channel[] = [
     { label: "Schedule a conversation", href: settings?.bookingUrl || CALENDLY_URL },
     { label: "Message on Facebook", href: settings?.messengerUrl || MESSENGER_URL },
     settings?.viberNumber
-      ? { label: `Viber: ${settings.viberNumber}` }
+      ? { label: "Message on Viber", href: viberDeepLink(settings.viberNumber) }
       : { label: "Viber: number TBC" },
     settings?.contactEmail
       ? { label: settings.contactEmail, href: `mailto:${settings.contactEmail}` }
