@@ -83,6 +83,7 @@ export async function updateSiteSettings(formData: FormData) {
       facebook_url: orNull("facebookUrl"),
       linkedin_url: orNull("linkedinUrl"),
       instagram_url: orNull("instagramUrl"),
+      share_group_links: orNull("shareGroupLinks"),
     },
     { onConflict: "id" },
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { ShareGroupLink } from "@/lib/shareGroups";
 import styles from "./ShareButtons.module.css";
 
 // Matches the canonical origin used by sitemap.ts / robots.ts / the vCard
@@ -13,9 +14,11 @@ type Props = {
   title: string;
   /** Article dek, reused as the ready-made social caption. */
   caption: string;
+  /** Jojo's own Facebook/LinkedIn groups, set in /admin/settings. */
+  groupLinks?: ShareGroupLink[];
 };
 
-type Copied = "facebook" | "linkedin" | "link" | null;
+type Copied = { kind: "facebook" | "linkedin" | "link" } | { kind: "group"; label: string } | null;
 
 async function copyText(text: string) {
   try {
@@ -26,7 +29,7 @@ async function copyText(text: string) {
   }
 }
 
-export default function ShareButtons({ path, title, caption }: Props) {
+export default function ShareButtons({ path, title, caption, groupLinks = [] }: Props) {
   const [copied, setCopied] = useState<Copied>(null);
   const url = `${SITE_URL}${path}`;
 
@@ -35,7 +38,7 @@ export default function ShareButtons({ path, title, caption }: Props) {
   // handed over via clipboard instead and pasted in by hand.
   async function handleFacebook() {
     await copyText(caption);
-    setCopied("facebook");
+    setCopied({ kind: "facebook" });
     // A fresh status post, not the link-share dialog: pasting the caption
     // here keeps the post as plain text, which Facebook's algorithm favors
     // over a post whose body already contains an outbound link.
@@ -44,14 +47,23 @@ export default function ShareButtons({ path, title, caption }: Props) {
 
   async function handleLinkedin() {
     await copyText(`${caption}\n\n${url}`);
-    setCopied("linkedin");
+    setCopied({ kind: "linkedin" });
     const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
     window.open(linkedinHref, "_blank", "noopener,noreferrer");
   }
 
   async function handleCopyLink() {
     await copyText(url);
-    setCopied("link");
+    setCopied({ kind: "link" });
+  }
+
+  // Same "caption now, link later" flow as the Facebook button -- these are
+  // mostly Facebook groups too, and pasting the caption alone still works
+  // fine as an opening line on a LinkedIn group post.
+  async function handleGroup(group: ShareGroupLink) {
+    await copyText(caption);
+    setCopied({ kind: "group", label: group.label });
+    window.open(group.url, "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -80,8 +92,24 @@ export default function ShareButtons({ path, title, caption }: Props) {
         </button>
       </div>
 
+      {groupLinks.length > 0 && (
+        <div className={styles.groupRow}>
+          {groupLinks.map((group) => (
+            <button
+              key={group.url}
+              type="button"
+              onClick={() => handleGroup(group)}
+              aria-label={`Copy a ready-made caption for "${title}" and open ${group.label}`}
+              className={styles.groupButton}
+            >
+              {group.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div role="status" className={styles.hint}>
-        {copied === "facebook" && (
+        {copied?.kind === "facebook" && (
           <>
             Caption copied. Paste it as a new Facebook post, publish it, then{" "}
             <button type="button" onClick={handleCopyLink} className={styles.hintLink}>
@@ -90,8 +118,17 @@ export default function ShareButtons({ path, title, caption }: Props) {
             and add it as your first comment.
           </>
         )}
-        {copied === "linkedin" && <>Caption and link copied. Paste them in as your LinkedIn post.</>}
-        {copied === "link" && <>Link copied.</>}
+        {copied?.kind === "linkedin" && <>Caption and link copied. Paste them in as your LinkedIn post.</>}
+        {copied?.kind === "group" && (
+          <>
+            Caption copied. Paste it as a new post in {copied.label}, publish it, then{" "}
+            <button type="button" onClick={handleCopyLink} className={styles.hintLink}>
+              copy the link
+            </button>{" "}
+            and add it as your first comment.
+          </>
+        )}
+        {copied?.kind === "link" && <>Link copied.</>}
       </div>
     </div>
   );

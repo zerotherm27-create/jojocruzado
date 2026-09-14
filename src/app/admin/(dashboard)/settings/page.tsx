@@ -162,6 +162,19 @@ export default async function SettingsPage({
             className={styles.input}
           />
         </label>
+        <label className={styles.label}>
+          Share groups (Facebook/LinkedIn groups to quick-share articles into)
+          <textarea
+            name="shareGroupLinks"
+            rows={4}
+            defaultValue={settings?.share_group_links ?? ""}
+            placeholder={"OFW Support PH | https://www.facebook.com/groups/12345678\nhttps://www.linkedin.com/groups/87654321"}
+            className={styles.textarea}
+          />
+          <span className={styles.hint}>
+            One group per line, as &quot;Label | URL&quot; (the label is optional).
+          </span>
+        </label>
 
         <SubmitButton>Save changes</SubmitButton>
       </form>
