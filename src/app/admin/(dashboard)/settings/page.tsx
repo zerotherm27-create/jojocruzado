@@ -176,6 +176,26 @@ export default async function SettingsPage({
           </span>
         </label>
 
+        <label className={styles.checkboxLabel}>
+          <input
+            type="checkbox"
+            name="chatbotEnabled"
+            defaultChecked={settings?.chatbot_enabled ?? true}
+            className={styles.checkbox}
+          />
+          Enable site-wide chat assistant
+        </label>
+        <label className={styles.label}>
+          Chat opening message
+          <textarea
+            name="chatbotIntroMessage"
+            rows={2}
+            defaultValue={settings?.chatbot_intro_message ?? ""}
+            placeholder="Hi! I'm here to help you think through your family's protection needs — ask me anything."
+            className={styles.textarea}
+          />
+        </label>
+
         <SubmitButton>Save changes</SubmitButton>
       </form>
     </>

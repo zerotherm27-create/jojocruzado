@@ -206,6 +206,24 @@
   color: var(--ink-500);
 }
 
+.checkboxLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-900);
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  accent-color: var(--navy-900);
+}
+
 .input:focus-visible,
 .select:focus-visible,
 .textarea:focus-visible {
