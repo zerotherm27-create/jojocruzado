@@ -202,7 +202,7 @@ export default async function SettingsPage({
             name="chatbotIntroMessage"
             rows={2}
             defaultValue={settings?.chatbot_intro_message ?? ""}
-            placeholder="Hi! I'm here to help you think through your family's protection needs — ask me anything."
+            placeholder="Hi, I'm Jojo's virtual assistant! I'm here to help you think through your family's protection needs — ask me anything."
             className={styles.textarea}
           />
         </label>

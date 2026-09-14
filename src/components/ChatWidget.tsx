@@ -79,7 +79,7 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
   const name = assistantName?.trim() || DEFAULT_CHATBOT_NAME;
   const intro =
     introMessage?.trim() ||
-    `Hi, I'm ${name}! I'm here to help you think through your family's protection needs — ask me anything.`;
+    `Hi, I'm ${name}, Jojo's virtual assistant! I'm here to help you think through your family's protection needs — ask me anything.`;
 
   async function handleSend(event: React.FormEvent) {
     event.preventDefault();
