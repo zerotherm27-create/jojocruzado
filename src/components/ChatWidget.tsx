@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChatCircleTextIcon, PaperPlaneTiltIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 import { DEFAULT_CHATBOT_NAME } from "@/lib/chatbot/systemPrompt";
+import { trackEvent } from "@/lib/analytics/track";
 import styles from "./ChatWidget.module.css";
 
 type Props = {
@@ -89,6 +90,7 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
     setMessages(nextMessages);
     setInput("");
     setSending(true);
+    trackEvent("chat_message_sent");
 
     try {
       const response = await fetch("/api/chat", {
@@ -119,6 +121,7 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
             onClick={() => {
               dismissHint();
               setOpen(true);
+              trackEvent("chat_opened");
             }}
             className={styles.hintText}
           >
@@ -139,7 +142,9 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
         type="button"
         onClick={() => {
           dismissHint();
-          setOpen((value) => !value);
+          const next = !open;
+          setOpen(next);
+          if (next) trackEvent("chat_opened");
         }}
         aria-expanded={open}
         aria-controls="chat-widget-panel"
