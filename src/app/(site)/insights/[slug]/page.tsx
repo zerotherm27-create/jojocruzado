@@ -49,7 +49,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           <h1 className={`h1-sub ${styles.title}`}>{article.title}</h1>
           <div className={styles.metaRow}>
             <span className={styles.readTime}>{article.readTime}</span>
-            <ShareButtons path={`/insights/${article.slug}`} title={article.title} />
+            <ShareButtons path={`/insights/${article.slug}`} title={article.title} caption={article.dek} />
           </div>
         </div>
       </section>
