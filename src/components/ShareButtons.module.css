@@ -1,0 +1,38 @@
+.share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: var(--ink-500);
+  background: var(--surface);
+  transition:
+    color var(--dur-hover) ease,
+    background var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    color: var(--white);
+    background: var(--accent);
+  }
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import SlotImage from "@/components/SlotImage";
+import ShareButtons from "@/components/ShareButtons";
 import { SAFETY_MARGIN_URL } from "@/config/site";
 import { getArticleBySlug } from "@/lib/supabase/queries";
 import Reveal from "@/components/Reveal";
@@ -46,7 +47,10 @@ export default async function ArticleDetailPage({ params }: Props) {
           </Link>
           <span className="kicker">{article.category}</span>
           <h1 className={`h1-sub ${styles.title}`}>{article.title}</h1>
-          <span className={styles.readTime}>{article.readTime}</span>
+          <div className={styles.metaRow}>
+            <span className={styles.readTime}>{article.readTime}</span>
+            <ShareButtons path={`/insights/${article.slug}`} title={article.title} />
+          </div>
         </div>
       </section>
 
