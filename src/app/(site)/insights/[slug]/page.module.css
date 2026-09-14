@@ -24,6 +24,13 @@
   color: var(--ink-900);
 }
 
+.metaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .readTime {
   font-family: var(--font-body);
   font-weight: 500;

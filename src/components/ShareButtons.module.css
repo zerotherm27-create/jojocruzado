@@ -1,0 +1,73 @@
+.share {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 999px;
+  color: var(--ink-500);
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    color var(--dur-hover) ease,
+    background var(--dur-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    color: var(--white);
+    background: var(--accent);
+  }
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.hint {
+  min-height: 1em;
+  max-width: 44ch;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-500);
+}
+
+.hintLink {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent-on-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.hintLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
