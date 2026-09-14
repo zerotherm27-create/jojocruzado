@@ -59,7 +59,17 @@
   border-radius: 999px;
   background: var(--white);
   box-shadow: var(--shadow-form);
-  animation: hint-in var(--dur-enter) var(--ease-out);
+  opacity: 0;
+  animation:
+    hint-roll-in 0.5s var(--ease-out) forwards,
+    hint-pulse 0.7s ease-in-out 0.6s 2;
+}
+
+/* Plays instead of .hint's animation while the bubble is being dismissed --
+   ChatWidget keeps it mounted for HINT_ROLL_OUT_MS so this gets to finish
+   before the element is actually removed. */
+.hintLeaving {
+  animation: hint-roll-out 0.35s ease-in forwards;
 }
 
 @media (max-width: 900px) {
@@ -68,14 +78,35 @@
   }
 }
 
-@keyframes hint-in {
+@keyframes hint-roll-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateX(28px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes hint-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes hint-roll-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(28px);
   }
 }
 

@@ -23,11 +23,15 @@ const HISTORY_LIMIT = 16;
 const HINT_STORAGE_KEY = "jojo-chat-hint-seen";
 const HINT_DELAY_MS = 2500;
 const HINT_VISIBLE_MS = 7000;
+// Must match .hintLeaving's roll-out animation duration in ChatWidget.module.css
+// -- the bubble stays mounted this long after dismissal so the exit plays out.
+const HINT_ROLL_OUT_MS = 350;
 
 export default function ChatWidget({ enabled, introMessage, assistantName }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [hintLeaving, setHintLeaving] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -63,7 +67,12 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
   }, [showHint]);
 
   function dismissHint() {
-    setShowHint(false);
+    if (hintLeaving) return;
+    setHintLeaving(true);
+    window.setTimeout(() => {
+      setShowHint(false);
+      setHintLeaving(false);
+    }, HINT_ROLL_OUT_MS);
     try {
       localStorage.setItem(HINT_STORAGE_KEY, "1");
     } catch {
@@ -115,7 +124,10 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
   return (
     <>
       {showHint && !open && (
-        <div className={styles.hint} role="status">
+        <div
+          className={`${styles.hint} ${hintLeaving ? styles.hintLeaving : ""}`}
+          role="status"
+        >
           <button
             type="button"
             onClick={() => {
