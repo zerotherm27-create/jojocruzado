@@ -84,6 +84,8 @@ export async function updateSiteSettings(formData: FormData) {
       linkedin_url: orNull("linkedinUrl"),
       instagram_url: orNull("instagramUrl"),
       share_group_links: orNull("shareGroupLinks"),
+      chatbot_enabled: formData.get("chatbotEnabled") === "on",
+      chatbot_intro_message: orNull("chatbotIntroMessage"),
     },
     { onConflict: "id" },
   );
