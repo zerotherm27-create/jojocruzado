@@ -16,9 +16,17 @@ type Message = { role: "user" | "assistant"; content: string };
 
 const HISTORY_LIMIT = 16;
 
+// Shows a one-time nudge bubble a couple seconds after a visitor lands, so
+// the chat icon doesn't rely on someone noticing an unlabeled circle in the
+// corner. Persisted so it doesn't nag on every repeat visit.
+const HINT_STORAGE_KEY = "jojo-chat-hint-seen";
+const HINT_DELAY_MS = 2500;
+const HINT_VISIBLE_MS = 7000;
+
 export default function ChatWidget({ enabled, introMessage, assistantName }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -30,6 +38,37 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   }, [messages, sending]);
+
+  useEffect(() => {
+    if (!enabled || pathname === "/contact" || open) return;
+
+    let alreadySeen = false;
+    try {
+      alreadySeen = localStorage.getItem(HINT_STORAGE_KEY) === "1";
+    } catch {
+      // Private browsing / blocked storage -- hint still works, it just
+      // won't remember being dismissed across visits.
+    }
+    if (alreadySeen) return;
+
+    const showTimer = window.setTimeout(() => setShowHint(true), HINT_DELAY_MS);
+    return () => window.clearTimeout(showTimer);
+  }, [enabled, pathname, open]);
+
+  useEffect(() => {
+    if (!showHint) return;
+    const hideTimer = window.setTimeout(() => dismissHint(), HINT_VISIBLE_MS);
+    return () => window.clearTimeout(hideTimer);
+  }, [showHint]);
+
+  function dismissHint() {
+    setShowHint(false);
+    try {
+      localStorage.setItem(HINT_STORAGE_KEY, "1");
+    } catch {
+      // Ignore -- worst case it can show again next visit.
+    }
+  }
 
   // Same pathname-hide convention as MobileStickyCta: /contact already has a
   // dedicated, fuller contact form -- no need for a second competing
@@ -73,9 +112,35 @@ export default function ChatWidget({ enabled, introMessage, assistantName }: Pro
 
   return (
     <>
+      {showHint && !open && (
+        <div className={styles.hint} role="status">
+          <button
+            type="button"
+            onClick={() => {
+              dismissHint();
+              setOpen(true);
+            }}
+            className={styles.hintText}
+          >
+            Chat with {name}
+          </button>
+          <button
+            type="button"
+            onClick={dismissHint}
+            aria-label="Dismiss"
+            className={styles.hintClose}
+          >
+            <XIcon size={14} weight="bold" />
+          </button>
+        </div>
+      )}
+
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          dismissHint();
+          setOpen((value) => !value);
+        }}
         aria-expanded={open}
         aria-controls="chat-widget-panel"
         aria-label={open ? "Close chat" : `Chat with ${name}`}
