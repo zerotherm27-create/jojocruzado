@@ -199,6 +199,13 @@
   resize: vertical;
 }
 
+.hint {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
 .input:focus-visible,
 .select:focus-visible,
 .textarea:focus-visible {

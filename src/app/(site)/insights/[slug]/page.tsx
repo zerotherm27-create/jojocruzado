@@ -4,7 +4,8 @@ import Link from "next/link";
 import SlotImage from "@/components/SlotImage";
 import ShareButtons from "@/components/ShareButtons";
 import { SAFETY_MARGIN_URL } from "@/config/site";
-import { getArticleBySlug } from "@/lib/supabase/queries";
+import { getArticleBySlug, getSiteSettings } from "@/lib/supabase/queries";
+import { parseShareGroupLinks } from "@/lib/shareGroups";
 import Reveal from "@/components/Reveal";
 import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -35,8 +36,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticleDetailPage({ params }: Props) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const [article, settings] = await Promise.all([getArticleBySlug(slug), getSiteSettings()]);
   if (!article) notFound();
+  const groupLinks = parseShareGroupLinks(settings?.shareGroupLinks);
 
   return (
     <main>
@@ -49,7 +51,12 @@ export default async function ArticleDetailPage({ params }: Props) {
           <h1 className={`h1-sub ${styles.title}`}>{article.title}</h1>
           <div className={styles.metaRow}>
             <span className={styles.readTime}>{article.readTime}</span>
-            <ShareButtons path={`/insights/${article.slug}`} title={article.title} caption={article.dek} />
+            <ShareButtons
+              path={`/insights/${article.slug}`}
+              title={article.title}
+              caption={article.dek}
+              groupLinks={groupLinks}
+            />
           </div>
         </div>
       </section>
