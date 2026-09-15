@@ -90,6 +90,10 @@ export default async function SiteFooter() {
           should be verified against official Sun Life materials and applicable policy contracts,
           prospectuses or other governing documents.
         </p>
+
+        <p className={styles.copyright}>
+          &copy; {new Date().getFullYear()} Jojo Cruzado. All rights reserved.
+        </p>
       </div>
     </footer>
   );
