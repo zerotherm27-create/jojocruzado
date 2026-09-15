@@ -78,13 +78,7 @@ export default async function SiteFooter() {
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Important</h3>
             <Link href="/disclaimer" className={styles.link}>
-              Privacy
-            </Link>
-            <Link href="/disclaimer" className={styles.link}>
-              Terms
-            </Link>
-            <Link href="/disclaimer" className={styles.link}>
-              Disclaimer
+              Disclaimer &amp; Privacy
             </Link>
           </div>
         </div>
