@@ -92,8 +92,19 @@ export default function DisclaimerPage() {
         </p>
 
         <h3 className={styles.itemHeading}>Cookies &amp; analytics</h3>
+        {/* Updated to reflect src/app/api/site/visit and src/app/api/site/heartbeat
+            (supabase/migrations/0014_site_sessions_and_pageviews.sql): this is
+            first-party, self-hosted analytics, not a third-party tracker -- no ad
+            network, no cross-site tracking, and no data sold or shared. */}
         <p className={styles.body}>
-          This site does not use cookies, analytics or cross-site tracking of any kind.
+          This site uses a first-party analytics cookie to recognize repeat page views within
+          the same visit. It also records anonymous, session-based usage data: pages visited,
+          approximate location derived from your IP address (the IP address itself is never
+          stored), device type, operating system, browser, referrer, and how long you stay on
+          the site. This data is used solely to understand how the site is used and to improve
+          it. It is not linked to your identity unless you separately identify yourself, such
+          as by submitting the contact form, and it is not shared with any third-party
+          analytics, advertising or cross-site tracking service.
         </p>
 
         <h3 className={styles.itemHeading}>Cross-border processing</h3>

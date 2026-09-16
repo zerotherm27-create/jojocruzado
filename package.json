@@ -21,9 +21,11 @@
     "openai": "^7.15.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "recharts": "^3.10.1",
     "sanitize-html": "^2.17.7",
     "sanity": "^5.31.2",
-    "styled-components": "^6.5.3"
+    "styled-components": "^6.5.3",
+    "ua-parser-js": "^2.0.10"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",
