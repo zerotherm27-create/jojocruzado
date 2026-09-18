@@ -15,6 +15,9 @@ export default function AdminNav() {
       <Link href="/admin/testimonials" className={styles.navLink}>
         Testimonials
       </Link>
+      <Link href="/admin/analytics" className={styles.navLink}>
+        Analytics
+      </Link>
       <Link href="/admin/settings" className={styles.navLink}>
         Site Settings
       </Link>

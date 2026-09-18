@@ -1,6 +1,7 @@
 import ImageField from "@/app/admin/_components/ImageField";
 import SubmitButton from "@/app/admin/_components/SubmitButton";
 import { createServiceRoleClient } from "@/lib/supabase/client";
+import { DEFAULT_CHATBOT_NAME } from "@/lib/chatbot/systemPrompt";
 import { updateSiteSettings } from "./actions";
 import styles from "../../admin.module.css";
 
@@ -160,6 +161,49 @@ export default async function SettingsPage({
             name="instagramUrl"
             defaultValue={settings?.instagram_url ?? ""}
             className={styles.input}
+          />
+        </label>
+        <label className={styles.label}>
+          Share groups (Facebook/LinkedIn groups to quick-share articles into)
+          <textarea
+            name="shareGroupLinks"
+            rows={4}
+            defaultValue={settings?.share_group_links ?? ""}
+            placeholder={"OFW Support PH | https://www.facebook.com/groups/12345678\nhttps://www.linkedin.com/groups/87654321"}
+            className={styles.textarea}
+          />
+          <span className={styles.hint}>
+            One group per line, as &quot;Label | URL&quot; (the label is optional).
+          </span>
+        </label>
+
+        <label className={styles.checkboxLabel}>
+          <input
+            type="checkbox"
+            name="chatbotEnabled"
+            defaultChecked={settings?.chatbot_enabled ?? true}
+            className={styles.checkbox}
+          />
+          Enable site-wide chat assistant
+        </label>
+        <label className={styles.label}>
+          Assistant name
+          <input
+            type="text"
+            name="chatbotName"
+            defaultValue={settings?.chatbot_name ?? ""}
+            placeholder={DEFAULT_CHATBOT_NAME}
+            className={styles.input}
+          />
+        </label>
+        <label className={styles.label}>
+          Chat opening message
+          <textarea
+            name="chatbotIntroMessage"
+            rows={2}
+            defaultValue={settings?.chatbot_intro_message ?? ""}
+            placeholder="Hi, I'm Jojo's virtual assistant! I'm here to help you think through your family's protection needs — ask me anything."
+            className={styles.textarea}
           />
         </label>
 
