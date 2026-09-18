@@ -59,6 +59,17 @@ const PERSON_JSON_LD = {
   url: "https://jojocruzado.safetymargin.app",
 };
 
+// Tells Google what to call this site in the search result "site name" chip
+// (the label next to the favicon, separate from the URL breadcrumb below it).
+// Without this, Google was falling back to the parent domain, safetymargin.app
+// -- a different, sibling product -- instead of this subdomain's own identity.
+const WEBSITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "jojocruzado.safetymargin.app",
+  url: "https://jojocruzado.safetymargin.app",
+};
+
 /* Deliberately just the <html>/<body> shell — the public site's nav/footer/sticky
    CTA live in src/app/(site)/layout.tsx instead, so /admin (outside that route
    group) renders with none of it. */
@@ -73,6 +84,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
         />
         {children}
       </body>
