@@ -84,7 +84,7 @@ export default function ContactForm() {
 
   // TODO(compliance): the write path itself is wired (see src/app/contact/actions.ts),
   // but it must stay switched off in front of real users until the privacy notice on
-  // /disclaimer is actually published — the placeholder there is what has been gating
+  // /privacy is actually published — the placeholder there is what has been gating
   // this, not the missing backend.
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -286,7 +286,7 @@ export default function ContactForm() {
             />
             <span>
               I agree that Jojo may contact me using the details above, and I have read the{" "}
-              <Link href="/disclaimer" target="_blank" rel="noopener noreferrer">
+              <Link href="/privacy" target="_blank" rel="noopener noreferrer">
                 privacy notice
                 <span className="sr-only"> (opens in a new tab)</span>
               </Link>

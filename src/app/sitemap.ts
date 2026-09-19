@@ -11,6 +11,8 @@ const STATIC_ROUTES = [
   "/safety-margin",
   "/contact",
   "/disclaimer",
+  "/privacy",
+  "/terms",
   "/resources",
 ];
 

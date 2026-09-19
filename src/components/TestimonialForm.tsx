@@ -135,7 +135,7 @@ export default function TestimonialForm() {
             <span>
               I agree that this review, along with my name, may be posted publicly on Jojo&apos;s
               website. I have read the{" "}
-              <Link href="/disclaimer" target="_blank" rel="noopener noreferrer">
+              <Link href="/privacy" target="_blank" rel="noopener noreferrer">
                 privacy notice
                 <span className="sr-only"> (opens in a new tab)</span>
               </Link>

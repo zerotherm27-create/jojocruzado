@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 /* Singleton — see sanity.config.ts for the Studio structure that pins this to a
    single editable document instead of a list. Covers the site-wide photos and
-   general contact channels. Deliberately excludes the /disclaimer page's privacy
+   general contact channels. Deliberately excludes the /privacy page's privacy
    contact address — that's tied to specific, carefully-worded legal text, not
    general contact info, and stays hardcoded in that page's source. */
 export const siteSettingsType = defineType({
@@ -77,7 +77,7 @@ export const siteSettingsType = defineType({
     defineField({
       name: "contactEmail",
       title: "Contact email",
-      description: "General inquiries — not the /disclaimer privacy contact.",
+      description: "General inquiries — not the /privacy privacy contact.",
       type: "string",
       group: "contact",
     }),

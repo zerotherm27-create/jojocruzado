@@ -77,10 +77,10 @@ export default async function SiteFooter() {
 
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Important</h3>
-            <Link href="/disclaimer" className={styles.link}>
+            <Link href="/privacy" className={styles.link}>
               Privacy
             </Link>
-            <Link href="/disclaimer" className={styles.link}>
+            <Link href="/terms" className={styles.link}>
               Terms
             </Link>
             <Link href="/disclaimer" className={styles.link}>
@@ -95,6 +95,10 @@ export default async function SiteFooter() {
           official corporate website of Sun Life Philippines. Product information, where discussed,
           should be verified against official Sun Life materials and applicable policy contracts,
           prospectuses or other governing documents.
+        </p>
+
+        <p className={styles.copyright}>
+          &copy; {new Date().getFullYear()} Jojo Cruzado. All rights reserved.
         </p>
       </div>
     </footer>
