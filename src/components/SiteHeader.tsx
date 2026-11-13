@@ -19,7 +19,7 @@ export default function SiteHeader() {
       <div className={`container ${styles.row}`}>
         <Link href="/" className={styles.identity}>
           <span className={styles.identityName}>JOJO CRUZADO</span>
-          <span className={styles.identityRole}>Sun Life Financial Advisor</span>
+          <span className={styles.identityRole}>Sunlife Financial Advisor</span>
         </Link>
 
         <nav className={styles.nav}>

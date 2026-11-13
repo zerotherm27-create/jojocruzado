@@ -5,7 +5,7 @@ without re-deriving the last several days of decisions._
 
 ## What this is
 
-A personal advisor website for **Jojo Cruzado, Sun Life Financial Advisor
+A personal advisor website for **Jojo Cruzado, Sunlife Financial Advisor
 (Philippines)**. Built from a design handoff at
 `~/Downloads/design_handoff_jojo_advisor_site/` (`README.md` = design spec,
 `jojo-cruzado-personal-advisor-website-handoff.md` = the strategy brief — read this
@@ -33,7 +33,7 @@ for why and what the tradeoff was. `sanitize-html` and Tiptap (`@tiptap/react`,
 | Vercel project | `jojocruzado` (`prj_59AlChc3PER0sk5bMY8ofq989npt`), team `zerotherm27-8336s-projects` (`team_I6jgfHPrez0G1ZvYMOkNQhRn`), git-connected to `github.com/zerotherm27-create/jojocruzado` (public) — pushes to `main` auto-deploy |
 | The real Safety Margin quiz | `https://safetymargin.app` — separate Vercel project, same team |
 | Database | Supabase project ref `xcifmbfxatkunsjoozyv` ("Safety Margin Funnel"). Tables: `funnel_leads` (external/shared, also written by safetymargin.app's own quiz), `site_settings` (singleton), `articles`, `artcards`. Photo storage: bucket `site-media`. |
-| Admin dashboard | `/admin`, gated by Supabase Auth restricted to a single `ADMIN_EMAIL` (checked in middleware and again in every write Server Action). Manages: Insights articles (rich text), Sun Life artcards, and Site Settings (photos, card details, contact links). Replaces Sanity entirely — see "CMS history" below. |
+| Admin dashboard | `/admin`, gated by Supabase Auth restricted to a single `ADMIN_EMAIL` (checked in middleware and again in every write Server Action). Manages: Insights articles (rich text), Sunlife artcards, and Site Settings (photos, card details, contact links). Replaces Sanity entirely — see "CMS history" below. |
 
 ## Routes
 
@@ -50,7 +50,7 @@ Admin (`/admin`, all gated): `/admin` (dashboard home), `/admin/login`,
 `/admin/settings`, `/admin/articles` (+ `/new`, `/[id]/edit`), `/admin/artcards`
 (+ `/new`, `/[id]/edit`).
 
-Nav bar: About, How I Help, Insights, **Sun Life** (→ `/resources`), **Safety Margin**
+Nav bar: About, How I Help, Insights, **Sunlife** (→ `/resources`), **Safety Margin**
 (→ external `https://safetymargin.app`, opens in a **new tab** — every Safety Margin
 link sitewide does, changed 2026-09-08 so this site's tab stays open), Talk to Jojo
 (→ `/contact`).
@@ -69,7 +69,7 @@ link sitewide does, changed 2026-09-08 so this site's tab stays open), Talk to J
   Components.
 - **`/resources`** — no longer blocked. Jojo confirmed written approval for artcard
   web display; `/admin/artcards` is a full CRUD (mirrors the articles admin pattern)
-  so real Sun Life artcards can be added without a code change. Empty state shown until
+  so real Sunlife artcards can be added without a code change. Empty state shown until
   at least one is published.
 - **`/insights`** — real blog behavior (2026-09-08): cards link to a real detail page
   at `/insights/[slug]` instead of showing the entire article text in the card; the

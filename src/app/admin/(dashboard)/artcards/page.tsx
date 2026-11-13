@@ -26,7 +26,7 @@ export default async function ArtcardsListPage() {
   return (
     <>
       <div className={styles.pageHeader}>
-        <h1 className={styles.title}>Sun Life artcards</h1>
+        <h1 className={styles.title}>Sunlife artcards</h1>
         <Link href="/admin/artcards/new" className={styles.button}>
           New artcard
         </Link>

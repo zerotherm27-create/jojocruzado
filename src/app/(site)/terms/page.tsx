@@ -27,9 +27,9 @@ export default function TermsPage() {
 
         <h2 className={styles.itemHeading}>About this site</h2>
         <p className={styles.body}>
-          This site is the personal website of Jojo Cruzado, a Sun Life Financial Advisor. As
+          This site is the personal website of Jojo Cruzado, a Sunlife Financial Advisor. As
           explained on the <Link href="/disclaimer">disclaimer page</Link>, it is not the official
-          corporate website of Sun Life Philippines, and nothing on it is formal financial advice or
+          corporate website of Sunlife Philippines, and nothing on it is formal financial advice or
           a guarantee of returns, claims acceptance, policy benefits, investment performance, future
           value or coverage eligibility.
         </p>
@@ -58,7 +58,7 @@ export default function TermsPage() {
         <h2 className={styles.itemHeading}>Third-party links</h2>
         <p className={styles.body}>
           This site links to third-party resources, including the separate Safety Margin tool and
-          official Sun Life materials. Those resources have their own terms and policies, which this
+          official Sunlife materials. Those resources have their own terms and policies, which this
           site does not control and is not responsible for.
         </p>
 
@@ -93,10 +93,10 @@ export default function TermsPage() {
 
         <p className={styles.note}>
           {/* TODO(compliance): generic boilerplate, not tailored legal advice. Have this
-              reviewed against Philippine requirements and any applicable Sun Life requirements
+              reviewed against Philippine requirements and any applicable Sunlife requirements
               before relying on it. */}
           This is a first draft of general terms of use, not a substitute for legal review. Confirm
-          it against Philippine requirements and any applicable Sun Life requirements before relying
+          it against Philippine requirements and any applicable Sunlife requirements before relying
           on it.
         </p>
       </div>

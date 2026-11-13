@@ -43,7 +43,7 @@ const faqs = [
       "Safety Margin is an educational financial assessment designed to help you look at the important parts of your financial foundation and identify areas worth reviewing.",
   },
   {
-    question: "Do you only work with existing Sun Life clients?",
+    question: "Do you only work with existing Sunlife clients?",
     answer:
       "No. Jojo can speak with people who are exploring their financial priorities as well as existing clients, subject to applicable company processes.",
   },

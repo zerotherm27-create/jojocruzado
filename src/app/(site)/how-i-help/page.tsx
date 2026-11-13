@@ -75,7 +75,7 @@ export default async function HowIHelpPage() {
           {/* Quiet reference only. The eight need-categories above stay the structure of
               this page; product material sits one link away, never in front of it. */}
           <p className={styles.materialNote}>
-            If you would rather read Sun Life&apos;s own product material first, you can{" "}
+            If you would rather read Sunlife&apos;s own product material first, you can{" "}
             <Link href="/resources">read it here</Link>.
           </p>
         </Reveal>

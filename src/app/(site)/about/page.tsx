@@ -13,7 +13,7 @@ export const revalidate = 60;
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "I'm Jojo Cruzado, a Sun Life Financial Advisor. I help people organize the financial side of the life they're already working hard to build.",
+    "I'm Jojo Cruzado, a Sunlife Financial Advisor. I help people organize the financial side of the life they're already working hard to build.",
   path: "/about",
 });
 
@@ -51,7 +51,7 @@ export default async function AboutPage() {
               Financial planning is personal. Your advice should be too.
             </h1>
             <p className={`lead ${styles.heroLead}`}>
-              I&apos;m Jojo Cruzado, a Sun Life Financial Advisor. I help people organize the
+              I&apos;m Jojo Cruzado, a Sunlife Financial Advisor. I help people organize the
               financial side of the life they&apos;re already working hard to build.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default async function AboutPage() {
             </p>
             <p className={styles.prose}>
               In 2018, I came home, not just to the Philippines, but to my family, to help run
-              what we&apos;d built together. I joined Sun Life because insurance was the one piece I
+              what we&apos;d built together. I joined Sunlife because insurance was the one piece I
               kept seeing missing, even in people already doing everything else right. One health
               crisis or one loss in the family can undo it all without protection in place.
             </p>
@@ -114,9 +114,9 @@ export default async function AboutPage() {
           <div className={styles.disclosure}>
             <h3 className={styles.disclosureTitle}>Advisor disclosure</h3>
             <p className={styles.disclosureBody}>
-              Jojo Cruzado is a Sun Life Financial Advisor. This is his personal advisor website and
-              is not the official corporate website of Sun Life Philippines. Product information,
-              where discussed, should be verified against official Sun Life materials and applicable
+              Jojo Cruzado is a Sunlife Financial Advisor. This is his personal advisor website and
+              is not the official corporate website of Sunlife Philippines. Product information,
+              where discussed, should be verified against official Sunlife materials and applicable
               policy contracts.
             </p>
           </div>

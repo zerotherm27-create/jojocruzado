@@ -77,6 +77,6 @@ export function recommendationCopy(status: ProtectionStatus): string {
     case "neutral":
       return "Gaps like this are usually closed gradually, for example by adding supplemental coverage or adjusting an existing policy. Talking to Jojo can help you figure out what fits your budget and goals.";
     case "attention":
-      return "A gap this size is worth prioritizing. Sun Life has options that can help close it in a way that fits your budget. Talking to Jojo is a good next step to see what makes sense for your situation.";
+      return "A gap this size is worth prioritizing. Sunlife has options that can help close it in a way that fits your budget. Talking to Jojo is a good next step to see what makes sense for your situation.";
   }
 }

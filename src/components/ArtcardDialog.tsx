@@ -46,8 +46,8 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
               alt={
                 card.imageAlt ||
                 (card.productName
-                  ? `${card.productName}: Sun Life artcard, tap to enlarge`
-                  : "Placeholder slot awaiting a Sun Life-approved artcard")
+                  ? `${card.productName}: Sunlife artcard, tap to enlarge`
+                  : "Placeholder slot awaiting a Sunlife-approved artcard")
               }
               ratio="1 / 1"
               radius={12}
@@ -95,8 +95,8 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
               alt={
                 active.imageAlt ||
                 (active.productName
-                  ? `${active.productName}: Sun Life artcard`
-                  : "Placeholder slot awaiting a Sun Life-approved artcard")
+                  ? `${active.productName}: Sunlife artcard`
+                  : "Placeholder slot awaiting a Sunlife-approved artcard")
               }
               ratio="1 / 1"
               radius={12}
@@ -109,7 +109,7 @@ export default function ArtcardGrid({ cards }: { cards: Artcard[] }) {
             <span className={styles.attribution}>
               {active.productName ?? "Product name (to be supplied)"}
               {active.issuedOn ? ` · Issued ${active.issuedOn}` : " · Issue date to be supplied"}
-              {" · Issued by Sun Life Philippines"}
+              {" · Issued by Sunlife Philippines"}
             </span>
 
             {/* No quote/proposal CTA — see plan. */}

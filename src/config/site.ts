@@ -25,9 +25,9 @@ export const NAV_ITEMS = [
   { href: "/about", label: "About" },
   { href: "/how-i-help", label: "How I Help" },
   { href: "/insights", label: "Insights" },
-  // Deliberately labeled "Sun Life", not "Products" or "Resources" — names the
+  // Deliberately labeled "Sunlife", not "Products" or "Resources" — names the
   // source plainly without reading as a product catalog entry point.
-  { href: "/resources", label: "Sun Life" },
+  { href: "/resources", label: "Sunlife" },
   { href: SAFETY_MARGIN_URL, label: "Safety Margin" },
 ] as const;
 

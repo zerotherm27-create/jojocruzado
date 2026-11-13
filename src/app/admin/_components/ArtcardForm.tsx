@@ -68,7 +68,7 @@ export default function ArtcardForm({ action, submitLabel, error, initial }: Art
          not a code bug. */}
       <p className={styles.fileHint}>
         Before publishing: confirm this specific card, and any rate/payout figure it
-        shows, is still current and cleared by Sun Life for website display (not only
+        shows, is still current and cleared by Sunlife for website display (not only
         social).
       </p>
 

@@ -33,7 +33,7 @@ export default function PrivacyPage() {
         <h2 className={styles.itemHeading}>Who collects it</h2>
         <p className={styles.body}>
           Jojo Cruzado collects the information submitted through this form, in his capacity as a
-          Sun Life Financial Advisor operating this personal website.
+          Sunlife Financial Advisor operating this personal website.
         </p>
 
         <h2 className={styles.itemHeading}>What is collected</h2>
@@ -128,7 +128,7 @@ export default function PrivacyPage() {
           This notice was drafted from the site&apos;s actual implementation, not copied from
           another site. It is a first draft, not a substitute for legal review — confirm the two
           items flagged above and have it reviewed against Philippine privacy requirements and any
-          applicable Sun Life requirements before relying on it.
+          applicable Sunlife requirements before relying on it.
         </p>
       </div>
     </main>

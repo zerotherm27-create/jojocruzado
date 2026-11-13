@@ -30,7 +30,7 @@ export async function generateMetadata({
   return pageMetadata({
     title: "Share a Review",
     description:
-      "Share a short review of your experience working with Jojo Cruzado, Sun Life Financial Advisor.",
+      "Share a short review of your experience working with Jojo Cruzado, Sunlife Financial Advisor.",
     path,
     images: [`${path}/opengraph-image`],
   });

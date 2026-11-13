@@ -1,4 +1,4 @@
--- Backs /resources' Sun Life product artcards, replacing the hardcoded
+-- Backs /resources' Sunlife product artcards, replacing the hardcoded
 -- placeholder array in src/app/(site)/resources/page.tsx with real,
 -- admin-uploaded cards. Same RLS model as 0001 (public read, all writes via
 -- the service-role client in admin Server Actions).

@@ -100,7 +100,7 @@ export function BrandCard({
             color: GOLD,
           }}
         >
-          Sun Life Financial Advisor
+          Sunlife Financial Advisor
         </div>
         <div
           style={{

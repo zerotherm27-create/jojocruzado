@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 export const metadata = pageMetadata({
   title: "Disclaimer",
   description:
-    "This is the personal website of Jojo Cruzado, a Sun Life Financial Advisor. It is not the official corporate website of Sun Life Philippines.",
+    "This is the personal website of Jojo Cruzado, a Sunlife Financial Advisor. It is not the official corporate website of Sunlife Philippines.",
   path: "/disclaimer",
 });
 
@@ -17,9 +17,9 @@ export default function DisclaimerPage() {
 
         {/* Required verbatim: the advisor/corporate distinction (handoff README). */}
         <p className={styles.body}>
-          This is the personal website of Jojo Cruzado, a Sun Life Financial Advisor. It is not the
-          official corporate website of Sun Life Philippines. Product information, where discussed,
-          should be verified against official Sun Life materials and applicable policy contracts,
+          This is the personal website of Jojo Cruzado, a Sunlife Financial Advisor. It is not the
+          official corporate website of Sunlife Philippines. Product information, where discussed,
+          should be verified against official Sunlife materials and applicable policy contracts,
           prospectuses or other governing documents.
         </p>
 

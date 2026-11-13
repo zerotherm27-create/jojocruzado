@@ -11,7 +11,7 @@ import styles from "./page.module.css";
 // here within a minute instead of needing a redeploy.
 export const revalidate = 60;
 
-const DEFAULT_TITLE = "Sun Life | Licensed Insurance Advisor";
+const DEFAULT_TITLE = "Sunlife | Licensed Insurance Advisor";
 const DEFAULT_BIO =
   "I help professionals, families, and business owners see their financial picture clearly and make practical decisions.";
 

@@ -28,12 +28,12 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   metadataBase: new URL("https://jojocruzado.safetymargin.app"),
   title: {
-    default: "Jojo Cruzado: Sun Life Financial Advisor",
+    default: "Jojo Cruzado: Sunlife Financial Advisor",
     template: "%s: Jojo Cruzado",
   },
   description: DESCRIPTION,
   openGraph: {
-    title: "Jojo Cruzado: Sun Life Financial Advisor",
+    title: "Jojo Cruzado: Sunlife Financial Advisor",
     description: DESCRIPTION,
     url: "/",
     siteName: "Jojo Cruzado",
@@ -41,20 +41,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jojo Cruzado: Sun Life Financial Advisor",
+    title: "Jojo Cruzado: Sunlife Financial Advisor",
     description: DESCRIPTION,
   },
 };
 
 // Minimal, static Person schema -- only facts already stated as plain page
 // copy elsewhere on the site (name, job title, description, URL). No
-// contact details, credentials, or claims about Sun Life itself, per this
+// contact details, credentials, or claims about Sunlife itself, per this
 // project's standing rule against inventing compliance-sensitive content.
 const PERSON_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Jojo Cruzado",
-  jobTitle: "Sun Life Financial Advisor",
+  jobTitle: "Sunlife Financial Advisor",
   description: DESCRIPTION,
   url: "https://jojocruzado.safetymargin.app",
 };

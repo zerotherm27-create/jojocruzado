@@ -141,7 +141,7 @@ export default async function HomePage() {
         <div className={`container ${styles.heroInner}`}>
           <div className={`stack ${styles.heroText}`}>
             <span className="eyebrow" style={{ color: "var(--accent)" }}>
-              Sun Life Financial Advisor
+              Sunlife Financial Advisor
             </span>
             <h1 className={`h1-hero ${styles.heroTitle}`}>
               Clear Guidance.
@@ -370,7 +370,7 @@ export default async function HomePage() {
               slowly built things I&apos;m still proud of today.
             </p>
             <p className={`lead ${styles.storyBody}`}>
-              In 2018, I came home to help run what we&apos;d built with my family. I joined Sun Life
+              In 2018, I came home to help run what we&apos;d built with my family. I joined Sunlife
               because insurance was the one piece I kept seeing missing, even in people who
               were already doing everything else right.
             </p>

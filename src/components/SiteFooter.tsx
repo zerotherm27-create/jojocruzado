@@ -12,7 +12,7 @@ export default async function SiteFooter() {
         <div className={`autogrid ${styles.columns}`}>
           <div className={styles.identity}>
             <span className={styles.identityName}>JOJO CRUZADO</span>
-            <span className={styles.identityRole}>Sun Life Financial Advisor</span>
+            <span className={styles.identityRole}>Sunlife Financial Advisor</span>
             <p className={styles.tagline}>Clear Guidance. Practical Protection.</p>
             <span className={styles.byline}>by Safety Margin</span>
           </div>
@@ -29,7 +29,7 @@ export default async function SiteFooter() {
               Insights
             </Link>
             <Link href="/resources" className={styles.link}>
-              Sun Life
+              Sunlife
             </Link>
             <Link href={SAFETY_MARGIN_URL} target="_blank" rel="noopener noreferrer" className={styles.link}>
               Safety Margin
@@ -91,9 +91,9 @@ export default async function SiteFooter() {
 
         {/* Required verbatim: the advisor/corporate distinction (handoff README). */}
         <p className={styles.disclaimer}>
-          This is the personal website of Jojo Cruzado, a Sun Life Financial Advisor. It is not the
-          official corporate website of Sun Life Philippines. Product information, where discussed,
-          should be verified against official Sun Life materials and applicable policy contracts,
+          This is the personal website of Jojo Cruzado, a Sunlife Financial Advisor. It is not the
+          official corporate website of Sunlife Philippines. Product information, where discussed,
+          should be verified against official Sunlife materials and applicable policy contracts,
           prospectuses or other governing documents.
         </p>
 

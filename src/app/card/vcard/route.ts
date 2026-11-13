@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { CARD_FULL_NAME } from "@/config/site";
 import { getSiteSettings, resolveImage } from "@/lib/supabase/queries";
 
-const DEFAULT_ORG = "Sun Life | Licensed Insurance Advisor";
+const DEFAULT_ORG = "Sunlife | Licensed Insurance Advisor";
 const DEFAULT_BIO =
   "I help professionals, families, and business owners see their financial picture clearly and make practical decisions.";
 const SITE_URL = "https://jojocruzado.safetymargin.app";
@@ -31,7 +31,7 @@ export async function GET() {
   const [firstName, ...rest] = CARD_FULL_NAME.split(" ");
   const lastName = rest.join(" ");
   const cardTitle = settings?.cardTitle || DEFAULT_ORG;
-  // The admin's single "Card title line" field (placeholder: "Sun Life |
+  // The admin's single "Card title line" field (placeholder: "Sunlife |
   // Licensed Insurance Advisor") doubles as both company and job title.
   // Split on the same "|" convention so a vCard reader shows two distinct
   // lines instead of the identical string twice under ORG and TITLE.

@@ -75,7 +75,7 @@ export default async function SettingsPage({
             type="text"
             name="cardTitle"
             defaultValue={settings?.card_title ?? ""}
-            placeholder="Sun Life | Licensed Insurance Advisor"
+            placeholder="Sunlife | Licensed Insurance Advisor"
             className={styles.input}
           />
         </label>

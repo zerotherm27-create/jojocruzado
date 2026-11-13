@@ -7,13 +7,13 @@ import { pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
 export const metadata = pageMetadata({
-  title: "Sun Life Material",
+  title: "Sunlife Material",
   description:
-    "Different priorities call for different plans. Sun Life's own product material, organized by what it's for.",
+    "Different priorities call for different plans. Sunlife's own product material, organized by what it's for.",
   path: "/resources",
 });
 
-// Revalidate so a card added/edited/removed in /admin -> Sun Life Artcards
+// Revalidate so a card added/edited/removed in /admin -> Sunlife Artcards
 // shows up here within a minute instead of needing a redeploy.
 export const revalidate = 60;
 
@@ -29,7 +29,7 @@ export default async function ResourcesPage() {
           </span>
           <h1 className={`h1-sub ${styles.heroTitle}`}>Different priorities. Different plans.</h1>
           <p className={`lead ${styles.heroLead}`}>
-            These are Sun Life&apos;s own materials, shared as published. Which one is relevant
+            These are Sunlife&apos;s own materials, shared as published. Which one is relevant
             depends on your situation, your existing coverage and your priorities, and that
             is what a conversation is for.
           </p>
@@ -39,7 +39,7 @@ export default async function ResourcesPage() {
       <section className="band-white">
         <Reveal className={`container ${styles.band}`}>
           <h2 className="h2-band">Available material</h2>
-          <span className={`eyebrow ${styles.issuer}`}>Issued by Sun Life Philippines</span>
+          <span className={`eyebrow ${styles.issuer}`}>Issued by Sunlife Philippines</span>
 
           <div className={styles.gridWrap}>
             {artcards.length > 0 ? (
@@ -56,9 +56,9 @@ export default async function ResourcesPage() {
           {/* Required verbatim: the advisor/corporate distinction (handoff README).
               Matches the wording in SiteFooter.tsx and /disclaimer exactly. */}
           <p className={styles.disclaimer}>
-            This is the personal website of Jojo Cruzado, a Sun Life Financial Advisor. It is not
-            the official corporate website of Sun Life Philippines. Product information, where
-            discussed, should be verified against official Sun Life materials and applicable policy
+            This is the personal website of Jojo Cruzado, a Sunlife Financial Advisor. It is not
+            the official corporate website of Sunlife Philippines. Product information, where
+            discussed, should be verified against official Sunlife materials and applicable policy
             contracts, prospectuses or other governing documents.
           </p>
           <div className={styles.ctaRow}>
